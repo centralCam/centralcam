@@ -22,7 +22,7 @@ export default function Home() {
         <NavBar  />
       </nav>
       <main>
-        {/* <SearchTienda /> */}
+        <SearchTienda />
         <Banner />
         {/* <Suspense fallback={<Loading/>}>
           <Destacados />
