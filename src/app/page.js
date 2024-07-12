@@ -24,10 +24,10 @@ export default function Home() {
       <main>
         {/* <SearchTienda /> */}
         <Banner />
-        {/* <Suspense fallback={<Loading/>}>
+        <Suspense fallback={<Loading/>}>
           <Destacados />
           <Tienda />
-        </Suspense>*/}
+        </Suspense>
         <Carrusel />
         <Sobre/>
         <Ubicacion/>
