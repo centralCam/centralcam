@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import useUser from '../../Hooks/useUser';
+//import useUser from '../../Hooks/useUser';
 import { getInLocalStorage } from '../../Hooks/localStorage';
 import NotFoundPage from '@/app/not-found';
 import Loading from '../Loading/Loading';
@@ -9,7 +9,7 @@ import Loading from '../Loading/Loading';
 
 const ProtectedRoute = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true)  
-  const user = useUser();
+  //const user = useUser();
   const userAdmin = getInLocalStorage('USER')
   const router = useRouter();
   const pathName = usePathname();

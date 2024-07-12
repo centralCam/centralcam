@@ -22,7 +22,7 @@ export default function Home() {
         <NavBar  />
       </nav>
       <main>
-        <SearchTienda />
+        {/* <SearchTienda /> */}
         <Banner />
         {/* <Suspense fallback={<Loading/>}>
           <Destacados />
@@ -34,9 +34,9 @@ export default function Home() {
         <Contact /> */}
       </main>
       <footer>
-        {/* <Footer />
+        <Footer />
         <VolverArriba />
-        <BotonWsp /> */}
+        <BotonWsp />
       </footer>
     </>
   );
