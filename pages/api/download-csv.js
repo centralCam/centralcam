@@ -1,5 +1,5 @@
 // pages/api/download-csv.js
-import { connectDB } from '@/lib/mongodb';
+import { connectDB } from '../../src/lib/mongodb';
 import Producto from '@/models/product';
 import { parse } from 'json2csv';
 

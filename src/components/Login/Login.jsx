@@ -4,15 +4,15 @@ import Link from 'next/link';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from '../../../public/logos/LogoCentral.webp';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-//import { signIn } from '../../lib/firebase';
+import { signIn } from '../../lib/firebase';
 import { ToastContainer } from 'react-toastify';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { FaSpinner } from 'react-icons/fa';
-//import { handleAuthError } from '@/Utils/handleErrorsFirebase';
-//import { setInLocalStorage } from '@/Hooks/localStorage';
+import { handleAuthError } from '@/Utils/handleErrorsFirebase';
+import { setInLocalStorage } from '@/Hooks/localStorage';
 
 const Login = () => {
   const router = useRouter();
@@ -22,15 +22,15 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    // try {
-    //   const res = await signIn(data); // Aquí usamos los datos del formulario (data) en lugar de usuario
-    //   setInLocalStorage('USER', res.user)
-    //   router.push('/Admin')
-    // } catch (error) {
-    //   handleAuthError(error.code);
-    // } finally {
-    //   setLoading(false);
-    // }
+    try {
+      const res = await signIn(data); // Aquí usamos los datos del formulario (data) en lugar de usuario
+      setInLocalStorage('USER', res.user)
+      router.push('/Admin')
+    } catch (error) {
+      handleAuthError(error.code);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // const singnInWithGoogleHeander = async () =>{

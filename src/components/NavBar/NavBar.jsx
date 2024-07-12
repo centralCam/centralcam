@@ -4,12 +4,12 @@ import { removeFromLocalStorage, getInLocalStorage } from '../../Hooks/localStor
 import Links from '@/app/constants/Links';
 import Link from 'next/link';
 import Logo from '../../../public/logos/LogoCentral.webp';
-//import UserMenu from './UserMenu';
+import UserMenu from './UserMenu';
 import { IoCartOutline } from 'react-icons/io5';
 import { CartContext } from '../Context/ShoopingCartContext';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
-//import { logOut } from '@/lib/firebase';
+import { logOut } from '../../lib/firebase';
 
 const NavBar = () => {
   const [cart, setCart] = useContext(CartContext);
@@ -65,9 +65,9 @@ const NavBar = () => {
         </Link>
 
         <div className="flex items-center gap-1 justify-between">
-          {/* <div className="block md:hidden">
+          <div className="block md:hidden">
             <UserMenu user={user} toggleDropdown={toggleDropdown} isDropdownOpen={isDropdownOpen} handleLogOut={handleLogOut} />
-          </div> */}
+          </div>
           <div className="relative block md:hidden">
             <div className={` absolute px-2 m-1 text-white rounded-full right-[-10px] top-[-15px] ${quantity > 0 ? 'bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active block' : 'bg-transparent hidden'}`}>{quantity}</div>
             <IoCartOutline size={30} />
@@ -106,9 +106,9 @@ const NavBar = () => {
                 <div className={`hidden md:block absolute text-white px-2 m-1 rounded-full right-[-10px] top-[-15px] ${quantity > 0 ? 'bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active block' : 'bg-transparent hidden'}`}>{quantity}</div>
                 <IoCartOutline size={30} className='mx-2 hidden md:block' />
               </Link>
-                {/* <div className="hidden md:block">
+                <div className="hidden md:block">
                   <UserMenu user={user} toggleDropdown={toggleDropdown} isDropdownOpen={isDropdownOpen} handleLogOut={handleLogOut} />
-                </div> */}
+                </div>
           </ul>
         </article>
       </div>
