@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@egjs/flicking": "^4.11.3",
     "@egjs/flicking-plugins": "^4.7.1",
     "@egjs/react-flicking": "^4.11.3",
     "@emotion/react": "^11.11.4",
