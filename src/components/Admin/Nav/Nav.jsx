@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import { logOut } from '../../../lib/firebase';
+//import { logOut } from '../../../lib/firebase';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -198,29 +198,14 @@ export default function Nav( {handleSelectSection} ) {
               </Link>
             </li>
             {/* Logout */}
-            <li>
-              <div
-                className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-[#32425f] cursor-pointer group"
-                onClick={handleLogOut}
-              >
-                <svg
-                  className="w-5 h-5 text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3"
-                  />
+            {/* <li>
+              <div className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-[#32425f] cursor-pointer group" onClick={handleLogOut}>
+                <svg className="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" >
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3"/>
                 </svg>
                 <span className="ml-3 text-gray-200 ">Logout</span>
               </div>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
