@@ -27,11 +27,11 @@ export default function Home() {
         {/* <Suspense fallback={<Loading/>}>
           <Destacados />
           <Tienda />
-        </Suspense>
+        </Suspense>*/}
         <Carrusel />
         <Sobre/>
         <Ubicacion/>
-        <Contact /> */}
+        <Contact />
       </main>
       <footer>
         <Footer />
