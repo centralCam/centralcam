@@ -6,7 +6,7 @@ import Carrusel from "@/components/Carrusel/Carrusel";
 import Destacados from "@/components/Destacados/Destacados";
 import Contact from "@/components/Contact/Contact";
 import Footer from "@/components/Footer/Footer";
-import Sobre from "@/components/Sobre/Sobre";
+import Sobre from "@/components/SobreMi/Sobre";
 import Ubicacion from "@/components/Ubicacion/Ubicacion";
 import NavBar from "@/components/NavBar/NavBar";
 import SearchTienda from "@/components/Search/SearchTienda";
