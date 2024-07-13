@@ -34,7 +34,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contacto" className='bg-[#1E4E7E10]'>
+    <section id="contacto" className='bg-primary-background'>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 text-center">
         <h2 className="mb-4 text-3xl md:text-4xl text-center tracking-tight font-extrabold text-gray-900 ">Contacto</h2>
     
@@ -67,7 +67,7 @@ export default function Contact() {
 
               <div className="mb-5">
                 <label htmlFor="nameContact" className="sr-only">Nombre</label>
-                <input id="nameContact" type="text" placeholder="Nombre" autoComplete="off" className={`w-full px-4 py-3 border-2 bg-[#1E4E7E10] placeholder:text-neutral-800 text-[#000000] rounded-md outline-none focus:ring-4 ${errors.name ? 'border-red-500 focus:border-red-500 ring-red-100  ' : 'border-neutral-300 ring-neutral-100 '}`}
+                <input id="nameContact" type="text" placeholder="Nombre" autoComplete="off" className={`w-full px-4 py-3 border-2 bg-primary-background placeholder:text-neutral-800 text-[#000000] rounded-md outline-none focus:ring-4 ${errors.name ? 'border-red-500 focus:border-red-500 ring-red-100  ' : 'border-neutral-300 ring-neutral-100 '}`}
                   {...register('name', { required: 'Ingresa tu nombre completo', maxLength: 80 })}
                 />
                 {errors.name && <div className="mt-1 text-red-500"><small>{errors.name.message}</small></div>}
@@ -75,14 +75,14 @@ export default function Contact() {
 
               <div className="mb-5">
                 <label htmlFor="email_addressContact" className="sr-only">Email</label>
-                <input id="email_addressContact" type="email" placeholder="Email" autoComplete="off" className={`w-full px-4 py-3 border-2 bg-[#1E4E7E10] placeholder:text-neutral-800 text-[#000000] rounded-md outline-none  focus:ring-4 ${errors.email ? 'border-red-500 focus:border-red-500 ring-red-100  ' : 'border-neutral-300 focus:border-neutral-600 ring-neutral-100  '}`}
+                <input id="email_addressContact" type="email" placeholder="Email" autoComplete="off" className={`w-full px-4 py-3 border-2 bg-primary-background placeholder:text-neutral-800 text-[#000000] rounded-md outline-none  focus:ring-4 ${errors.email ? 'border-red-500 focus:border-red-500 ring-red-100  ' : 'border-neutral-300 focus:border-neutral-600 ring-neutral-100  '}`}
                   {...register('email', { required: 'Ingresa tu correo electrónico', pattern: { value: /^\S+@\S+$/i, message: 'Por favor, ingresa un correo electrónico válido' } })}
                 />
                 {errors.email && <div className="mt-1 text-red-500"><small>{errors.email.message}</small></div>}
               </div>
 
               <div className="mb-3">
-                <textarea name="message" placeholder="Mensaje..." className={`w-full px-4 py-3 border-2 bg-[#1E4E7E10] placeholder:text-neutral-800   text-[#000000]     rounded-md outline-none h-36 focus:ring-4 ${errors.message ? 'border-red-500 focus:border-red-500 ring-red-100  ' : 'border-neutral-300 focus:border-neutral-600 ring-neutral-100    '}`}
+                <textarea name="message" placeholder="Mensaje..." className={`w-full px-4 py-3 border-2 bg-primary-background placeholder:text-neutral-800   text-[#000000]     rounded-md outline-none h-36 focus:ring-4 ${errors.message ? 'border-red-500 focus:border-red-500 ring-red-100  ' : 'border-neutral-300 focus:border-neutral-600 ring-neutral-100    '}`}
                   {...register('message', { required: 'Ingresa tu mensaje' })}
                 />
                 {errors.message && <div className="mt-1 text-red-500"><small>{errors.message.message}</small></div>}

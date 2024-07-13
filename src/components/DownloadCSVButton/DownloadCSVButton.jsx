@@ -30,7 +30,7 @@ const DownloadCSVButton = ({toggleMenu}) => {
         handleDownload();
         toggleMenu();
       }}
-      className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-[#32425f]  group"
+      className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary  group"
     >
       <svg
         className="w-5 h-5 text-gray-400"

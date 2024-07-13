@@ -44,10 +44,10 @@ function TablaDestacados() {
         <table className="min-w-full bg-white border border-gray-300 shadow-xl">
           <thead>
             <tr className='bg-slate-300'>
-              <th className="px-4 py-2 border-b">Categoría</th>
-              <th className="px-4 py-2 border-b">Marca</th>
-              <th className="px-4 py-2 border-b">Nombre</th>
-              <th className="px-4 py-2 border-b">Destacados</th>
+              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Categoría</th>
+              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Marca</th>
+              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Nombre</th>
+              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Destacados</th>
             </tr>
           </thead>
           {!allDestacados.length
@@ -61,10 +61,10 @@ function TablaDestacados() {
             ):(<tbody>
                   {allDestacados.map((product, index) => (
                     <tr key={product._id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}>
-                      <td className="px-4 py-2 border-b">{product.categoria}</td>
-                      <td className="px-4 py-2 border-b">{product.marca}</td>
-                      <td className="px-4 py-2 border-b">{product.nombre}</td>
-                      <td className="px-4 py-2 border-b">
+                      <td className="px-1 py-1 md:px-4 md:py-3 border-b">{product.categoria}</td>
+                      <td className="px-1 py-1 md:px-4 md:py-3 border-b">{product.marca}</td>
+                      <td className="px-1 py-1 md:px-4 md:py-3 border-b">{product.nombre}</td>
+                      <td className="px-1 py-1 md:px-4 md:py-3 border-b">
                         <Checkbox
                           product={product}
                           onToggleDestacados={handleToggleDestacados}

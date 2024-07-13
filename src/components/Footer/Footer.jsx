@@ -9,7 +9,7 @@ export default function Footer() {
   let tamañoRedes = {alto:45, ancho:45}
 
   return (
-    <footer className="p-4 md:p-8 lg:p-10 bg-[#14294C]">
+    <footer className="p-4 md:p-8 lg:p-10 bg-secondary-background">
       <div className="mx-auto max-w-screen-xl text-center">
         <Link href="/" className="flex flex-col justify-center items-center text-2xl font-semibold  text-white">
           <img src={LogoBlanco.src} height={150} width={150} alt="CentralCam Logo" loading='lazy'/>

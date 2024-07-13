@@ -39,7 +39,7 @@ export default function Tienda() {
 
   return (
       <Suspense fallback={<div>Cargando...</div>}>
-        <section className="text-center flex flex-col gap-2 bg-[#1E4E7E10] m-w-[1600px] " id="productos">
+        <section className="text-center flex flex-col gap-2 bg-primary-background m-w-[1600px] " id="productos">
           <Pagination 
             count={totalPages} 
             page={currentPage} 

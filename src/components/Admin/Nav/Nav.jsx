@@ -79,7 +79,7 @@ export default function Nav( {handleSelectSection} ) {
         id="drawer-navigation"
         className={`fixed top-0 left-0 z-50 h-screen p-4 overflow-y-auto transition-transform transform ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } bg-[#1D3A6E] w-64`}
+        } bg-primary w-64`}
         tabIndex="-1"
         aria-labelledby="drawer-navigation-label"
       >
@@ -119,7 +119,7 @@ export default function Nav( {handleSelectSection} ) {
             <li>
               <a
                 href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-[#32425f]  group"
+                className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover  group"
                 onClick={() => {
                   handleSelectSection("Productos");
                   toggleMenu();
@@ -146,7 +146,7 @@ export default function Nav( {handleSelectSection} ) {
             <li>
               <a
                 href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-[#32425f]  group"
+                className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover  group"
                 onClick={() => {
                   handleSelectSection("Destacados");
                   toggleMenu();
@@ -175,7 +175,7 @@ export default function Nav( {handleSelectSection} ) {
             {/* Regresar a la WEB */}
             <li>
               <Link
-                className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-[#32425f] cursor-pointer group"
+                className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover cursor-pointer group"
                 href={"/"}
                 onClick={toggleMenu}
               >
@@ -199,7 +199,7 @@ export default function Nav( {handleSelectSection} ) {
             </li>
             {/* Logout */}
             <li>
-              <div className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-[#32425f] cursor-pointer group" onClick={handleLogOut}>
+              <div className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover cursor-pointer group" onClick={handleLogOut}>
                 <svg className="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" >
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3"/>
                 </svg>

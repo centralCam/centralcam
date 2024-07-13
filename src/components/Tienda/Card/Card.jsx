@@ -52,19 +52,17 @@ const Card = ({ product, handleProductSelect }) => {
               <p className="hidden md:block text-xs md:text-base text-gray-700"><strong>Categoría:</strong>{product.categoria.length > 15 ? `${product.categoria.slice(0, 15)}...` : product.categoria}</p>
               <p className="block text-xs md:text-base text-gray-700"><strong>N° Serie:</strong>
               {String(product.n_serie).length > 6
-              ? `${String(product.n_serie).slice(0, 6)}...`
-              : product.n_serie}               </p>
+                ? `${String(product.n_serie).slice(0, 6)}...`
+                : product.n_serie}</p>
               {product.n_electronica ? <p className="block text-xs md:text-base text-gray-700"><strong>N° Sensor:</strong> {
               String(product.n_electronica).length > 5
-              ? `${String(product.n_electronica).slice(0, 5)}...`
-              : product.n_electronica} </p> : null}
+                ? `${String(product.n_electronica).slice(0, 5)}...`
+                : product.n_electronica} </p> : null}
             </div>
           </div>
           </div>
           <div className='px-2 pb-2'>
-              <button onClick={handleConsult} className="  py-1.5 px-3 inline-flex items-center justify-center w-full h-6 md:h-8 bg-[#22c55e] rounded-md text-white hover:bg-[#1ca84f]  transition-all duration-300 ease-in-out " target='_blank'>
-               Consultar
-              </button>
+              <button onClick={handleConsult} className="  py-1.5 px-3 inline-flex items-center justify-center w-full h-6 md:h-8 bg-primary-whats rounded-md text-white hover:bg-primary-whatsHover transition-all duration-300 ease-in-out " target='_blank'>Consultar</button>
           </div>
         </div>
       </li>

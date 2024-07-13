@@ -25,11 +25,15 @@ module.exports = {
           DEFAULT: '#1a2f98',  // Color de fondo predeterminado
           hover: '#354aad',    // Nuevo color de fondo al pasar el mouse
           active: '#142579',   // Color de fondo al hacer clic
+          background: '#1E4E7E10', // Color de backgorun
+          whats:'#22c55e', // Color de whatsapp y contacto
+          whatsHover:'#1ca84f' // color de whats hover
         },
         secondary: {
           DEFAULT: '#AD0631',  // Color de fondo predeterminado
           hover: '#9C052B',    // Nuevo color de fondo al pasar el mouse
           active: '#870525',   // Color de fondo al hacer clic
+          background:'#14294C' // Color de fondo secundario
         },
         tertiary: {
           DEFAULT: '#C85B6A',  // Color de fondo predeterminado
