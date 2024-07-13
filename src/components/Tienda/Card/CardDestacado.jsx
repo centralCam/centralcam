@@ -38,7 +38,7 @@ const CardDestacado = ({ selectedProduct, handleProductSelect }) => {
               <button onClick={(e) => handleAddToCart(e, selectedProduct)} className="absolute top-1 right-1 inline-flex items-center justify-center w-8 h-8 rounded-full text-white z-10 bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active" aria-label="agregar al carrito">
                  <IconShoopingCart ancho={icon.ancho} alto={icon.alto} color={icon.color} />
               </button>
-              <img src='/images/fotoDestacados.webp' width={80} height={80} className="absolute top-[-15px] left-[-15px] xl:top-[-15px] xl:left-[-15px] xl:w-14 xl:h-14 w-10  inline-flex items-center justify-center z-10" alt='producto destacado' loading='lazy'/>
+              <img src='/images/FotoDestacados.webp' width={80} height={80} className="absolute top-[-15px] left-[-15px] xl:top-[-15px] xl:left-[-15px] xl:w-14 xl:h-14 w-10  inline-flex items-center justify-center z-10" alt='producto destacado' loading='lazy'/>
               <div className="rounded-lg overflow-hidden p-2 ">
                 <img className="rounded-lg p-2 w-28 h-28 md:w-48 md:h-48 lg:w-52 lg:h-52" src={selectedProduct.foto_1_1 ? selectedProduct.foto_1_1 : '/images/sinFoto.webp'} alt={selectedProduct.nombre} width={150} height={150} title={selectedProduct.nombre} loading="lazy" />
               </div>      
