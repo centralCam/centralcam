@@ -2,7 +2,6 @@
 import React, { useContext } from 'react';
 import IconShoopingCart from '../ShoopingCart/IconShoopingCart';
 import userData from '@/app/constants/userData';
-import Link from 'next/link';
 import addToCart from '@/Utils/addToCart';
 import { CartContext } from '@/components/Context/ShoopingCartContext';
 
