@@ -4,7 +4,7 @@ import {IoCartOutline} from 'react-icons/io5'
 
  const EmptyCart = () => {
   return (
-    <div className='flex justify-center items-center min-h-screen md:min-h-60'>
+    <div className='flex justify-center items-center '>
         <IoCartOutline size={150} className='mx-5' />
         <div className="flex flex-col items-start">
             <h1 className='text-xl font-semibold'>Tu carrito de consultas esta vacio</h1>
