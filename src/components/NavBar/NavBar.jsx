@@ -68,10 +68,10 @@ const NavBar = () => {
           <div className="block md:hidden">
             <UserMenu user={user} toggleDropdown={toggleDropdown} isDropdownOpen={isDropdownOpen} handleLogOut={handleLogOut} />
           </div>
-          <div className="relative block md:hidden">
+          <Link href='/Shopcart' className="relative block md:hidden">
             <div className={` absolute px-2 m-1 text-white rounded-full right-[-10px] top-[-15px] ${quantity > 0 ? 'bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active block' : 'bg-transparent hidden'}`}>{quantity}</div>
             <IoCartOutline size={30} />
-          </div>
+          </Link>
           <button
             aria-label="menu"
             data-collapse-toggle="navbar-default"
