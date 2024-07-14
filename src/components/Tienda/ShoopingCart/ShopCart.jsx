@@ -171,7 +171,7 @@ const ShopCart = () => {
               </button>
               <div></div>
               <Link
-                href="/"
+                href="/#productos"
                 className={`col-span-2 underline my-5 ${cart.length ? "block" : "hidden"}`}
               >
                 Continuar seleccionando ITEMS
