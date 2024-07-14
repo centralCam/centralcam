@@ -51,11 +51,11 @@ const Modals = ({ selectedProduct, closeModal }) => {
                 <h2 className="text-xl font-semibold text-gray-600 sm:text-2xl">{selectedProduct.titulo_de_producto?.toUpperCase()}</h2>
                 <hr className="my-6 md:my-8 border-gray-200" />
                 <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Nombre: </strong>{selectedProduct.nombre}</p>
-                <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Codigo: </strong>{selectedProduct.cod_producto}</p>
-                <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>N° de Serie: </strong>{selectedProduct.n_serie}</p>
+                <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Vehiculo: </strong>{selectedProduct.vehiculo}</p>
                 <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Marca: </strong>{selectedProduct.marca}</p>
                 <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Modelo: </strong>{selectedProduct.modelo}</p>
-                <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Vehiculo: </strong>{selectedProduct.vehiculo}</p>
+                <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>N° de Serie: </strong>{selectedProduct.n_serie}</p>
+                <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Codigo: </strong>{selectedProduct.cod_producto}</p>
                 <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Descripcion: </strong>{selectedProduct.descripcion}</p>
                 <div className="mt-1 md:mt-4 gap-2 items-center flex flex-col md:flex-row justify-center md:items-start">
                   <button onClick={(e) => handleAddToCart(e, selectedProduct)} title="Agregar al carrito" className="text-gray-500 mt-2 md:mt-4 py-2  hover:bg-boton-secondary-hover font-medium rounded-lg text-sm px-10 md:py-5 flex items-center justify-center" role="button" aria-label='agregar al carrito'>
