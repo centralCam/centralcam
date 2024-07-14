@@ -57,7 +57,7 @@ const Dropdown = ({
         {isDrawerOpen && (
           <div className="fixed inset-0" onClick={toggleDrawer}></div>
         )}
-        <div className="relative bg-white w-64 h-full overflow-x-auto shadow-xl flex flex-col text-start">
+        <div className="relative bg-white w-64 h-full overflow-y-auto shadow-xl flex flex-col text-start">
           <div  className="text-white bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active font-medium text-sm px-4 py-4 w-full ">FILTROS</div>
           <button
             onClick={toggleDrawer}
