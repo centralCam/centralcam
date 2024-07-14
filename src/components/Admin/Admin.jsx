@@ -150,8 +150,8 @@ export default function Admin() {
         <Nav handleSelectSection={handleSelectSection} />
         {section === 'Productos' && (
           <div>
-            <section id="tablaProductosAdmin" className="bg-primary-background p-3 sm:p-5">
-              <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
+            <section id="tablaProductosAdmin" className="bg-primary-background p-2 sm:p-3 md:p-5">
+              <div className="mx-auto max-w-screen-xl px-0 lg:px-12">
                 <div className="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
                   <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div className="w-full md:w-1/2">
@@ -180,7 +180,7 @@ export default function Admin() {
                           setSelectedVehiculos={setSelectedVehiculos}
                         />
                       </div>
-                      <button type="button" aria-label="agregar producto" className="flex items-center text-white border bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active font-medium rounded-lg text-sm px-5 py-2 text-center me-2" onClick={() => openModal('add')}>+  Agregar producto</button>
+                      <button type="button" aria-label="agregar producto" className="flex items-center text-white border bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active font-medium rounded-lg text-sm px-5 py-2 text-center " onClick={() => openModal('add')}>+  Agregar producto</button>
                       {isModalOpen && modalType === 'add' && (
                         <AddProduct toggleModal={closeModal} isOpenModal={isModalOpen} marca={brands} categoria={categories} vehiculo={vehiculos} />
                       )}
@@ -205,20 +205,20 @@ export default function Admin() {
                               <td scope="row" className="px-1 py-1 md:px-4 md:py-3 hidden md:table-cell">{product.categoria}</td>
                               <td scope="row" className="px-1 py-1 md:px-4 md:py-3 hidden md:table-cell">{product.marca}</td>
                               <td scope="row" title={product.descripcion} className="px-1 py-1 md:px-4 md:py-3 text-center text-ellipsis hidden lg:table-cell">{product.descripcion.length > 50 ? `${product.descripcion.slice(0, 50)}...` : product.descripcion}</td>
-                              <td scope="row" className="px-1 py-1 md:px-4 md:py-3 flex items-center justify-start">
-                                <div className="flex justify-center m-5">
+                              <td scope="row" className="px-1 py-1 md:px-4 md:py-3 flex items-center justify-evenly">
+                                <div className="flex justify-around items-center mx-1">
                                   <button
                                     aria-label="editar producto"
                                     id="updateProductButton"
                                     data-modal-target="updateProductModal"
                                     data-modal-toggle="updateProductModal"
-                                    className="px-3 py-2 text-xs focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg me-2 mb-2"
+                                    className="px-3 py-2 text-xs items-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg me-2 "
                                     type="button"
                                     onClick={() => openModal('update', product)}>Editar</button>
+                                  <button aria-label="Eliminar Producto" onClick={() => handleEliminarArchivos(product)} type="button" className="px-3 py-2 text-xs focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg ">
+                                    Eliminar
+                                  </button>
                                 </div>
-                                <button aria-label="Eliminar Producto" onClick={() => handleEliminarArchivos(product)} type="button" className="px-3 py-2 text-xs focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg me-2 mb-2">
-                                  Eliminar
-                                </button>
                               </td>
                             </tr>
                           ))}
