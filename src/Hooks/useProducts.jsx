@@ -1,35 +1,34 @@
-'use client'
-import { useState, useEffect } from 'react';
+// hooks/useProducts.js
+'use client';
+import { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { usePathname } from "next/navigation";
-
+import useStore from '../store/useStore';
 
 const useProducts = () => {
-  const path = usePathname()
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [brands, setBrands] = useState([]);
-  const [vehiculos, setVehiculos] = useState([]);
-  const [allDestacados, setAllDestacados] = useState([]);
-
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [selectedBrands, setSelectedBrands] = useState([]);
-  const [selectedVehiculos, setSelectedVehiculos] = useState([]);
-
-
-  const [showAllCategories, setShowAllCategories] = useState(false);
-  const [showAllBrands, setShowAllBrands] = useState(false);
-  const [showAllVehiculos, setShowAllVehiculos] = useState(false);
-
-
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-
+  const path = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const {
+    products, setProducts,
+    categories, setCategories,
+    brands, setBrands,
+    vehiculos, setVehiculos,
+    allDestacados, setAllDestacados,
+    selectedCategories, setSelectedCategories,
+    selectedBrands, setSelectedBrands,
+    selectedVehiculos, setSelectedVehiculos,
+    showAllCategories, setShowAllCategories,
+    showAllBrands, setShowAllBrands,
+    showAllVehiculos, setShowAllVehiculos,
+    selectedProduct, setSelectedProduct,
+    isModalOpen, setIsModalOpen,
+    totalPages, setTotalPages,
+    currentPage, setCurrentPage,
+    isLoading, setIsLoading,
+    hasFetched, setHasFetched,
+  } = useStore();
 
   const fetchProducts = async () => {
     const params = new URLSearchParams(searchParams.toString());
@@ -47,11 +46,14 @@ const useProducts = () => {
     setVehiculos(data.totalVehiculos || []);
     setAllDestacados(data.allproductosDestacados || []);
     setIsLoading(false);
+    setHasFetched(true);
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, [searchParams]);
+    if (!hasFetched) {
+      fetchProducts();
+    }
+  }, [searchParams, hasFetched]);
 
   useEffect(() => {
     const page = searchParams.get("page") || 1;
@@ -72,18 +74,18 @@ const useProducts = () => {
     path === '/Admin'
     ? router.push(`/Admin?${params.toString()}`)
     : router.push(`/?${params.toString()}#productos`);
-};
+  };
 
-const handleCheckboxChange = (e, key, selectedValues, setSelectedValues) => {
+  const handleCheckboxChange = (e, key, selectedValues, setSelectedValues) => {
     const value = e.target.value;
     const isChecked = e.target.checked;
     setSelectedValues((prevSelected) => {
-        const newSelected = isChecked
+      const newSelected = isChecked
         ? [...prevSelected, value]
         : prevSelected.filter((item) => item !== value);
-        updateSearchParams(key, newSelected);
-        return newSelected;
-    })
+      updateSearchParams(key, newSelected);
+      return newSelected;
+    });
   };
 
   const handleClearFilters = () => {
@@ -126,15 +128,16 @@ const handleCheckboxChange = (e, key, selectedValues, setSelectedValues) => {
   const updateSearchParams = (key, values) => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete(key);
-    params.set('page', 1)
+    params.set('page', 1);
 
-    if (values.length > 0) {
-      values.forEach((value) => params.append(key, value));
-    }
-    path === '/Admin'
-    ? router.push(`/Admin?${params.toString()}`)
-    : router.push(`/?${params.toString()}#productos`);
+     if (values.length > 0) {
+       values.forEach((value) => params.append(key, value));
+     }
+     path === '/Admin'
+     ? router.push(`/Admin?${params.toString()}`)
+     : router.push(`/?${params.toString()}#productos`);
   };
+
   return {
     products,
     allDestacados,
@@ -152,10 +155,6 @@ const handleCheckboxChange = (e, key, selectedValues, setSelectedValues) => {
     totalPages,
     currentPage,
     isLoading,
-    setIsModalOpen,
-    setSelectedCategories,
-    setSelectedBrands,
-    setSelectedVehiculos,
     handlePageChange,
     handleCheckboxChange,
     handleClearFilters,
