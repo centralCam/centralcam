@@ -49,7 +49,7 @@ const SearchBase = ({ inputClassName, buttonClassName, placeholder }) => {
 
   return (
     <Suspense fallback={<Loading />}>
-      <div id="searchSticky" className={`border-none flex items-center justify-between max-w-xl mx-auto sticky top-0 z-40 ${isScrolled ? 'bg-white w-full rounded-lg shadow-md' : ''}`}>
+      <div id="searchSticky" className={`border-none flex items-center justify-between max-w-xl mx-auto sticky top-0 z-40 ${isScrolled ? 'bg-white w-full rounded-b-lg  shadow-md' : ''}`}>
         <form id='formSearchBar' onSubmit={handleSearch} className={`relative flex-1 ${inputClassName} rounded-lg border-none`}>
           <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only border-none">Buscar</label>
           <div className="relative">
@@ -58,7 +58,7 @@ const SearchBase = ({ inputClassName, buttonClassName, placeholder }) => {
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
               </svg>
             </div>
-            <input type="search" id="default-search" className="block w-full p-4 pl-10 text-sm border rounded-lg" placeholder={placeholder} value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
+            <input type="search" id="default-search" className={`block w-full p-4 pl-10 text-sm border ${isScrolled? 'rounded-b-lg rounded-tr-lg': 'rounded-lg'}`} placeholder={placeholder} value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
             <button type="submit" className={`text-white absolute right-2.5 bottom-2.5 font-medium rounded-lg text-sm px-4 py-2 bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active`} aria-label="buscar">BUSCAR</button>
           </div>
         </form>
