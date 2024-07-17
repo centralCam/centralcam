@@ -36,8 +36,7 @@ export default function Contact() {
   return (
     <section id="contacto" className='bg-primary-background'>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 text-center">
-        <h2 className="mb-4 text-3xl md:text-4xl text-center tracking-tight font-extrabold text-gray-900 ">Contacto</h2>
-    
+        <h2 className="mb-4 text-3xl md:text-4xl text-center tracking-tight font-extrabold text-text-primary-title ">Contacto</h2>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 md:pt-8 pb-16 grid md:grid-cols-2 lg:grid-cols-2 gap-y-8 md:gap-x-8 md:gap-y-8 lg:gap-x-8 lg:gap-y-16">
         <article>
@@ -70,7 +69,7 @@ export default function Contact() {
                 <input id="nameContact" type="text" placeholder="Nombre" autoComplete="off" className={`w-full px-4 py-3 border-2 bg-primary-background placeholder:text-neutral-800 text-[#000000] rounded-md outline-none focus:ring-4 ${errors.name ? 'border-red-500 focus:border-red-500 ring-red-100  ' : 'border-neutral-300 ring-neutral-100 '}`}
                   {...register('name', { required: 'Ingresa tu nombre completo', maxLength: 80 })}
                 />
-                {errors.name && <div className="mt-1 text-red-500"><small>{errors.name.message}</small></div>}
+                {errors.name && <div className="mt-1 text-text-danger"><small>{errors.name.message}</small></div>}
               </div>
 
               <div className="mb-5">
@@ -78,14 +77,14 @@ export default function Contact() {
                 <input id="email_addressContact" type="email" placeholder="Email" autoComplete="off" className={`w-full px-4 py-3 border-2 bg-primary-background placeholder:text-neutral-800 text-[#000000] rounded-md outline-none  focus:ring-4 ${errors.email ? 'border-red-500 focus:border-red-500 ring-red-100  ' : 'border-neutral-300 focus:border-neutral-600 ring-neutral-100  '}`}
                   {...register('email', { required: 'Ingresa tu correo electrónico', pattern: { value: /^\S+@\S+$/i, message: 'Por favor, ingresa un correo electrónico válido' } })}
                 />
-                {errors.email && <div className="mt-1 text-red-500"><small>{errors.email.message}</small></div>}
+                {errors.email && <div className="mt-1 text-text-danger"><small>{errors.email.message}</small></div>}
               </div>
 
               <div className="mb-3">
                 <textarea name="message" placeholder="Mensaje..." className={`w-full px-4 py-3 border-2 bg-primary-background placeholder:text-neutral-800   text-[#000000]     rounded-md outline-none h-36 focus:ring-4 ${errors.message ? 'border-red-500 focus:border-red-500 ring-red-100  ' : 'border-neutral-300 focus:border-neutral-600 ring-neutral-100    '}`}
                   {...register('message', { required: 'Ingresa tu mensaje' })}
                 />
-                {errors.message && <div className="mt-1 text-red-500"><small>{errors.message.message}</small></div>}
+                {errors.message && <div className="mt-1 text-text-danger"><small>{errors.message.message}</small></div>}
               </div>
 
               <button type="submit" className="w-full py-4 font-semibold text-white transition-colors rounded-md bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active px-7 " aria-label="enviar">
@@ -124,7 +123,7 @@ export default function Contact() {
                   strokeWidth="3"
                 />
               </svg>
-              <h3 className="py-5 text-2xl font-medium text-red-500">Oops, Algo ocurrio!</h3>
+              <h3 className="py-5 text-2xl font-medium text-text-danger">Oops, Algo ocurrio!</h3>
               <p className="text-neutral-900 md:px-4">{message}</p>
               <button className="mt-6 py-2 px-4 bg-red-500 rounded-full focus:outline-none text-neutral-100" onClick={() => reset()} aria-label="intentar otra vez"> Volver a intentar </button>
             </div>
