@@ -64,14 +64,7 @@ const MultipleItems = () => {
                     <Slider {...settings} className='flex items-center justify-center'>
                         {dataCarrusel.map((item, i) => (
                             <div key={i} className='flex items-center justify-center m-2 md:bg-lightpink gap-4'>
-                                <img 
-                                    src={item.imgSrc} 
-                                    alt={`Carousel image ${i + 1}`} 
-                                    width={165} 
-                                    height={165} 
-                                    className="w-auto h-24 md:h-32" 
-                                    loading="lazy"
-                                />
+                                <img src={item.imgSrc} alt={`Carousel image ${i + 1}`} width={96} height={96} className="w-auto md:h-32" loading="lazy"/>
                             </div>
                         ))}
                     </Slider>

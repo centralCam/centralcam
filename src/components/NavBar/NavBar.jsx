@@ -1,7 +1,6 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react';
 import { removeFromLocalStorage, getInLocalStorage } from '../../Hooks/localStorage';
-//import Links from '@/app/constants/Links';
 import Link from 'next/link';
 import Logo from '../../../public/logos/LogoCentral.webp';
 import UserMenu from './UserMenu';
@@ -14,9 +13,7 @@ import useLinks from '@/app/constants/Links';
 
 const NavBar = () => {
   const [cart, setCart] = useContext(CartContext);
-  const Links = useLinks();
-  //console.log('Links:',Links);
-  
+  const Links = useLinks(); 
 
   const quantity = cart ? cart.reduce((acc, curr) => acc + curr.quantity, 0) : 0;
 

@@ -6,7 +6,7 @@ import { CartContext } from '../Context/ShoopingCartContext';
 import Link from "next/link";
 import Loading from "../Loading/Loading";
 
-const SearchBase = ({ inputClassName, buttonClassName, placeholder }) => {
+const SearchBase = ({ inputClassName, placeholder }) => {
   const router = useRouter();
   const path = usePathname();
   

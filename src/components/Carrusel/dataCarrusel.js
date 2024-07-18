@@ -1,6 +1,6 @@
 
 export const dataCarrusel = [
-    { imgSrc: '/marcas/hino.webp' },
+    { imgSrc: 'marcas/hino.webp' },
     { imgSrc: 'marcas/isuzu.webp' },
     { imgSrc: 'marcas/iveco.webp' },
     { imgSrc: 'marcas/Mercedes.webp' },

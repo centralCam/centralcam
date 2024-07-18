@@ -9,10 +9,10 @@ import Footer from "@/components/Footer/Footer";
 import Sobre from "@/components/SobreMi/Sobre";
 import Ubicacion from "@/components/Ubicacion/Ubicacion";
 import NavBar from "@/components/NavBar/NavBar";
-import SearchTienda from "@/components/Search/SearchTienda";
 import Tienda from "@/components/Tienda/Tienda";
 import VolverArriba from "@/components/VolverArriba/VolverArriba";
 import Loading from "@/components/Loading/Loading";
+import SearchBase from "@/components/Search/SearchBase";
 
 export default function Home() {
 
@@ -25,7 +25,7 @@ export default function Home() {
       </nav>
       <main>
         <Suspense fallback={<Loading/>}>
-          <SearchTienda />
+          <SearchBase />
         </Suspense>
           <Banner />
         <Suspense fallback={<Loading/>}>
