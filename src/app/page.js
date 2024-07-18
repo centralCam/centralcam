@@ -19,7 +19,9 @@ export default function Home() {
   return (
     <>
       <nav>
-        <NavBar  />
+        <Suspense fallback={<Loading/>}>
+          <NavBar  />
+        </Suspense>
       </nav>
       <main>
         <Suspense fallback={<Loading/>}>
