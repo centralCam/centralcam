@@ -1,7 +1,7 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react';
 import { removeFromLocalStorage, getInLocalStorage } from '../../Hooks/localStorage';
-import Links from '@/app/constants/Links';
+//import Links from '@/app/constants/Links';
 import Link from 'next/link';
 import Logo from '../../../public/logos/LogoCentral.webp';
 import UserMenu from './UserMenu';
@@ -10,9 +10,13 @@ import { CartContext } from '../Context/ShoopingCartContext';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import { logOut } from '../../lib/firebase';
+import fnLinks from '@/app/constants/Links';
 
 const NavBar = () => {
   const [cart, setCart] = useContext(CartContext);
+  const Links = fnLinks();
+  console.log('Links:',Links);
+  
 
   const quantity = cart ? cart.reduce((acc, curr) => acc + curr.quantity, 0) : 0;
 

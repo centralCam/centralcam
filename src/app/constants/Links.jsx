@@ -1,8 +1,15 @@
-const Links = [
-    {name:'Home',href:'/#home'},
-    {name:'Productos',href:'/#productos'},
-    {name:'Nosotros',href:'/#sobre'},
-    {name:'Contacto',href:'/#contacto'}
-]
+import { useSearchParams } from 'next/navigation';
 
-export default Links;
+const fnLinks = () => {
+    const searchParams = useSearchParams();
+    const queryString = searchParams.toString();
+
+    return [
+        {name: 'Home', href: queryString? '?' + queryString + '#home':'#home'},
+        {name: 'Productos', href: queryString? '?' + queryString +'#productos':'#productos'},
+        {name: 'Nosotros', href: queryString? '?' + queryString +'#sobre':'#sobre'},
+        {name: 'Contacto', href: queryString? '?' + queryString +'#contacto':'#contacto'}
+    ];
+};
+
+export default fnLinks;
