@@ -16,21 +16,10 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#ffffff" />
         <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/@egjs/flicking/dist/flicking.css"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/@egjs/flicking/dist/flicking-inline.css"
-          crossOrigin="anonymous"
-        />
-        <script
-          src="https://unpkg.com/@egjs/flicking/dist/flicking.pkgd.min.js"
-          crossOrigin="anonymous"
-          async
-        ></script>
+        <link rel="preload" href="/bg/bg-banner.webp" as="image" />
+        <link rel="stylesheet" href="https://unpkg.com/@egjs/flicking/dist/flicking.css" crossOrigin="anonymous"/>
+        <link rel="stylesheet" href="https://unpkg.com/@egjs/flicking/dist/flicking-inline.css" crossOrigin="anonymous"/>
+        <script src="https://unpkg.com/@egjs/flicking/dist/flicking.pkgd.min.js" crossOrigin="anonymous" async></script>
         <title>CENTER CAM</title>
         <meta name="description" content="Venta de Repuestos de camiones" />
       </head>
