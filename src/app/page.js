@@ -29,11 +29,11 @@ export default function Home() {
           <Banner />
           <Destacados />
           <Tienda />
+          <Carrusel />
+          <Sobre/>
+          <Ubicacion/>
+          <Contact />
         </Suspense>
-        <Carrusel />
-        <Sobre/>
-        <Ubicacion/>
-        <Contact />
       </main>
       <footer>
         <Footer />

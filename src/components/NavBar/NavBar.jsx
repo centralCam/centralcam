@@ -15,7 +15,7 @@ import useLinks from '@/app/constants/Links';
 const NavBar = () => {
   const [cart, setCart] = useContext(CartContext);
   const Links = useLinks();
-  console.log('Links:',Links);
+  //console.log('Links:',Links);
   
 
   const quantity = cart ? cart.reduce((acc, curr) => acc + curr.quantity, 0) : 0;
