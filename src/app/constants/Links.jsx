@@ -1,6 +1,6 @@
 import { useSearchParams } from 'next/navigation';
 
-const fnLinks = () => {
+const useLinks = () => {
     const searchParams = useSearchParams();
     const queryString = searchParams.toString();
 
@@ -12,4 +12,4 @@ const fnLinks = () => {
     ];
 };
 
-export default fnLinks;
+export default useLinks;

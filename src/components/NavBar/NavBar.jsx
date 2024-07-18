@@ -10,11 +10,11 @@ import { CartContext } from '../Context/ShoopingCartContext';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import { logOut } from '../../lib/firebase';
-import fnLinks from '@/app/constants/Links';
+import useLinks from '@/app/constants/Links';
 
 const NavBar = () => {
   const [cart, setCart] = useContext(CartContext);
-  const Links = fnLinks();
+  const Links = useLinks();
   console.log('Links:',Links);
   
 
