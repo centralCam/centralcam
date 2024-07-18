@@ -4,9 +4,9 @@ import React from 'react'
 
 const Shopcart = () => {
   return (
-    <div>
+    <>
         <ShopCart />
-    </div>
+    </>
   )
 }
 
