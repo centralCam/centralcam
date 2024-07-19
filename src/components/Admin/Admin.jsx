@@ -156,8 +156,9 @@ export default function Admin() {
                     <div className="w-full md:w-1/2">
                       <SearchBase />
                     </div>
-                    <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                      <div className="flex items-center space-x-3 w-full md:w-auto">
+                    <div className="md:flex md:justify-end gap-3 grid grid-cols-5 w-full">
+
+                        <div className="col-span-2">
                         <Dropdown
                           handleClearFilters={handleClearFilters} 
                           handleCheckboxChange={handleCheckboxChange}
@@ -177,13 +178,16 @@ export default function Admin() {
                           showAllVehiculos={showAllVehiculos}
                           selectedVehiculos={selectedVehiculos}
                           setSelectedVehiculos={setSelectedVehiculos}
-                        />
-                      </div>
-                      <button type="button" aria-label="agregar producto" className="flex items-center text-white border bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active font-medium rounded-lg text-sm px-5 py-2 text-center " onClick={() => openModal('add')}>+  Agregar producto</button>
+                          />
+                          </div>
+                      <div className="col-span-3">
+
+                      <button type="button" aria-label="agregar producto" className="flex items-center text-white border bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active font-medium w-full justify-center rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center " onClick={() => openModal('add')}>+  Agregar producto</button>
                       {isModalOpen && modalType === 'add' && (
                         <AddProduct toggleModal={closeModal} isOpenModal={isModalOpen} marca={brands} categoria={categories} vehiculo={vehiculos} />
                       )}
                     </div>
+                      </div>
                   </div>
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left text-gray-500" id="productosAdmin">

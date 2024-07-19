@@ -42,7 +42,7 @@ const Dropdown = ({
     <div>
       <button
         onClick={toggleDrawer}
-        className="text-white bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+        className="text-white bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active font-medium rounded-lg text-xs sm:text-sm px-5 py-2.5 text-center w-full justify-center inline-flex items-center h-10"
         type="button"
         aria-label="filtrar"
       >

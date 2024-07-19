@@ -4,7 +4,7 @@ import SkeletonCard from '../Card/SkeletonCard';
 
 const Cards = ({ products, handleProductSelect, isLoading }) => {
   return (
-    <ul className="grid grid-cols-2 lg:grid-cols-3 gap-4 p-1">
+    <ul className="grid grid-cols-2 lg:grid-cols-3 gap-4 py-1">
       {isLoading ? (
         // Mostrar esqueletos cuando isLoading es true
         <>

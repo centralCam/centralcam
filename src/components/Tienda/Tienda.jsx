@@ -53,7 +53,7 @@ export default function Tienda() {
           />
           <div className="grid grid-cols-1  md:grid-cols-12 md:gap-4 max-w-7xl mx-auto md:p-5 font-sans" style={{width: '-webkit-fill-available'}}>
             <article id="filtrosTienda" className="col-span-2 md:col-span-3 text-center md:text-start gap-4 m-2">
-              <div className="block md:hidden">
+              <div className="block w-3/5 mx-auto md:hidden">
                 <Dropdown 
                   handleClearFilters={handleClearFilters} 
                   handleCheckboxChange={handleCheckboxChange}
