@@ -16,6 +16,7 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
       }))
   );
   //console.log(archivos,'estado archivos uploadImage')
+  
 
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
