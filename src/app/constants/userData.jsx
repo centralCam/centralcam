@@ -4,7 +4,7 @@ const userData = {
     codigoPais:54,
     textBoton:'¡Contáctame!',
     email:'infocentralcam@gmail.com',
-    textoPredefinido:'Hola, me gustaria saber mas sobre, '
+    textoPredefinido:'Hola, me gustaria consultar sobre, '
 };
 
 export default userData;
