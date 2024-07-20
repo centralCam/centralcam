@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Button, styled } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import heic2any from "heic2any";
+import Swal from 'sweetalert2';
 
 export default function UploadImage({ imagenes, updateImages, handleRemoveImage }) {
 // Inicializar el estado con URLs y archivos
@@ -15,9 +17,7 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
         isURL: true,
       }))
   );
-  //console.log(archivos,'estado archivos uploadImage')
   
-
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
     clipPath: "inset(50%)",
@@ -51,10 +51,32 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
       toast.error("Solo se pueden cargar hasta 4 fotos.");
       return;
     }
+
+    Swal.fire({
+      title: 'Cargando...',
+      text: 'Subiendo imagen(es), por favor espere.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
     for (let i = 0; i < filesToUpload.length; i++) {
-      const archivo = filesToUpload[i];
-      //console.log(archivo,'dentro del for')
-      //funcion que suba el archivo a cloudinary
+      let archivo = filesToUpload[i];
+
+      const isHEIC = archivo.type === 'image/heic' || archivo.type === 'image/heif' || archivo.name.endsWith('.heic') || archivo.name.endsWith('.heif');
+
+      if (isHEIC) {
+        try {
+          const convertedBlob = await heic2any({ blob: archivo, toType: "image/jpeg" });
+          archivo = new File([convertedBlob], archivo.name.replace(/\.[^/.]+$/, ".jpg"), { type: "image/jpeg" });
+        } catch (error) {
+          console.error("Error al convertir HEIC a JPEG:", error);
+          toast.error("Error al convertir archivo HEIC.");
+          continue;
+        }
+      }
+
       const existe = archivos.some((a) => a.name === archivo.name);
       if (!existe) {
         const isOneToOne = await isAspectRatioOneToOne(archivo);
@@ -71,6 +93,8 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
     //console.log(nuevosArchivos,'ARCHIVO')
     setArchivos(nuevosArchivos);
     updateImages(nuevosArchivos.map(archivo => archivo));
+
+    Swal.close();
   };
 
   // Manejar la eliminación de archivos
@@ -78,14 +102,21 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
     const [imgPrevAEliminar] = archivos.filter((_, i) => i === index)[0].name.split('.');
     const imgAEliminar = `Products/${imgPrevAEliminar}`;
 
+    Swal.fire({
+      title: 'Eliminando...',
+      text: 'Eliminando imagen, por favor espere.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
     const res = await fetch('api/deleteImage', {
         method: 'DELETE',
         body: JSON.stringify({ file: imgAEliminar }) // Correctly pass the image to be deleted
     });
 
     const data = await res.json();
-    // console.log(res, 'dataDelete');
-    //(index,'index')
     
     const nuevosArchivos = archivos.filter((_, i) => i !== index);
     const archivoAEliminar = archivos[index];
@@ -96,7 +127,9 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
 
     setArchivos(nuevosArchivos);
     updateImages(nuevosArchivos.map(archivo => archivo));
-};
+
+    Swal.close();
+  };
 
   // Manejar la visualización de archivos
   const handleVerArchivo = (archivo) => {
