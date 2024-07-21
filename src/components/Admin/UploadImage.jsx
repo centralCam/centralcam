@@ -47,11 +47,12 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
   const handleArchivoSeleccionado = async (e) => {
     const nuevosArchivos = [...archivos];
     const filesToUpload = e.target.files;
+    
+    // Verificar que no se superen los 4 archivos
     if (archivos.length + filesToUpload.length > 4) {
       toast.error("Solo se pueden cargar hasta 4 fotos.");
       return;
     }
-
     Swal.fire({
       title: 'Cargando...',
       text: 'Subiendo imagen(es), por favor espere.',
@@ -60,12 +61,17 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
         Swal.showLoading();
       }
     });
-
     for (let i = 0; i < filesToUpload.length; i++) {
       let archivo = filesToUpload[i];
-
+  
+      // Verificar si el archivo es una imagen
+      if (!archivo.type.startsWith('image/')) {
+        toast.error("Solo se pueden cargar archivos de imagen.");
+        continue;
+      }
+  
+      // Convertir HEIC a JPEG si es necesario
       const isHEIC = archivo.type === 'image/heic' || archivo.type === 'image/heif' || archivo.name.endsWith('.heic') || archivo.name.endsWith('.heif');
-
       if (isHEIC) {
         try {
           const convertedBlob = await heic2any({ blob: archivo, toType: "image/jpeg" });
@@ -76,21 +82,22 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
           continue;
         }
       }
-
+  
+      // Verificar que el archivo no esté ya en la lista
       const existe = archivos.some((a) => a.name === archivo.name);
       if (!existe) {
+        // Verificar relación de aspecto 1:1
         const isOneToOne = await isAspectRatioOneToOne(archivo);
         if (isOneToOne) {
           archivo.preview = URL.createObjectURL(archivo);
           const res =await submitUpdateImage(archivo)
-          //console.log(res,'funcion subida')
           nuevosArchivos.push(res);
         } else {
           toast.error("La imagen debe tener una relación de aspecto 1:1.");
         }
       }
     }
-    //console.log(nuevosArchivos,'ARCHIVO')
+  
     setArchivos(nuevosArchivos);
     updateImages(nuevosArchivos.map(archivo => archivo));
 
