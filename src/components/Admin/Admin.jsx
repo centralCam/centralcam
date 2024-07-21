@@ -51,19 +51,35 @@ export default function Admin() {
     setIsModalOpen(true);
     setIsModalClose(false);
     setModalType(type);
+    if (type === 'update') {
+      window.location.hash = 'update';
+    }
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setIsModalClose(true);
+    window.history.pushState(null, null, ' ');
   };
 
   useEffect(() => {
     if (isModalClose) {
       fetchProducts();
     }
-  }, [isModalClose]);
-  
+
+    const handlePopState = () => {
+      if (window.location.hash !== '#update' && isModalOpen) {
+        closeModal();
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [isModalClose, isModalOpen]);
+
   const loadingElement = document.createElement('div');
   const root = ReactDOM.createRoot(loadingElement);
   const container = document.createElement('div');
@@ -230,7 +246,7 @@ export default function Admin() {
                         <tbody>
                           <tr className="text-center">
                             <td colSpan="5" className="py-10">
-                              <span className="text-gray-500 font-semibold">No se encontraron productos que coincidan con tu búsqueda.</span>
+                              <span className="text-gray-500 font-semibold">No se encontraron productos.</span>
                             </td>
                           </tr>
                         </tbody>

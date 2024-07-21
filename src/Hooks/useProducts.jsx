@@ -53,6 +53,34 @@ const useProducts = () => {
     fetchProducts();
   }, [searchParams]);
 
+  
+  const closeModal = () => {
+    setSelectedProduct(null);
+    setIsModalOpen(false);
+    window.history.pushState(null, null, ' ');
+
+  };
+
+  const handleProductSelect = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+      window.location.hash = 'producto';
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      if (window.location.hash !== '#update' && isModalOpen) {
+        closeModal();
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [closeModal, handleProductSelect]);
+  
   useEffect(() => {
     const page = searchParams.get("page") || 1;
     setCurrentPage(Number(page));
@@ -111,16 +139,6 @@ const handleCheckboxChange = (e, key, selectedValues, setSelectedValues) => {
 
   const handleShowAllVehiculos = () => {
     setShowAllVehiculos(!showAllVehiculos);
-  };
-
-  const closeModal = () => {
-    setSelectedProduct(null);
-    setIsModalOpen(false);
-  };
-
-  const handleProductSelect = (product) => {
-    setSelectedProduct(product);
-    setIsModalOpen(true);
   };
 
   const updateSearchParams = (key, values) => {
