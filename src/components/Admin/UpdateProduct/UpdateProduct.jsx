@@ -604,9 +604,9 @@ export default function UpdateProduct({
               </div>
               
               {/* destacados */}
-              <div>
-                <label htmlFor="destacadosUpdate" className="block mb-2 text-sm font-medium text-gray-900" >Producto Destacado</label>
+              <div className='flex gap-2 mb-4'>
                 <input onChange={handleChangeInput} type="checkbox" name="destacados" id="destacadosUpdate" checked={producto.destacados}/>
+                <label htmlFor="destacadosUpdate" className="block text-sm font-medium text-gray-900" >Producto Destacado</label>
               </div>
                 
               {/* Subir Archivo */}
