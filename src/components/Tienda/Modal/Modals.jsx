@@ -58,7 +58,7 @@ const Modals = ({ selectedProduct, closeModal }) => {
                 <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Codigo: </strong>{selectedProduct.cod_producto}</p>
                 <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Descripcion: </strong>{selectedProduct.descripcion}</p>
                 <div className="mt-1 md:mt-4 gap-2 items-center flex flex-col md:flex-row justify-center md:items-start">
-                  <button onClick={(e) => handleAddToCart(e, selectedProduct)} title="Agregar al carrito" className="text-gray-500 mt-2 md:mt-4 py-2  hover:bg-boton-secondary-hover font-medium rounded-lg text-sm px-10 md:py-5 flex items-center justify-center" role="button" aria-label='agregar al carrito'>
+                  <button onClick={(e) => handleAddToCart(e, selectedProduct)} title="Agregar al carrito" className="text-gray-500 mt-2 md:mt-4 py-2  hover:bg-boton-secondary-hover font-medium rounded-lg text-sm px-10 flex items-center justify-center" role="button" aria-label='agregar al carrito'>
                     <svg className="w-5 h-5 -ms-2 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" >
                       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
                     </svg>
