@@ -67,23 +67,14 @@ export default function UpdateProduct({
 
   // Función para manejar clics fuera de los dropdowns y cerrarlos
   const handleClickOutside = (event) => {
-    if (
-      marcaDropdownRef.current &&
-      !marcaDropdownRef.current.contains(event.target)
-    ) {
+    if (marcaDropdownRef.current && !marcaDropdownRef.current.contains(event.target)) {
       setIsDropdownMarcaOpen(false);
     }
-    if (
-      categoriaDropdownRef.current &&
-      !categoriaDropdownRef.current.contains(event.target)
-    ) {
-      setIsDropdownVehiculoOpen(false);
-    }
-    if (
-      vehiculoDropdownRef.current &&
-      !vehiculoDropdownRef.current.contains(event.target)
-    ) {
+    if (categoriaDropdownRef.current && !categoriaDropdownRef.current.contains(event.target)) {
       setIsDropdownCategoriaOpen(false);
+    }
+    if ( vehiculoDropdownRef.current &&!vehiculoDropdownRef.current.contains(event.target)) {
+      setIsDropdownVehiculoOpen(false);
     }
   };
 

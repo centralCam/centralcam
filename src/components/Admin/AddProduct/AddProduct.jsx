@@ -66,23 +66,14 @@ export default function AddProduct({
   
     // Función para manejar clics fuera de los dropdowns y cerrarlos
     const handleClickOutside = (event) => {
-      if (
-        marcaDropdownRef.current &&
-        !marcaDropdownRef.current.contains(event.target)
-      ) {
+      if (marcaDropdownRef.current && !marcaDropdownRef.current.contains(event.target)) {
         setIsDropdownMarcaOpen(false);
       }
-      if (
-        categoriaDropdownRef.current &&
-        !categoriaDropdownRef.current.contains(event.target)
-      ) {
-        setIsDropdownVehiculoOpen(false);
-      }
-      if (
-        vehiculoDropdownRef.current &&
-        !vehiculoDropdownRef.current.contains(event.target)
-      ) {
+      if (categoriaDropdownRef.current && !categoriaDropdownRef.current.contains(event.target)) {
         setIsDropdownCategoriaOpen(false);
+      }
+      if ( vehiculoDropdownRef.current &&!vehiculoDropdownRef.current.contains(event.target)) {
+        setIsDropdownVehiculoOpen(false);
       }
     };
   
@@ -370,40 +361,20 @@ const hasImageChanges = () => {
   
                   {/* Marca */}
                   <div>
-                    <label
-                      htmlFor="marcaAddProduct"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      Marca
-                    </label>
+                    <label  htmlFor="marcaAddProduct" className="block mb-2 text-sm font-medium text-gray-900" >Marca</label>
   
                     <div className="flex gap-4">
-                      <select
-                        onChange={handleChangeInput}
-                        name="marca"
-                        id="marcaAddProduct"
-                        value={producto.marca}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                      >
+                      <select onChange={handleChangeInput} name="marca" id="marcaAddProduct" value={producto.marca} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                         <option value="" hidden>Seleccione una marca</option>
-                        {marcas.map((marca, index) => (
-                          <option key={index} value={marca.brand}>
-                            {marca.brand}
-                          </option>
+                          {marcas.map((marca, index) => (
+                            <option key={index} value={marca.brand}>
+                              {marca.brand}
+                            </option>
                         ))}
                       </select>
   
                       <div className="relative" ref={marcaDropdownRef}>
-                        <button
-                          aria-label="seleccionar marca"
-                          className="text-gray-800 bg-gray-50 hover:bg-gray-200 border border-gray-300 rounded-lg text-sm ml-auto inline-flex items-center w-auto h-full p-3"
-                          onClick={toggleMarca}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") toggleMarca(e);
-                          }}
-                          tabIndex="0"
-                        >
-                          <FaPlus />
+                        <button aria-label="seleccionar marca" className="text-gray-800 bg-gray-50 hover:bg-gray-200 border border-gray-300 rounded-lg text-sm ml-auto inline-flex items-center w-auto h-full p-3" onClick={toggleMarca} onKeyDown={(e) => { if (e.key === "Enter") toggleMarca(e); }} tabIndex="0"><FaPlus />
                         </button>
   
                         {isDropdownMarcaOpen && (
@@ -415,6 +386,7 @@ const hasImageChanges = () => {
                                 id="marcaNueva"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 mb-1"
                                 placeholder="Ingrese una marca nueva"
+                                onClick={(e) => e.stopPropagation()}
                                 onKeyDown={(e) => {
                                   if (e.key === "Enter")
                                     handleAgregarNuevaMarca(
@@ -424,16 +396,7 @@ const hasImageChanges = () => {
                                 }}
                               />
   
-                              <button
-                              aria-label="agregar nueva marca"
-                                onClick={() =>
-                                  handleAgregarNuevaMarca(
-                                    "marca",
-                                    document.getElementById("marcaNueva").value
-                                  )
-                                }
-                                className="w-full rounded-lg m-auto px-4 py-2 text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-500 focus:outline-none focus:ring-4"
-                              >
+                              <button aria-label="agregar nueva marca" onClick={() =>handleAgregarNuevaMarca("marca", document.getElementById("marcaNueva").value)} className="w-full rounded-lg m-auto px-4 py-2 text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-500 focus:outline-none focus:ring-4" >
                                 AGREGAR
                               </button>
                             </div>
@@ -488,8 +451,9 @@ const hasImageChanges = () => {
                                 type="text"
                                 name="categoriaNueva"
                                 id="categoriaNueva"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 mb-1"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 mb-1 z-10"
                                 placeholder="Ingrese una categoría"
+                                onClick={(e) => e.stopPropagation()}
                                 onKeyDown={(e) => {
                                   if (e.key === "Enter")
                                     handleAgregarNuevaCategoria(
@@ -566,6 +530,7 @@ const hasImageChanges = () => {
                                 id="vehiculoNuevo"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 mb-1"
                                 placeholder="Ingrese un vehiculo"
+                                onClick={(e) => e.stopPropagation()}
                                 onKeyDown={(e) => {
                                   if (e.key === "Enter")
                                     handleAgregarNuevoVehiculo(
