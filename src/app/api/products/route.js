@@ -38,6 +38,7 @@ export async function GET(request) {
       normalizeString(product.nombre).includes(normalizedSearch) ||
       normalizeString(product.marca).includes(normalizedSearch) ||
       normalizeString(product.vehiculo).includes(normalizedSearch) ||
+      normalizeString(product.cod_producto).includes(normalizedSearch) ||
       normalizeString(product.categoria).includes(normalizedSearch)
     );
   }
