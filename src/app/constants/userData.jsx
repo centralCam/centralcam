@@ -1,6 +1,6 @@
 const userData = {
     name:'centralcam',
-    contact:2235032141,
+    contact:2236740268,
     codigoPais:54,
     textBoton:'¡Contáctame!',
     email:'infocentralcam@gmail.com',
