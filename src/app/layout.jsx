@@ -6,6 +6,8 @@ import { ShoppingCartProvider } from '@/components/Context/ShoopingCartContext';
 export const metadata = {
   title: "CENTER CAM",
   description: "Venta de Repuestos de camiones",
+  keywords:['repuestos','camiones','mecanica','envios','ecommerce']
+
 };
 
 export default function RootLayout({ children }) {
