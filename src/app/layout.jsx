@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { ShoppingCartProvider } from '@/components/Context/ShoopingCartContext';
 
 export const metadata = {
-  title: 'Central CAM',
+  title: 'CENTRAL CAM',
   description: "Venta de Repuestos de camiones",
   keywords:['repuestos','camiones','mecanica','envios','ecommerce']
 
