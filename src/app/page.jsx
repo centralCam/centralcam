@@ -13,6 +13,7 @@ import Tienda from "@/components/Tienda/Tienda";
 import VolverArriba from "@/components/VolverArriba/VolverArriba";
 import Loading from "@/components/Loading/Loading";
 import SearchBase from "@/components/Search/SearchBase";
+import UnderConstruction from "@/components/sitioEnConstruccion/UnderConstruction";
 
 export default function Home() {
 
@@ -24,17 +25,18 @@ export default function Home() {
         </Suspense>
       </nav>
       <main>
-        <Suspense fallback={<Loading/>}>
+        {/* <Suspense fallback={<Loading/>}>
           <SearchBase />
         </Suspense>
-          <Banner />
+          <Banner /> */}
         <Suspense fallback={<Loading/>}>
-          <Destacados />
-          <Tienda />
+          <UnderConstruction />
+          {/* <Destacados />
+          <Tienda /> */}
         </Suspense>
-          <Carrusel />
-          <Sobre/>
-          <Ubicacion/>
+          {/* <Carrusel />
+          <Sobre/> 
+          <Ubicacion/>*/}
           <Contact />
       </main>
       <footer>
