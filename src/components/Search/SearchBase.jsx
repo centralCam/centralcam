@@ -64,7 +64,7 @@ const SearchBase = ({ inputClassName, placeholder }) => {
         </form>
         {path === '/' && (
           <div className={`relative ${isScrolled ? 'block' : 'hidden'}`}>
-            <Link href='/Shopcart'>
+            <Link href='/Shopcart' title="carrito de compras">
               <div className={`absolute text-white px-2 m-1 rounded-full right-[10px] top-[-15px] ${quantity > 0 ? 'bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active block' : 'bg-transparent hidden'}`}>{quantity}</div>
               <IoCartOutline size={30} className='mx-5 ' />
             </Link>

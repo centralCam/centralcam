@@ -40,10 +40,10 @@ const Modals = ({ selectedProduct, closeModal }) => {
                   <img className="rounded-lg md:w-96 md:h-96" src={mainImage?mainImage:'/images/sinFoto.webp'} alt={selectedProduct.nombre} width={220} height={220} loading='lazy'/>
                 </div>
                 <div className="flex mt-2 justify-center">
-                  {selectedProduct.foto_1_1 && <img className="w-16 h-16 cursor-pointer rounded-lg mr-2 border border-gray-200" src={selectedProduct.foto_1_1} alt={`${selectedProduct.nombre}-thumbnail-2`} onClick={() => handleThumbnailClick(selectedProduct.foto_1_1)} loading='lazy'/>}
-                  {selectedProduct.foto_1_2 && <img className="w-16 h-16 cursor-pointer rounded-lg mr-2 border border-gray-200" src={selectedProduct.foto_1_2} alt={`${selectedProduct.nombre}-thumbnail-3`} onClick={() => handleThumbnailClick(selectedProduct.foto_1_2)} loading='lazy'/>}
-                  {selectedProduct.foto_1_3 && <img className="w-16 h-16 cursor-pointer rounded-lg mr-2 border border-gray-200" src={selectedProduct.foto_1_3} alt={`${selectedProduct.nombre}-thumbnail-3`} onClick={() => handleThumbnailClick(selectedProduct.foto_1_3)} loading='lazy'/>}
-                  {selectedProduct.foto_1_4 && <img className="w-16 h-16 cursor-pointer rounded-lg border border-gray-200" src={selectedProduct.foto_1_4} alt={`${selectedProduct.nombre}-thumbnail-4`} onClick={() => handleThumbnailClick(selectedProduct.foto_1_4)} loading='lazy' />}
+                  {selectedProduct.foto_1_1 && <img className="w-16 h-16 cursor-pointer rounded-lg mr-2 border border-gray-200" src={selectedProduct.foto_1_1} alt={`${selectedProduct.nombre}-thumbnail-1`} onClick={() => handleThumbnailClick(selectedProduct.foto_1_1)} loading='lazy' title={`${selectedProduct.nombre}-thumbnail-1`}/>}
+                  {selectedProduct.foto_1_2 && <img className="w-16 h-16 cursor-pointer rounded-lg mr-2 border border-gray-200" src={selectedProduct.foto_1_2} alt={`${selectedProduct.nombre}-thumbnail-2`} onClick={() => handleThumbnailClick(selectedProduct.foto_1_2)} loading='lazy' title={`${selectedProduct.nombre}-thumbnail-2`}/>}
+                  {selectedProduct.foto_1_3 && <img className="w-16 h-16 cursor-pointer rounded-lg mr-2 border border-gray-200" src={selectedProduct.foto_1_3} alt={`${selectedProduct.nombre}-thumbnail-3`} onClick={() => handleThumbnailClick(selectedProduct.foto_1_3)} loading='lazy' title={`${selectedProduct.nombre}-thumbnail-3`} />}
+                  {selectedProduct.foto_1_4 && <img className="w-16 h-16 cursor-pointer rounded-lg border border-gray-200" src={selectedProduct.foto_1_4} alt={`${selectedProduct.nombre}-thumbnail-4`} onClick={() => handleThumbnailClick(selectedProduct.foto_1_4)} loading='lazy' title={`${selectedProduct.nombre}-thumbnail-4`}/>}
                 </div>
               </div>
 
@@ -64,7 +64,7 @@ const Modals = ({ selectedProduct, closeModal }) => {
                     </svg>
                     AGREGAR
                   </button>
-                  <Link href={enviar} title="" className="text-gray-500 mt-2 md:mt-4 py-2 hover:bg-boton-secondary-hover active:bg-boton-secondary-active font-medium rounded-lg text-sm px-10  flex items-center justify-center" role="button" target="_blank">
+                  <Link href={enviar} title="consultar" className="text-gray-500 mt-2 md:mt-4 py-2 hover:bg-boton-secondary-hover active:bg-boton-secondary-active font-medium rounded-lg text-sm px-10  flex items-center justify-center" role="button" target="_blank">
                     CONSULTAR
                   </Link>
                 </div>

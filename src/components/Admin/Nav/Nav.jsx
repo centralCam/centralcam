@@ -43,8 +43,8 @@ export default function Nav( {handleSelectSection} ) {
   return (
     <div className="border-gray-200 bg-[url('/bg/bg-banner.webp')]">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between flex-row-reverse mx-auto p-4">
-        <a href="#" className="flex items-center space-x-3">
-          <img src="/logos/LogoCentral.webp" className="h-14" alt="Logo central cam" loading='lazy'/>
+        <a href="#" className="flex items-center space-x-3" title='volver al home'> 
+          <img src="/logos/LogoCentral.webp" className="h-14" alt="Logo central cam" loading='lazy' title="Logo central cam"/>
         </a>
         <button
         aria-label="menu navbar"
@@ -124,6 +124,7 @@ export default function Nav( {handleSelectSection} ) {
                   handleSelectSection("Productos");
                   toggleMenu();
                 }}
+                title='Productos'
               >
                 <svg
                   className="w-5 h-5 text-gray-400 "
@@ -151,6 +152,7 @@ export default function Nav( {handleSelectSection} ) {
                   handleSelectSection("Destacados");
                   toggleMenu();
                 }}
+                title='Productos destacados'
               >
                 <svg
                   className="flex-shrink-0 w-5 h-5 text-gray-400 "
@@ -178,6 +180,7 @@ export default function Nav( {handleSelectSection} ) {
                 className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover cursor-pointer group"
                 href={"/"}
                 onClick={toggleMenu}
+                title='Regresar a la Web'
               >
                 <svg
                   className="w-5 h-5 text-gray-400"

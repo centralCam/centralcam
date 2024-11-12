@@ -49,12 +49,12 @@ export default function Contact() {
 
           <div className="flex items-center mt-2 space-x-2 text-dark-600  text-[#000000] ">
             <EnvelopeIcon className="w-4 h-4" />
-            <a href={`mailto:${userData.email}`}>{userData.email}</a>
+            <a href={`mailto:${userData.email}`} title={userData.email}>{userData.email}</a>
           </div>
 
           <div className="flex items-center mt-2 space-x-2 text-dark-600 text-[#000000]">
             <PhoneIcon className="w-4 h-4" />
-            <a href={`tel:+${userData.codigoPais}${userData.contact}`}>+{userData.codigoPais}{userData.contact}</a>
+            <a href={`tel:+${userData.codigoPais}${userData.contact}`} title={userData.contact}>+{userData.codigoPais}{userData.contact}</a>
           </div>
         </article>
         <article>

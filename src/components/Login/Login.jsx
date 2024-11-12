@@ -68,8 +68,8 @@ const Login = () => {
           <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <Link href="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 justify-center">
-                    <img className="mr-2" src={logo.src} width={150} alt="Central cam logo" loading='lazy' />
+                <Link href="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 justify-center" title="CentralCam Logo">
+                    <img className="mr-2" src={logo.src} width={150} alt="Central cam logo" loading='lazy' title="CentralCam Logo" />
                 </Link>
                 <form id='formLogin' className="space-y-4 md:space-y-6" onSubmit={handleSubmit(onSubmit)}>
                   <div>
@@ -98,7 +98,7 @@ const Login = () => {
                         <label htmlFor="remember" className="text-gray-500">Recuérdame</label>
                       </div>
                     </div>
-                    <Link href="/" className="text-sm font-medium text-primary hover:underline">¿Olvidaste tu contraseña?</Link>
+                    <Link href="/" className="text-sm font-medium text-primary hover:underline" title="CentralCam Logo">¿Olvidaste tu contraseña?</Link>
                   </div> */}
                   <button type="submit" className=" flex justify-center w-full text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-2" disabled={loading} aria-label="iniciar sesion">
                   {loading ? <FaSpinner className='animate-spin'/> : 'INICIAR SESION'}

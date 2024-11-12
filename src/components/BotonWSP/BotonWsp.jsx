@@ -31,7 +31,7 @@ const BotonWsp = ({texto}) => {
 
   return (
     <article className="fixed bottom-6 right-6 z-40">
-      <a href={enviar} >
+      <a href={enviar} title="Boton de contacto whatsaap">
         <button rel="noopener noreferrer" className='flex items-center justify-center bg-green-500 text-white font-bold p-4 rounded-full' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} aria-label="Contact via WhatsApp" role="button" data-client={true} >
           <FaWhatsapp className='text-white text-3xl'aria-label="Boton de contacto whatsaap"/>
           {isHovered && <h2 className='ml-2'>{userData.textBoton}</h2>}

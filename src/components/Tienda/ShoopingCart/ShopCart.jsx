@@ -84,6 +84,7 @@ const ShopCart = () => {
           <Link
             href="/"
             className="text-gray-500 bg-transparent hover:bg-gray-200 hover:text-gray-500 rounded-lg text-sm w-10 h-10 ms-auto inline-flex justify-center items-center"
+            title='CARRITO DE CONSULTAS'
           >
             <svg
               className="w-5 h-5"
@@ -127,6 +128,7 @@ const ShopCart = () => {
                         width: "100%",
                         height: "auto",
                       }}
+                      title={item.nombre}
                     />
                     <div className="flex text-sm md:text-base flex-col justify-start pt-6 px-2 pb-2">
                       <p>{item.nombre}</p>
@@ -173,6 +175,7 @@ const ShopCart = () => {
               <Link
                 href="/#productos"
                 className={`col-span-2 underline my-5 ${cart.length ? "block" : "hidden"}`}
+                title='Continuar seleccionando ITEMS'
               >
                 Continuar seleccionando ITEMS
               </Link>

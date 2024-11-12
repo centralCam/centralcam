@@ -206,6 +206,7 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
                   className="w-full object-cover cursor-pointer h-36 max-w-full rounded-lg"
                   onClick={() => handleVerArchivo(archivo)}
                   loading='lazy'
+                  title={archivo.name}
                 />
 
                  <Button
