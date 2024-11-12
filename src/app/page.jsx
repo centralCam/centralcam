@@ -31,8 +31,8 @@ export default function Home() {
           <Banner /> */}
         <Suspense fallback={<Loading/>}>
           <UnderConstruction />
-          {/* <Destacados />
-          <Tienda /> */}
+          {/* <Destacados />*/}
+          <Tienda /> 
         </Suspense>
           {/* <Carrusel />
           <Sobre/> 

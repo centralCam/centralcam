@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import heic2any from "heic2any";
 import Swal from 'sweetalert2';
+import processImage from "@/Utils/proccesImage";
 
 export default function UploadImage({ imagenes, updateImages, handleRemoveImage }) {
 // Inicializar el estado con URLs y archivos
@@ -32,6 +33,7 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
   
   // Verificar si la imagen tiene una relación de aspecto 1:1
   const isAspectRatioOneToOne = (image) => {
+    const img2 = processImage(image)
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.onload = () => {
@@ -46,7 +48,11 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
   // Manejar la selección de archivos
   const handleArchivoSeleccionado = async (e) => {
     const nuevosArchivos = [...archivos];
-    const filesToUpload = e.target.files;
+    const archivito = await processImage(e.target.files)
+    console.log('archivito:', archivito);
+    
+    const filesToUpload = archivito;
+
     
     // Verificar que no se superen los 4 archivos
     if (archivos.length + filesToUpload.length > 4) {
@@ -69,7 +75,7 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
         toast.error("Solo se pueden cargar archivos de imagen.");
         continue;
       }
-  
+      // convertir archivs a webp y recortar para terner una relacion 1:1
       // Convertir HEIC a JPEG si es necesario
       const isHEIC = archivo.type === 'image/heic' || archivo.type === 'image/heif' || archivo.name.endsWith('.heic') || archivo.name.endsWith('.heif');
       if (isHEIC) {
@@ -202,7 +208,7 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
                   loading='lazy'
                 />
 
-                 <button
+                 <Button
                     type="button"
                     aria-label="eliminar archivo"
                     onClick={() => handleEliminarArchivo(index)}
@@ -224,7 +230,7 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
                         d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                       />
                     </svg>
-                  </button>
+                  </Button>
 
               </div>
             ))}
