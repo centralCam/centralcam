@@ -2,137 +2,88 @@ import { NextResponse } from 'next/server';
 import { connectDB } from '../../../lib/mongodb';
 import Producto from '../../../models/product';
 
+// Función para normalizar cadenas y eliminar acentos
+function normalizeString(str) {
+  return str
+    ?.toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
+// Función para filtrar productos basado en múltiples valores
+function filterByField(products, field, values) {
+  if (!values.length) return products;
+  const normalizedValues = values.map(normalizeString);
+  return products.filter(product => 
+    normalizedValues.includes(normalizeString(product[field]))
+  );
+}
+
+// Función para contar ocurrencias por campo
+function countByField(products, field) {
+  return products.reduce((counts, product) => {
+    const value = product[field];
+    if (value) {
+      counts[value] = (counts[value] || 0) + 1;
+    }
+    return counts;
+  }, {});
+}
+
 export async function GET(request) {
   await connectDB();
   const productsData = await Producto.find().lean();
-  
   const { searchParams } = new URL(request.url);
 
-  let filteredProducts = productsData; // Productos que vienen desde MongoDB
+  let filteredProducts = productsData;
 
-  const allproductosDestacados = productsData.filter(prod=> prod.destacados === true )
-  
-  const search = searchParams.get('search') || '';
+  const search = normalizeString(searchParams.get('search') || '');
   const categories = searchParams.getAll('category');
   const brands = searchParams.getAll('brand');
   const vehiculos = searchParams.getAll('vehiculo');
-
   const page = parseInt(searchParams.get('page') || '1');
   const pageSize = parseInt(searchParams.get('pageSize') || '9');
 
-  // const minPrice = parseFloat(searchParams.get('minPrice') || '0'); // Valor por defecto de 0
-  // const maxPrice = parseFloat(searchParams.get('maxPrice') || 'Infinity'); // Valor por defecto de Infinity
+  // Filtrar productos destacados
+  const allproductosDestacados = productsData.filter(prod => prod.destacados === true);
 
-  // Función para normalizar y eliminar acentos
-  function normalizeString(str) {
-    return str
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '');
-  }
-
-  // Aplicar filtro de búsqueda si existe
+  // Filtrar por búsqueda
   if (search) {
-    const normalizedSearch = normalizeString(search);
     filteredProducts = filteredProducts.filter(product =>
-      normalizeString(product.nombre).includes(normalizedSearch) ||
-      normalizeString(product.marca).includes(normalizedSearch) ||
-      normalizeString(product.vehiculo).includes(normalizedSearch) ||
-      normalizeString(product.cod_producto).includes(normalizedSearch) ||
-      normalizeString(product.categoria).includes(normalizedSearch)
+      ['nombre', 'marca', 'vehiculo', 'cod_producto', 'categoria'].some(field =>
+        normalizeString(product[field] || '').includes(search) // Evita errores con campos faltantes
+      )
     );
   }
 
-  // Calcular total de categorías y marcas después del filtro de búsqueda
-  let categoryCounts = {};
-  let brandCounts = {};
-  let vehiculoCounts = {};
+  // Aplicar filtros específicos
+  filteredProducts = filterByField(filteredProducts, 'categoria', categories);
+  filteredProducts = filterByField(filteredProducts, 'marca', brands);
+  filteredProducts = filterByField(filteredProducts, 'vehiculo', vehiculos);
 
-  filteredProducts.forEach(product => {
-    categoryCounts[product.categoria] = (categoryCounts[product.categoria] || 0) + 1;
-    if (categories.length === 0 || categories.includes(product.categoria)) {
-      brandCounts[product.marca] = (brandCounts[product.marca] || 0) + 1;
-    }
-    if (categories.length === 0 || categories.includes(product.categoria)) {
-      vehiculoCounts[product.vehiculo] = (vehiculoCounts[product.vehiculo] || 0) + 1;
-    }
-  });
+  // Calcular conteos de categorías, marcas y vehículos
+  const totalCategories = Object.entries(countByField(productsData, 'categoria')).sort();
+  const totalBrands = Object.entries(countByField(productsData, 'marca')).sort();
+  const totalVehiculos = Object.entries(countByField(productsData, 'vehiculo')).sort();
 
-  let totalCategories = Object.entries(categoryCounts).sort((a, b) => a[0].localeCompare(b[0]));
-  let totalBrands = Object.entries(brandCounts).sort((a, b) => a[0].localeCompare(b[0]));
-  let totalVehiculos = Object.entries(vehiculoCounts).sort((a, b) => a[0].localeCompare(b[0]));
+  const filteredCategories = Object.entries(countByField(filteredProducts, 'categoria')).sort();
+  const filteredBrands = Object.entries(countByField(filteredProducts, 'marca')).sort();
+  const filteredVehiculos = Object.entries(countByField(filteredProducts, 'vehiculo')).sort();
 
-  // Aplicar otros filtros (precio, categorías, marcas)
-  // if (minPrice) {
-  //   filteredProducts = filteredProducts.filter(product => product.precio >= minPrice);
-  // }
-  // if (maxPrice) {
-  //   filteredProducts = filteredProducts.filter(product => product.precio <= maxPrice);
-  // }
-
-  if (categories.length > 0) {
-    filteredProducts = filteredProducts.filter(product => 
-      categories.map(cat => cat.toLowerCase()).includes(product.categoria.toLowerCase())
-    );
-  }
-
-  if (brands.length > 0) {
-    filteredProducts = filteredProducts.filter(product => 
-      brands.map(brand => brand.toLowerCase()).includes(product.marca.toLowerCase())
-    );
-  }
-
-  if (vehiculos.length > 0) {
-    filteredProducts = filteredProducts.filter(product => 
-      vehiculos.map(vehiculo => vehiculo.toLowerCase()).includes(product.vehiculo.toLowerCase())
-    );
-  }
-
-  // Calcular los conteos después de aplicar todos los filtros
-  let filteredCategoryCounts = {};
-  let filteredBrandCounts = {};
-  let filteredVehiculoCounts = {};
-
-  filteredProducts.forEach(product => {
-    filteredCategoryCounts[product.categoria] = (filteredCategoryCounts[product.categoria] || 0) + 1;
-    filteredBrandCounts[product.marca] = (filteredBrandCounts[product.marca] || 0) + 1;
-    filteredVehiculoCounts[product.vehiculo] = (filteredVehiculoCounts[product.vehiculo] || 0) + 1;
-  });
-
-  const filteredCategories = Object.entries(filteredCategoryCounts).sort((a, b) => a[0].localeCompare(b[0]));
-  const filteredBrands = Object.entries(filteredBrandCounts).sort((a, b) => a[0].localeCompare(b[0]));
-  const filteredVehiculos = Object.entries(filteredVehiculoCounts).sort((a, b) => a[0].localeCompare(b[0]));
-
-  // Paginar productos
+  // Paginar resultados
   const startIndex = (page - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + pageSize);
   const totalPage = Math.ceil(filteredProducts.length / pageSize);
-
-  // Obtener el precio mínimo y máximo de los productos filtrados
-  // const filteredMinPrice = Math.min(...filteredProducts.map(product => product.precio));
-  // const filteredMaxPrice = Math.max(...filteredProducts.map(product => product.precio));
-
-  // Obtener el precio mínimo y máximo de todos los productos
-  // const totalMinPrice = Math.min(...productsData.map(product => product.precio));
-  // const totalMaxPrice = Math.max(...productsData.map(product => product.precio));
 
   return NextResponse.json({
     products: paginatedProducts,
     totalPage,
     allproductosDestacados,
-
     totalBrands: totalBrands.map(([brand, count]) => ({ brand, count })),
     totalCategories: totalCategories.map(([category, count]) => ({ category, count })),
     totalVehiculos: totalVehiculos.map(([vehiculo, count]) => ({ vehiculo, count })),
-
     filteredBrands: filteredBrands.map(([brand, count]) => ({ brand, count })),
     filteredCategories: filteredCategories.map(([category, count]) => ({ category, count })),
     filteredVehiculos: filteredVehiculos.map(([vehiculo, count]) => ({ vehiculo, count })),
-
-    // minPrice: filteredMinPrice,
-    // maxPrice: filteredMaxPrice,
-    // totalMinPrice,
-    // totalMaxPrice
   });
 }

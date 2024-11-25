@@ -7,6 +7,7 @@ import useProducts from "@/Hooks/useProducts";
 import SkeletonDestacado from "../Tienda/Card/SkeletonDestacados";
 import CardDestacado from "../Tienda/Card/CardDestacado";
 import Modals from "../Tienda/Modal/Modals";
+import Loading from "../Loading/Loading";
 
 const DemoComponent = () => {
   const flickingRef = useRef(null);
@@ -44,7 +45,7 @@ const DemoComponent = () => {
   }
 
   return (
-    <Suspense fallback={<div>Cargando...</div>}>
+    <Suspense fallback={<Loading/>}>
       <section className="text-center max-w-6xl mx-auto" id="marcasDestacado">
         <article>
           {isModalOpen && selectedProduct && <Modals closeModal={closeModal} selectedProduct={selectedProduct} />}

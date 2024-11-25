@@ -160,7 +160,7 @@ export default function Admin() {
   };
 
   return (
-    <Suspense fallback={<div>Cargando...</div>}>
+    <Suspense fallback={<Loading/>}>
       <div className="flex flex-col min-h-screen">
         <Nav handleSelectSection={handleSelectSection} />
         {section === 'Productos' && (

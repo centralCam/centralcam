@@ -26,16 +26,16 @@ export default function Home() {
       </nav>
       <main>
         <Suspense fallback={<Loading/>}>
-          {/* <SearchBase /> */}
+          <SearchBase />
         </Suspense>
-          {/* <Banner /> */}
+          <Banner />
         <Suspense fallback={<Loading/>}>
-          <UnderConstruction />
-          {/* <Destacados /> */}
-          {/* <Tienda /> */}
+          {/* <UnderConstruction /> */}
+          <Destacados />
+          <Tienda />
         </Suspense>
-          {/* <Carrusel /> */}
-          {/* <Sobre/> */}
+          <Carrusel />
+          <Sobre/>
           <Ubicacion/>
           <Contact />
       </main>

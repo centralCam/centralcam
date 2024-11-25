@@ -6,6 +6,7 @@ import Modals from "./Modal/Modals";
 import Dropdown from "./Dropdown/Dropdown";
 import Filtros from "./Filtros/Filtros";
 import useProducts from "@/Hooks/useProducts";
+import Loading from '../Loading/Loading';
 
 export default function Tienda() {
   const {
@@ -38,7 +39,7 @@ export default function Tienda() {
   } = useProducts();
 
   return (
-      <Suspense fallback={<div>Cargando...</div>}>
+      <Suspense fallback={<Loading/>}>
         <section className="text-center flex flex-col gap-2 bg-primary-background m-w-[1600px] " id="productos">
           <Pagination 
             count={totalPages} 

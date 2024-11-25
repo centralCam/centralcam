@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Checkbox from '../CheckboxDestacados/CheckboxDestacados';
 import useProducts from '@/Hooks/useProducts';
+import Loading from '@/components/Loading/Loading';
 
 function TablaDestacados() {
   const [products, setProducts] = useState([]);
@@ -36,7 +37,7 @@ function TablaDestacados() {
   };
 
   return (
-    <Suspense fallback={<div>Cargando...</div>}>
+    <Suspense fallback={<Loading/>}>
       <div className="text-center">
         <h1 className="text-2xl font-bold mb-5">Productos Destacados</h1>
         <div className="overflow-x-auto">
