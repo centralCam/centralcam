@@ -6,7 +6,7 @@ const Sobre = () => {
   return (
     <div style={{textAlign:"-webkit-center"}}>
       <SobreMi />
-      <PreguntasFrecuentes />
+      {/* <PreguntasFrecuentes /> */}
     </div>
   );
 };

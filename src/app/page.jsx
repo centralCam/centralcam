@@ -34,7 +34,7 @@ export default function Home() {
           <Destacados />
           <Tienda />
         </Suspense>
-          <Carrusel />
+          {/* <Carrusel /> */}
           <Sobre/>
           <Ubicacion/>
           <Contact />
