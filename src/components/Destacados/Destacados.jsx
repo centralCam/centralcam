@@ -2,6 +2,7 @@
 import React, { useRef, Suspense } from "react";
 import Flicking, { ViewportSlot } from "@egjs/react-flicking";
 import { Arrow } from "@egjs/flicking-plugins";
+import "@egjs/react-flicking/dist/flicking.css";
 import "@egjs/flicking-plugins/dist/arrow.css";
 import useProducts from "@/Hooks/useProducts";
 import SkeletonDestacado from "../Tienda/Card/SkeletonDestacados";
@@ -22,47 +23,40 @@ const DemoComponent = () => {
     isLoading,
   } = useProducts();
 
+  // Generar contenido del slider
+  const renderSliderContent = () => {
+    if (isLoading) {
+      return Array.from({ length: 4 }, (_, index) => (
+        <div key={index} className="flicking-panel m-8 transition-transform transform hover:scale-105 w-64 p-6" >
+          <SkeletonDestacado />
+        </div>
+      ));
+    }
 
-  // Render skeleton content while loading
-  const skeletonContent = [...Array(4)].map((_, index) => (
-    <div key={index} className="m-8 transition-transform transform hover:scale-105 w-64 p-6">
-      <SkeletonDestacado />
-    </div>
-  ));
+    if (allDestacados.length === 0) return null;
 
-  // Determine content to render based on isLoading and allDestacados
-  let sliderContent;
-  if (isLoading) {
-    sliderContent = skeletonContent;
-  } else if (allDestacados.length === 0) {
-    sliderContent = null;
-  } else {
-    sliderContent = allDestacados.map((item, i) => (
-      <div key={i} className="items-center justify-center m-8 transition-transform transform hover:scale-105 w-64 p-6">
+    return allDestacados.map((item, i) => (
+      <div key={i} className="flicking-panel m-8 transition-transform transform hover:scale-105 w-64 p-6">
         <CardDestacado selectedProduct={item} handleProductSelect={handleProductSelect} />
       </div>
     ));
-  }
+  };
 
   return (
-    <Suspense fallback={<Loading/>}>
-      <section className="text-center max-w-6xl mx-auto" id="marcasDestacado">
-        <article>
-          {isModalOpen && selectedProduct && <Modals closeModal={closeModal} selectedProduct={selectedProduct} />}
-        </article>
-        <article>
-          {sliderContent ? (
-            <Flicking circular={true} ref={flickingRef} plugins={pluginsRef.current} defaultIndex={Math.floor(sliderContent.length / 3)}>
-              <ViewportSlot>
-                <span className="flicking-arrow-prev"></span>
-                <span className="flicking-arrow-next"></span>
-              </ViewportSlot>
-              {sliderContent}
-            </Flicking>
-          ) : (
-            null
-          )}
-        </article>
+    <Suspense fallback={<Loading />}>
+      <section className="text-center max-w-7xl mx-auto" id="marcasDestacado">
+        {isModalOpen && selectedProduct && (
+          <Modals closeModal={closeModal} selectedProduct={selectedProduct} />
+        )}
+        {allDestacados.length > 0 && (
+          <Flicking circular ref={flickingRef} plugins={pluginsRef.current} defaultIndex={Math.floor(allDestacados.length / 3)} className="flex overflow-hidden whitespace-nowrap">
+            <ViewportSlot>
+              <span className="flicking-arrow-prev rounded-full"></span>
+              <span className="flicking-arrow-next"></span>
+            </ViewportSlot>
+            {renderSliderContent()}
+          </Flicking>
+        )}
       </section>
     </Suspense>
   );

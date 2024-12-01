@@ -44,9 +44,13 @@ const CardDestacado = ({ selectedProduct, handleProductSelect }) => {
               </div>      
             </div>
             <div className="px-5 pb-2">
-              <h2 className="lg:text-lg text-sm text-start leading-tight pb-1 font-semibold tracking-tight text-gray-900 ">{selectedProduct.titulo_de_producto}</h2>
+            <h2 className="text-xs md:text-sm text-start leading-tight pb-1 font-semibold tracking-tight text-gray-900 capitalize">
+              {selectedProduct.titulo_de_producto.length > 26
+                ? `${selectedProduct.titulo_de_producto.slice(0, 22)}...`
+                : selectedProduct.titulo_de_producto}
+            </h2>
               <div className=" flex items-center justify-between gap-2">
-                  <span className="text-md font-bold text-gray-900 ">{selectedProduct.marca}</span>
+                  <p className="text-xs md:text-sm font-bold text-gray-900 ">{selectedProduct.marca}</p>
                   <a href={enviar} className="w-full text-white font-medium rounded-lg text-sm px-3 py-1.5 text-center bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active" target='_blank' title='Consulta'>Consulta</a>
               </div>
             </div>
