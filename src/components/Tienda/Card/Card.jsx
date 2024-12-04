@@ -40,7 +40,7 @@ const Card = ({ product, handleProductSelect }) => {
               <button onClick={(e)=>handleAddToCart(e,product)} className="absolute top-1 right-1 inline-flex items-center justify-center w-8 h-8 bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active rounded-full text-white z-10">
                 <IconShoopingCart ancho={icon.ancho} alto={icon.alto} color={icon.color} aria-label="agregar al carrito" />
               </button>
-              <img className="rounded-t-lg h-[8.8rem] w-[8.8rem] xs:w-36 xs:h-36 sm:w-44 sm:h-44 lg:w-52 lg:h-52 xl:w-64 xl:h-64 p-2 md:w-60 md:h-60 object-cover" src={product.foto_1_1 ? product.foto_1_1 : '/images/sinFoto.webp'} alt={product.nombre} title={product.nombre} loading="lazy" />
+              <img className="rounded-t-lg w-full xs:w-36 xs:h-36 sm:w-44 sm:h-44 lg:w-52 lg:h-52 xl:w-64 xl:h-64 p-1 md:w-60 md:h-60 object-cover" src={product.foto_1_1 ? product.foto_1_1 : '/images/sinFoto.webp'} alt={product.nombre} title={product.nombre} loading="lazy" />
             </div>
             <p className="top-[-20px] text-end text-gray-700 px-2 font-extralight text-xs z-10"><strong>Cod: </strong>{product.cod_producto}</p>
           </div>

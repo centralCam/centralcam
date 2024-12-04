@@ -17,7 +17,7 @@ const Banner = () => {
           CENTRAL CAM<br/>REPUESTOS
         </h2>
         <h1 className="text-lg sm:text-xl text-white font-semibold">La más amplia variedad de repuestos para camiones:</h1>
-        <span className="text-md md:text-xl text-white font-semibold">calidad, durabilidad y confiabilidad en cada pieza.</span>
+        <h2 className="text-md md:text-xl text-white font-semibold">calidad, durabilidad y confiabilidad en cada pieza.</h2>
       </article>
     </section>
   );
