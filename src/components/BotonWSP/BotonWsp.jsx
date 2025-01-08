@@ -7,7 +7,7 @@ import userData from "@/app/constants/userData";
 // crear userData en /constants
 // const userData = {
 //   name:'Starcam',
-//   contact:92235032141,
+//   contact:2235032141,
 //   codigoPais:54,
 //   textBoton:'¡Contáctame!',
 //   email:'starcaminfo@gmail.com',
