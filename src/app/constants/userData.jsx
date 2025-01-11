@@ -1,9 +1,9 @@
 const userData = {
-    name:'centralcam',
-    contact:2235032141,
+    name:'eshop',
+    contact:1136317470,
     codigoPais:54,
     textBoton:'¡Contáctame!',
-    email:'infocentralcam@gmail.com',
+    email:'infoeshop@gmail.com',
     textoPredefinido:'Hola, me gustaria consultar sobre, '
 };
 
