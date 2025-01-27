@@ -10,25 +10,26 @@ const PreguntasFrecuentes = () => {
   const faqData = [
     {
       id: 1,
-      question: "¿Como realizamos el envio?",
+      question: "¿Qué tipo de repuestos para camiones venden?",
       answer:
-        "Realizamos el envío a través de servicios de mensajería confiables y rápidos. Nos aseguramos de que tu producto llegue en las mejores condiciones y en el menor tiempo posible.",
-      linkText: "Más información sobre nuestros envíos",
-      linkUrl: "./docs/envios.pdf",
+        "Ofrecemos piezas como frenos, embragues, filtros, repuestos para motores, luces, y más. Trabajamos con marcas reconocidas en el mercado.",
     },
     {
       id: 2,
-      question: "¿Que garantía tiene el producto?",
+      question: "¿Hacen envíos a todo el país?",
       answer:
-        "Todos nuestros productos tienen una garantía completa de satisfacción. Estamos comprometidos con la calidad y ofrecemos garantía contra defectos de fabricación.",
-      linkText: "Consulta nuestra política de garantía",
-      linkUrl: "./docs/garantia.pdf",
+        "Sí, realizamos envíos rápidos y seguros a cualquier lugar de Argentina, asegurando que tus repuestos lleguen en perfectas condiciones.",
     },
     {
       id: 3,
-      question: "¿Qué medios de pago utilizamos?",
+      question: "¿Dónde están ubicados?",
       answer:
-        "Aceptamos una variedad de métodos de pago seguros, incluyendo tarjetas de crédito/débito y servicios de pago en línea.",
+        "Estamos en Mar del Plata, en Av. Champagnat 1167, pero atendemos a clientes de toda Argentina a través de nuestra tienda online.",
+    },{
+      id: 4,
+      question: "¿Aceptan todos los medios de pago?",
+      answer:
+        "Sí, aceptamos tarjetas de crédito, débito, transferencias bancarias y efectivo.",
     },
   ];
 

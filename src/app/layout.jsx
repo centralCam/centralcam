@@ -5,7 +5,7 @@ import { ShoppingCartProvider } from '@/components/Context/ShoopingCartContext';
 
 export const metadata = {
   title: 'CENTRAL CAM | Venta de Repuestos para Camiones y Vehículos Pesados',
-  description: "Central CAM es tu proveedor confiable de repuestos de alta calidad para camiones y vehículos pesados. Ofrecemos una amplia gama de repuestos y accesorios para mantener tus vehículos en óptimas condiciones, con envío rápido, atención personalizada y presupuestos gratuitos.",
+  description: "En CENTRAL CAM, vendemos repuestos para camiones y transporte pesado en Mar del Plata, Argentina. Envíos rápidos a todo el país. ¡Calidad y confianza garantizadas!",
   keywords: 'repuestos para camiones, vehículos pesados, mecánica, piezas de camiones, accesorios, envíos rápidos, ecommerce, Central CAM',
   charSet: 'UTF-8',
   icons: '/favicon.ico',
@@ -15,7 +15,7 @@ export const metadata = {
   publisher: 'CENTRAL CAM | Venta de Repuestos para Camiones y Vehículos Pesados',
   openGraph: {
     title: 'CENTRAL CAM | Venta de Repuestos para Camiones y Vehículos Pesados',
-    description: "Encuentra en Central CAM una amplia gama de repuestos y accesorios para camiones y vehículos pesados. Calidad garantizada y envíos a todo el país.",
+    description: "En CENTRAL CAM, vendemos repuestos para camiones y transporte pesado en Mar del Plata, Argentina. Envíos rápidos a todo el país. ¡Calidad y confianza garantizadas!",
     type: 'website',
     url: 'https://centralcamshop.com/',
     image: 'https://centralcamshop.com/logos/LogoCentral.webp',

@@ -1,8 +1,9 @@
+import Link from "next/link";
 import React from "react";
 
 const SobreMi = () => {
 
-  const info='En <strong class="text-text-danger font-bold">CENTRAL CAM</strong>, ofrecemos una amplia selección de repuestos para camiones, asegurando calidad, durabilidad y confiabilidad en cada pieza. Ubicados en Mar del Plata, tenemos una vasta experiencia en la industria, lo que nos permite entender y satisfacer las necesidades de nuestros clientes.'
+  const info='En <strong className="text-text-danger font-bold">CENTRAL CAM</strong>,  somos especialistas en la venta de <strong>repuestos para camiones</strong> y vehículos de <strong>transporte pesado</strong> en Mar del Plata, Argentina. Contamos con una amplia variedad de piezas de alta calidad, incluyendo sistemas de frenos, embragues, motores, filtros y más. Nuestro compromiso es garantizar la <strong>seguridad y el rendimiento</strong> de tu flota, ofreciendo <strong>envíos rápidos</strong> a todo el país, atención personalizada y precios competitivos.'
   const ofrece = [
     "Envíos a todo el país",
     "Garantía de calidad",
@@ -11,12 +12,15 @@ const SobreMi = () => {
   ];
 
   return (
-    <section id="sobre" className="shadow-xl shadow-blue-50" style={{textAlign:"-webkit-center"}}>
-      <section className="bg-primary-background">
+    <section id="sobre" className="shadow-xl shadow-blue-50 " style={{textAlign:"-webkit-center"}}>
+      <article className="bg-primary-background">
         <div className="py-8 px-8 mx-auto max-w-screen-xl  sm:py-16 lg:px-6">
-          <div className="max-w-screen-md">
+          <div className="max-w-screen-xl">
             <h2 className="mb-4  text-3xl md:text-4xl text-center md:text center tracking-tight font-extrabold text-text-primary-title">Acerca de Nosotros</h2>
-            <p className="mb-8 text-gray-500 sm:text-lg font-light" dangerouslySetInnerHTML={{ __html: info }}></p>
+            <p className="mb-8 text-gray-700 sm:text-lg font-light" dangerouslySetInnerHTML={{ __html: info }}></p>
+            <Link href={'/nosotros'}>
+              <button className="text-white font-medium rounded-lg text-sm px-3 py-1.5 text-center bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active" target='_blank' title='Consulta'>Ver mas</button>
+            </Link>
             <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
               <div>
                 <h2 className="mb-2 text-lg text-start font-semibold text-text-primary-title">¿Qué ofrecemos?</h2>
@@ -34,7 +38,7 @@ const SobreMi = () => {
             </div>
           </div>
         </div>
-      </section>
+      </article>
     </section>
   );
 };
