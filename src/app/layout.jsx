@@ -11,7 +11,7 @@ export const metadata = {
   icons: '/favicon.ico',
   manifest: '/manifest.json',
   robots: '/robots.txt',
-  authors: [{ name: 'Programundo', url: 'https://gonzalotorresgrau.com' }],
+  authors: [{ name: 'Gonzalo Torres Grau', url: 'https://gonzalotorresgrau.com' }],
   publisher: 'CENTRAL CAM | Venta de Repuestos para Camiones y Vehículos Pesados',
   openGraph: {
     title: 'CENTRAL CAM | Venta de Repuestos para Camiones y Vehículos Pesados',
