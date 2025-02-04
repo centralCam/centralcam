@@ -11,7 +11,7 @@ export const metadata = {
   icons: '/favicon.ico',
   manifest: '/manifest.json',
   robots: '/robots.txt',
-  authors: [{ name: 'Programundo', url: 'https://programundo.dev' }],
+  authors: [{ name: 'Programundo', url: 'https://gonzalotorresgrau.com' }],
   publisher: 'CENTRAL CAM | Venta de Repuestos para Camiones y Vehículos Pesados',
   openGraph: {
     title: 'CENTRAL CAM | Venta de Repuestos para Camiones y Vehículos Pesados',
@@ -34,6 +34,8 @@ export default function RootLayout({ children }) {
         <meta name="author" content={metadata.authors[0].name} />
         <meta name="robots" content="index, follow" />
         <meta name="publisher" content={metadata.publisher} />
+        <meta name="geo.region" content="ES-ar" />
+        <meta name="geo.placename" content="Mar del Plata, Buenos Aires, Argentina" />
 
         {/* Open Graph Meta Tags */}
         <meta property="og:title" content={metadata.openGraph.title} />
