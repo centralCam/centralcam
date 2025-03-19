@@ -6,6 +6,7 @@ export async function PUT(request) {
   await connectDB();
 
   const data = await request.formData();
+  //console.log('data en back:', data)
   const productData = {};
   data.forEach((value, key) => {
     productData[key] = key === 'destacados' ? (value === 'true') : value;

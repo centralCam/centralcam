@@ -223,7 +223,7 @@ export default function Admin() {
                               <th scope="row" className="px-1 py-6 md:px-4 md:py-4 font-medium text-gray-900 whitespace-nowrap">{product.nombre}</th>
                               <td scope="row" className="px-1 py-6 md:px-4 md:py-4 hidden md:table-cell">{product.categoria}</td>
                               <td scope="row" className="px-1 py-6 md:px-4 md:py-4 hidden md:table-cell">{product.marca}</td>
-                              <td scope="row" title={product.descripcion} className="px-1 py-1 md:px-4 md:py-3 text-center text-ellipsis hidden lg:table-cell">{product.descripcion.length > 50 ? `${product.descripcion.slice(0, 50)}...` : product.descripcion}</td>
+                              <td scope="row" title={product.descripcion} className="px-1 py-1 md:px-4 md:py-3 text-center text-ellipsis hidden lg:table-cell">{product.descripcion ? (product.descripcion.length > 50 ? `${product.descripcion.slice(0, 50)}...` : product.descripcion) : "Sin descripción"}</td>
                               <td scope="row" className="px-1 py-6 md:px-4 md:py-4">
                                 <div className="flex justify-evenly items-center mx-1">
                                   <button

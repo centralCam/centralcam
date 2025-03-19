@@ -338,7 +338,7 @@ const hasImageChanges = () => {
                       htmlFor="nombre"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
-                      Nombre
+                      Nombre<span className='text-red-500'>*</span>
                     </label>
                     <div className='flex'>
 
@@ -361,7 +361,7 @@ const hasImageChanges = () => {
   
                   {/* Marca */}
                   <div>
-                    <label  htmlFor="marcaAddProduct" className="block mb-2 text-sm font-medium text-gray-900" >Marca</label>
+                    <label  htmlFor="marcaAddProduct" className="block mb-2 text-sm font-medium text-gray-900" >Marca<span className='text-red-500'>*</span></label>
   
                     <div className="flex gap-4">
                       <select onChange={handleChangeInput} name="marca" id="marcaAddProduct" value={producto.marca} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
@@ -412,7 +412,7 @@ const hasImageChanges = () => {
                       htmlFor="categoriaAdd"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
-                      Categoría
+                      Categoría<span className='text-red-500'>*</span>
                     </label>
   
                     <div className="flex gap-4">
@@ -489,7 +489,7 @@ const hasImageChanges = () => {
                       htmlFor="vehiculoAdd"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
-                      Vehiculo
+                      Vehiculo<span className='text-red-500'>*</span>
                     </label>
   
                     <div className="flex gap-4">
@@ -566,7 +566,7 @@ const hasImageChanges = () => {
                       htmlFor="modeloAdd"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
-                      Modelo
+                      Modelo<span className='text-red-500'>*</span>
                     </label>
                     <input
                       onChange={handleChangeInput}
@@ -585,7 +585,7 @@ const hasImageChanges = () => {
                       htmlFor="n_serieAdd"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
-                      Numero de serie
+                      Numero de serie<span className='text-red-500'>*</span>
                     </label>
                     <input
                       onChange={handleChangeInput}
@@ -642,7 +642,7 @@ const hasImageChanges = () => {
                       htmlFor="descripcionAdd"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
-                      Descripción
+                      Descripción<span className='text-red-500'>*</span>
                     </label>
                     <textarea
                       onChange={handleChangeInput}

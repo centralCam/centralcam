@@ -34,24 +34,23 @@ export default function UpdateProduct({
     _id: product._id,
     n_producto: product.n_producto,
     cod_producto: product.cod_producto,
-    marca: product.marca,
+    marca: product.marca || 'Generico',
     vehiculo: product.vehiculo,
     categoria: product.categoria,
     nombre: product.nombre,
     modelo: product.modelo,
     n_serie: product.n_serie || "",
-    titulo_de_producto: product.titulo_de_producto,
-    vehiculo: product.vehiculo,
-    _id: product._id,
-    destacados:product.destacados,
-    descripcion: product.descripcion,
-    n_electronica:product.n_electronica || '',
-    medidas:product.medidas || '',
+    titulo_de_producto: product.titulo_de_producto || "",
+    descripcion: product.descripcion || "",
+    n_electronica: product.n_electronica || '',
+    medidas: product.medidas || '',
     foto_1_1: product.foto_1_1 || "",
     foto_1_2: product.foto_1_2 || "",
     foto_1_3: product.foto_1_3 || "",
     foto_1_4: product.foto_1_4 || "",
-  });
+    destacados: product.destacados ?? false, // Asegura que siempre tenga un valor booleano
+});
+
 
   const marcaDropdownRef = useRef(null);
   const categoriaDropdownRef = useRef(null);
@@ -81,11 +80,13 @@ export default function UpdateProduct({
   // Función para manejar cambios en los inputs del formulario del producto
   const handleChangeInput = (e) => {
     const { name, value, type, checked } = e.target;
+    //console.log('valor:',name,value)
     setProducto((prevState) => ({
       ...prevState,
       [name]: type === "checkbox" ? checked : value,
+      titulo_de_producto:`${producto.nombre} ${producto.marca} para ${producto.vehiculo}`
     }));
-  };
+};
 
 
   // Función para alternar la visibilidad del dropdown de marca
@@ -109,6 +110,7 @@ export default function UpdateProduct({
 
   // Función para agregar una nueva marca a la lista de marcas disponibles
   const handleAgregarNuevaMarca = (campo, valorNuevo) => {
+    //console.log('valor nuevo:', valorNuevo)
     setMarcas([...marcas, { brand: valorNuevo }]);
     setIsDropdownMarcaOpen(false);
   };
@@ -204,14 +206,11 @@ export default function UpdateProduct({
     // Filtrar solo las propiedades que no están vacías o que tienen algún valor
     const filteredProducto = {};
     Object.keys(producto).forEach((key) => {
-      if (
-        producto[key] !== undefined &&
-        producto[key] !== null &&
-        producto[key] !== ""
-      ) {
+      if (producto[key] !== undefined && producto[key] !== null && (typeof producto[key] === "boolean" || producto[key] !== "")) {
         filteredProducto[key] = producto[key];
       }
     });
+    
 
     // Crear FormData y agregar propiedades del producto filtrado
     const formData = new FormData();
@@ -229,6 +228,7 @@ export default function UpdateProduct({
          Swal.showLoading();
        },
      });
+      //console.log("Producto a enviar:", filteredProducto);
       const res = await fetch("api/updateProduct", {
       method: "PUT",
       body: formData,
@@ -246,7 +246,7 @@ export default function UpdateProduct({
     toggleModal(); // Cerrar modal de edición
 
     // Manejar la respuesta si es necesario
-    console.log(data.descripcion, "dataaaaaa");
+    //console.log(data, "dataaaaaa");
   } catch (error) {
     // Cerrar SweetAlert en caso de error
     Swal.fire({
@@ -286,7 +286,7 @@ export default function UpdateProduct({
                <div className="grid gap-4 mb-4 sm:grid-cols-2">       
               {/* Nombre */}
                 <div>
-                  <label htmlFor="nombreUpdate" className="block mb-2 text-sm font-medium text-gray-900" >Nombre</label>
+                  <label htmlFor="nombreUpdate" className="block mb-2 text-sm font-medium text-gray-900" >Nombre<span className='text-red-500'>*</span></label>
                   <div className="flex">
                     <input onChange={handleChangeInput} type="text" name="nombre" id="nombreUpdate" value={producto.nombre} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Nombre del producto"/>
                     {producto.destacados
@@ -297,7 +297,8 @@ export default function UpdateProduct({
 
                 {/* Marca */}
                 <div>
-                  <label htmlFor="marcaUpdate" className="block mb-2 text-sm font-medium text-gray-900">Marca</label>
+                  <label htmlFor="marcaUpdate" className="block mb-2 text-sm font-medium text-gray-900">Marca<span className='text-red-500'>*</span></label>
+
                   <div className="flex gap-4">
                     <select onChange={handleChangeInput} name="marca" id="marcaUpdate" value={producto.marca} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" >
                       {marcas.map((marca, index) => (
@@ -329,6 +330,7 @@ export default function UpdateProduct({
                               id="marcaNueva"
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 mb-1"
                               placeholder="Ingrese una marca nueva"
+                              onClick={(e) => e.stopPropagation()}
                               onKeyDown={(e) => {
                                 if (e.key === "Enter")
                                   handleAgregarNuevaMarca(
@@ -363,7 +365,7 @@ export default function UpdateProduct({
                     htmlFor="categoriaUpdate"
                     className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                    Categoría
+                    Categoría<span className='text-red-500'>*</span>
                   </label>
 
                   <div className="flex gap-4">
@@ -438,7 +440,7 @@ export default function UpdateProduct({
                     htmlFor="vehiculoUpdate"
                     className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                    Vehiculo
+                    Vehiculo<span className='text-red-500'>*</span>
                   </label>
 
                   <div className="flex gap-4">
@@ -514,7 +516,7 @@ export default function UpdateProduct({
                     htmlFor="modeloUpdate"
                     className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                    Modelo
+                    Modelo<span className='text-red-500'>*</span>
                   </label>
                   <input
                     onChange={handleChangeInput}
@@ -533,7 +535,7 @@ export default function UpdateProduct({
                     htmlFor="n_serieUpdate"
                     className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                    Numero de serie
+                    Numero de serie<span className='text-red-500'>*</span>
                   </label>
                   <input
                     onChange={handleChangeInput}
@@ -581,7 +583,7 @@ export default function UpdateProduct({
 
                 {/* Descripción */}
                 <div className="sm:col-span-2">
-                  <label htmlFor="descripcionUpdate" className="block mb-2 text-sm font-medium text-gray-900" >Descripción</label>
+                  <label htmlFor="descripcionUpdate" className="block mb-2 text-sm font-medium text-gray-900" >Descripción<span className='text-red-500'>*</span></label>
                   <textarea
                     onChange={handleChangeInput}
                     id="descripcionUpdate"

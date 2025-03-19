@@ -2,7 +2,6 @@
 import React, { Suspense } from "react";
 import Banner from "@/components/Banner/Banner";
 import BotonWsp from "@/components/BotonWSP/BotonWsp";
-import Carrusel from "@/components/Carrusel/Carrusel";
 import Destacados from "@/components/Destacados/Destacados";
 import Contact from "@/components/Contact/Contact";
 import Footer from "@/components/Footer/Footer";
@@ -13,7 +12,7 @@ import Tienda from "@/components/Tienda/Tienda";
 import VolverArriba from "@/components/VolverArriba/VolverArriba";
 import Loading from "@/components/Loading/Loading";
 import SearchBase from "@/components/Search/SearchBase";
-import UnderConstruction from "@/components/sitioEnConstruccion/UnderConstruction";
+//import UnderConstruction from "@/components/sitioEnConstruccion/UnderConstruction";
 
 export default function Home() {
 
