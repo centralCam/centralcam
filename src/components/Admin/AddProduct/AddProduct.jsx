@@ -113,6 +113,7 @@ export default function AddProduct({
     
     // Función para agregar una nueva categoría a la lista de categorías disponibles
     const handleAgregarNuevaCategoria = (campo, valorNuevo) => {
+        console.log(valorNuevo)
         setCategorias([...categorias, { category: valorNuevo }]);
         setIsDropdownCategoriaOpen(false);
     };
@@ -200,7 +201,7 @@ const hasImageChanges = () => {
     // Función para enviar el formulario actualizado del producto
     const submitAddProduct = async (e) => {
       e.preventDefault();
-      //console.log(producto,'submit')
+      console.log('submit',producto)
       
       //   // Validación básica del campo nombre
       //   if (!producto.nombre.trim()) {
@@ -211,28 +212,17 @@ const hasImageChanges = () => {
        // Filtrar solo las propiedades que no están vacías o que tienen algún valor
        const filteredProducto = {};
        Object.keys(producto).forEach((key) => {
-           if (
-           producto[key] !== undefined &&
-           producto[key] !== null &&
-           producto[key] !== ""
-         ) {
+         if (producto[key] !== undefined && producto[key] !== null && (typeof producto[key] === "boolean" || producto[key] !== "")) {
            filteredProducto[key] = producto[key];
          }
        });
+       console.log('filteredProducto', filteredProducto)
        // Crear FormData y agregar propiedades del producto filtrado
        const formData = new FormData();
        Object.keys(filteredProducto).forEach((key) => {
          formData.append(key, filteredProducto[key]);
        });
        
-       //console.log(formData,'formdatasubmit')
-      Swal.fire({
-    title: 'Agregando producto...',
-    allowOutsideClick: false,
-    didOpen: () => {
-      Swal.showLoading();
-    },
-  });
 
   try {
     // Mostrar SweetAlert con indicador de carga
