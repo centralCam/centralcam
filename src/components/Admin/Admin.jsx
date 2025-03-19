@@ -5,13 +5,13 @@ import AddProduct from "./AddProduct/AddProduct";
 import UpdateProduct from "./UpdateProduct/UpdateProduct";
 import useProducts from "@/Hooks/useProducts";
 import Dropdown from "../Tienda/Dropdown/Dropdown";
-import { Pagination } from "@mui/material";
 import Nav from "./Nav/Nav";
 import TablaDestacados from "./TablaDestacados/TablaDestacados";
 import DownloadCSVButton from "../DownloadCSVButton/DownloadCSVButton";
 import Swal from "sweetalert2";
 import Loading from "../Loading/Loading";
 import SearchBase from "../Search/SearchBase";
+import { Pagination } from "@mui/material";
 
 export default function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
