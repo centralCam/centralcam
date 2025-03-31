@@ -49,7 +49,7 @@ const Modals = ({ selectedProduct, closeModal }) => {
 
               <div className="flex flex-col mt-2 md:mt-6 lg:mt-0">
                 <h2 className="text-xl font-semibold text-gray-600 sm:text-2xl">{selectedProduct.titulo_de_producto?.toUpperCase()}</h2>
-                {selectedProduct.precio ? (
+                {selectedProduct.precio && selectedProduct.precio>0 ? (
                   <p className="text-xl font-bold text-gray-800 sm:text-2xl text-end">
                     {new Intl.NumberFormat('es-AR', {
                       style: 'currency',
