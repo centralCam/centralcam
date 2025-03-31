@@ -60,7 +60,7 @@ const Card = ({ product, handleProductSelect }) => {
                 ? `${String(product.n_electronica).slice(0, 5)}...`
                 : product.n_electronica} </p> : null}
               <div className="h-4">
-                {product.precio ? (
+                {product.precio && product.precio>0 ? (
                   <p className="block text-xs md:text-base font-semibold text-gray-900 text-end">
                       {new Intl.NumberFormat('es-AR', {
                         style: 'currency',
