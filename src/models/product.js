@@ -46,6 +46,10 @@ const productoSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    precio: {
+        type: String,
+        required: false
+    },
     destacados: {
         type: Boolean,
         default: false,
