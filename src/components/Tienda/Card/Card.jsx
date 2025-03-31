@@ -59,14 +59,16 @@ const Card = ({ product, handleProductSelect }) => {
               String(product.n_electronica).length > 5
                 ? `${String(product.n_electronica).slice(0, 5)}...`
                 : product.n_electronica} </p> : null}
-              {product.precio ? (
-                  <p className="block text-xs md:text-base text-gray-700 text-end">
-                    {new Intl.NumberFormat('es-AR', {
-                      style: 'currency',
-                      currency: 'ARS', // Peso argentino
-                    }).format(product.precio)}
-                  </p>
-                ) : null}
+              <div className="h-4">
+                {product.precio ? (
+                  <p className="block text-xs md:text-base font-semibold text-gray-900 text-end">
+                      {new Intl.NumberFormat('es-AR', {
+                        style: 'currency',
+                        currency: 'ARS', // Peso argentino
+                      }).format(product.precio )}
+                    </p>
+                  ) : null}
+              </div>
             </div>
           </div>
           </div>
