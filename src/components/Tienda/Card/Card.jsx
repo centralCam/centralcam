@@ -30,7 +30,7 @@ const Card = ({ product, handleProductSelect }) => {
   const texto = `Hola, queria consultar por ${product.nombre} (${product.cod_producto}), `;
   const enviar = `https://wa.me/+${userData.codigoPais}${userData.contact}?text=${encodeURIComponent(texto || userData.textoPredefinido)}`;
 
-  console.log('producto:',product)
+  // console.log('producto:',product)
   return (
     <li className='relative xs:w-44 sm:w-48 md:w-64 lg:w-56 xl:w-72 lg:h-80 xl:h-96 sm:min-h-[320px] md:min-h-[430px] lg:min-h-[420px] xl:min-h-[465px] list-none cursor-pointer'>
     <div className="relative flex flex-col justify-around w-full h-full bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition-shadow duration-300" onClick={() => handleProductSelect(product)}>
