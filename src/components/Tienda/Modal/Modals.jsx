@@ -4,8 +4,12 @@ import { CartContext } from '@/components/Context/ShoopingCartContext';
 import addToCart from '@/Utils/addToCart';
 import Link from 'next/link';
 import userData from '@/app/constants/userData';
+import { usePathname, useRouter } from 'next/navigation';
 
 const Modals = ({ selectedProduct, closeModal }) => {
+  const path = usePathname();
+  const router = useRouter();
+
   const [cart, setCart] = useContext(CartContext);
   const [mainImage, setMainImage] = useState(selectedProduct.foto_1_1);
 
@@ -19,6 +23,15 @@ const Modals = ({ selectedProduct, closeModal }) => {
     addToCart(selectedProduct, cart, setCart);
   };
 
+  const handlePath = () => {
+    // Arreglar condición lógica
+    if (path !== '/' && path !== '/#producto') {
+      router.push('/');
+    } else {
+      closeModal();
+    }
+  };
+
   const texto = `Hola, queria consultar por ${selectedProduct.nombre} (${selectedProduct.cod_producto}), `;
   const enviar = `https://wa.me/+${userData.codigoPais}${userData.contact}?text=${encodeURIComponent(texto || userData.textoPredefinido)}`;
 
@@ -26,7 +39,7 @@ const Modals = ({ selectedProduct, closeModal }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-hidden">
       <div className="bg-white p-2 md:p-6 rounded-none lg:rounded-lg max-w-4xl w-full max-h-full overflow-y-auto">
         <div className="flex justify-end">
-          <button type="button" onClick={closeModal} className="text-gray-400 bg-gray-200 hover:bg-gray-300 hover:text-gray-500 rounded-lg text-sm w-10 h-10 ms-auto inline-flex justify-center items-center" aria-label='cerrar la ventana'>
+          <button type="button" onClick={handlePath} className="text-gray-400 bg-gray-200 hover:bg-gray-300 hover:text-gray-500 rounded-lg text-sm w-10 h-10 ms-auto inline-flex justify-center items-center" aria-label='cerrar la ventana'>
             <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
             </svg>
@@ -48,7 +61,10 @@ const Modals = ({ selectedProduct, closeModal }) => {
               </div>
 
               <div className="flex flex-col mt-2 md:mt-6 lg:mt-0">
-                <h2 className="text-xl font-semibold text-gray-600 sm:text-2xl">{selectedProduct.titulo_de_producto?.toUpperCase()}</h2>
+                {path !== '/' && path !== '/#producto'
+                  ?<h1 className="text-xl font-semibold text-gray-600 sm:text-2xl">{selectedProduct.titulo_de_producto?.toUpperCase()}</h1>
+                  :<h2 className="text-xl font-semibold text-gray-600 sm:text-2xl">{selectedProduct.titulo_de_producto?.toUpperCase()}</h2>
+                }
                 {selectedProduct.precio && selectedProduct.precio>0 ? (
                   <p className="text-xl font-bold text-gray-800 sm:text-2xl text-end">
                     {new Intl.NumberFormat('es-AR', {
@@ -64,7 +80,10 @@ const Modals = ({ selectedProduct, closeModal }) => {
                 <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Modelo: </strong>{selectedProduct.modelo}</p>
                 <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>N° de Serie: </strong>{selectedProduct.n_serie}</p>
                 <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Codigo: </strong>{selectedProduct.cod_producto}</p>
-                <p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Descripcion: </strong>{selectedProduct.descripcion}</p>
+                {path !== '/' && path !== '/#producto'
+                  ?<h2 className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Descripcion: </strong>{selectedProduct.descripcion}</h2>
+                  :<p className="mb-1 md:mb-4 text-gray-500 text-start"><strong>Descripcion: </strong>{selectedProduct.descripcion}</p>
+                }
                 <div className="mt-1 md:mt-4 gap-2 items-center flex flex-col md:flex-row justify-center md:items-start">
                   <button onClick={(e) => handleAddToCart(e, selectedProduct)} title="Agregar al carrito" className="text-gray-500 mt-2 md:mt-4 py-2  hover:bg-boton-secondary-hover font-medium rounded-lg text-sm px-10 flex items-center justify-center" role="button" aria-label='agregar al carrito'>
                     <svg className="w-5 h-5 -ms-2 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" >

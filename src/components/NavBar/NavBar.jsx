@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { removeFromLocalStorage, getInLocalStorage } from '../../Hooks/localStorage';
 import Link from 'next/link';
-import Logo from '../../../public/logos/LogoCentral.webp';
+import Logo from '../../../public/logos/centraLogoAzul.webp';
 import UserMenu from './UserMenu';
 import { IoCartOutline } from 'react-icons/io5';
 import { CartContext } from '../Context/ShoopingCartContext';
@@ -63,7 +63,7 @@ const NavBar = () => {
     <nav className="bg-white border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-6 md:px-2 py-1">
         <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse my-4 pb-2" title="CentralCam Logo">
-          <img src={Logo.src} width={100} height={100} alt="central cam Logo" title="Central cam Logo" loading='lazy'/>
+          <img src={Logo.src} width={120} height={120} alt="central cam Logo" title="Central cam Logo" loading='lazy'/>
         </Link>
 
         <div className="flex items-center gap-1 justify-between">

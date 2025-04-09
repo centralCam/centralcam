@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import 'react-toastify/dist/ReactToastify.css';
-import logo from '../../../public/logos/LogoCentral.webp';
+import logo from '../../../public/logos/centraLogoAzul.webp';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { signIn } from '../../lib/firebase';
 import { ToastContainer } from 'react-toastify';

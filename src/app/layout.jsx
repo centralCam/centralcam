@@ -2,67 +2,24 @@ import React from 'react';
 import "./globals.css";
 import { Toaster } from 'react-hot-toast';
 import { ShoppingCartProvider } from '@/components/Context/ShoopingCartContext';
-
-export const metadata = {
-  title: 'CENTRAL CAM | Venta de Repuestos para Camiones y Vehículos Pesados',
-  description: "En CENTRAL CAM, vendemos repuestos para camiones y transporte pesado en Mar del Plata, Argentina. Envíos rápidos a todo el país. ¡Calidad y confianza garantizadas!",
-  keywords: 'repuestos para camiones, vehículos pesados, mecánica, piezas de camiones, accesorios, envíos rápidos, ecommerce, Central CAM',
-  charSet: 'UTF-8',
-  icons: '/favicon.ico',
-  manifest: '/manifest.json',
-  robots: '/robots.txt',
-  authors: [{ name: 'Gonzalo Torres Grau', url: 'https://gonzalotorresgrau.com' }],
-  publisher: 'CENTRAL CAM | Venta de Repuestos para Camiones y Vehículos Pesados',
-  openGraph: {
-    title: 'CENTRAL CAM | Venta de Repuestos para Camiones y Vehículos Pesados',
-    description: "En CENTRAL CAM, vendemos repuestos para camiones y transporte pesado en Mar del Plata, Argentina. Envíos rápidos a todo el país. ¡Calidad y confianza garantizadas!",
-    type: 'website',
-    url: 'https://centralcamshop.com/',
-    image: 'https://centralcamshop.com/logos/LogoCentral.webp',
-  },
-};
+import { defaultMetadata } from '@/lib/metadata';
 
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <head>
-        <meta charSet={metadata.charSet} />
+        <meta charSet={defaultMetadata.charSet} />
         <meta name="viewport" content="minimum-scale=1, width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover" />
-        <meta name="theme-color" content="#ffffff" />
-        <meta name="description" content={metadata.description} />
-        <meta name="keywords" content={metadata.keywords} />
-        <meta name="author" content={metadata.authors[0].name} />
-        <meta name="robots" content="index, follow" />
-        <meta name="publisher" content={metadata.publisher} />
-        <meta name="geo.region" content="ES-ar" />
-        <meta name="geo.placename" content="Mar del Plata, Buenos Aires, Argentina" />
+        <meta name="theme-color" content="#007BC7" />
 
-        {/* Open Graph Meta Tags */}
-        <meta property="og:title" content={metadata.openGraph.title} />
-        <meta property="og:description" content={metadata.openGraph.description} />
-        <meta property="og:type" content={metadata.openGraph.type} />
-        <meta property="og:url" content={metadata.openGraph.url} />
-        <meta property="og:image" content={metadata.openGraph.image} />
-        <meta property="og:locale" content="es_ES" />
-
-        {/* Twitter Meta Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={metadata.openGraph.title} />
-        <meta name="twitter:description" content={metadata.openGraph.description} />
-        <meta name="twitter:image" content={metadata.openGraph.image} />
-
-        {/* Icons */}
-        <link rel="icon" href={metadata.icons} sizes="any" type="image/x-icon" />
-        <link rel="shortcut icon" href={metadata.icons} />
-
-        {/* Manifest */}
-        <link rel="manifest" href={metadata.manifest} />
+        <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
 
         {/* Fonts and External Resources */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-        <link rel="canonical" href={metadata.openGraph.url} />
 
         {/* Preload Critical Resources */}
         <link rel="preload" href="/bg/bg-banner.webp" as="image" />
@@ -75,10 +32,10 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Store",
-              "name": metadata.title,
-              "description": metadata.description,
-              "image": metadata.openGraph.image,
-              "url": metadata.openGraph.url,
+              "name": defaultMetadata.title,
+              "description": defaultMetadata.description,
+              "image": defaultMetadata.openGraph.image,
+              "url": defaultMetadata.openGraph.url,
               "telephone": "+541162574919",
               "address": {
                 "@type": "PostalAddress",

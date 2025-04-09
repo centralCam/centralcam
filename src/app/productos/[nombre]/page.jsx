@@ -1,26 +1,29 @@
+import dynamic from 'next/dynamic';
+import { notFound } from 'next/navigation';
+import { defaultMetadata } from '../../../lib/metadata';
+import  fetchProduct  from '../../../Utils/fetchProduct';
+import Footer from '@/components/Footer/Footer';
+import VolverArriba from '@/components/VolverArriba/VolverArriba';
+import BotonWsp from '@/components/BotonWSP/BotonWsp';
+import NavBar from '@/components/NavBar/NavBar';
+import { Suspense } from 'react';
+import Loading from '@/components/Loading/Loading';
 
-import React, { Suspense } from "react";
-import Banner from "@/components/Banner/Banner";
-import BotonWsp from "@/components/BotonWSP/BotonWsp";
-import Destacados from "@/components/Destacados/Destacados";
-import Contact from "@/components/Contact/Contact";
-import Footer from "@/components/Footer/Footer";
-import Sobre from "@/components/SobreMi/Sobre";
-import Ubicacion from "@/components/Ubicacion/Ubicacion";
-import NavBar from "@/components/NavBar/NavBar";
-import Tienda from "@/components/Tienda/Tienda";
-import VolverArriba from "@/components/VolverArriba/VolverArriba";
-import Loading from "@/components/Loading/Loading";
-import SearchBase from "@/components/Search/SearchBase";
-import { defaultMetadata } from '../lib/metadata';
-import fetchProduct from '../Utils/fetchProduct';
+const Modal = dynamic(() => import('../../../components/Tienda/Modal/Modals'));
 
-//import UnderConstruction from "@/components/sitioEnConstruccion/UnderConstruction";
-
+// ✅ `generateMetadata` usa valores dinámicos y valores por defecto
 export async function generateMetadata({ params }) {
   const product = await fetchProduct(params.nombre);
-  if (!params || !params.nombre) return defaultMetadata;
   //console.log('producto de meta:', product);
+  
+  if (!product) {
+    return {
+      ...defaultMetadata,
+      title: 'Producto no encontrado',
+      description: 'No se encontró el producto solicitado.',
+      robots: 'noindex, nofollow',
+    };
+  }
 
   return {
     ...defaultMetadata, // Usa los valores por defecto si no están definidos en el producto
@@ -48,7 +51,10 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function Home() {
+export default async function ProductoPage({ params }) {
+  const product = await fetchProduct(params.nombre);
+
+  if (!product) return notFound(); // Muestra la página 404 si el producto no existe
 
   return (
     <>
@@ -57,26 +63,14 @@ export default function Home() {
           <NavBar  />
         </Suspense>
       </nav>
-      <main>
-        <Suspense fallback={<Loading/>}>
-          <SearchBase />
-        </Suspense>
-          <Banner />
-        <Suspense fallback={<Loading/>}>
-          {/* <UnderConstruction /> */}
-          <Destacados />
-          <Tienda />
-        </Suspense>
-          {/* <Carrusel /> */}
-          <Sobre/>
-          <Ubicacion/>
-          <Contact />
+      <main className="flex-1 flex items-center justify-center bg-white">
+        <Modal selectedProduct={product} isDialog={false} />
       </main>
-      <footer>
+      <footer className="flex flex-col">
         <Footer />
         <VolverArriba />
         <BotonWsp />
-      </footer>
+    </footer>
     </>
   );
 }
