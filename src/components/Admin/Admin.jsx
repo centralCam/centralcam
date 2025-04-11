@@ -3,11 +3,12 @@ import React, { useEffect, useState, Suspense } from "react";
 import ReactDOM from 'react-dom/client';
 import AddProduct from "./AddProduct/AddProduct";
 import UpdateProduct from "./UpdateProduct/UpdateProduct";
+import Presupuestos from "./Presupuestos/Presupuestos";
 import useProducts from "@/Hooks/useProducts";
 import Dropdown from "../Tienda/Dropdown/Dropdown";
 import Nav from "./Nav/Nav";
 import TablaDestacados from "./TablaDestacados/TablaDestacados";
-import DownloadCSVButton from "../DownloadCSVButton/DownloadCSVButton";
+import DownloadCSVButton from "./DownloadCSVButton/DownloadCSVButton";
 import Swal from "sweetalert2";
 import Loading from "../Loading/Loading";
 import SearchBase from "../Search/SearchBase";
@@ -289,6 +290,11 @@ export default function Admin() {
           {section === 'DescargarCSV' && (
             <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
               <DownloadCSVButton />
+            </div>
+          )}
+          {section === 'Presupuestos' && (
+            <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
+              <Presupuestos />
             </div>
           )}
         </div>

@@ -4,7 +4,7 @@ import { logOut } from '../../../lib/firebase';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import DownloadCSVButton from '@/components/DownloadCSVButton/DownloadCSVButton';
+import DownloadCSVButton from '@/components/Admin/DownloadCSVButton/DownloadCSVButton';
 import { removeFromLocalStorage } from '@/Hooks/localStorage';
 
 
@@ -117,15 +117,7 @@ export default function Nav( {handleSelectSection} ) {
           <ul className="space-y-2 font-medium">
             {/* Productos  */}
             <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover  group"
-                onClick={() => {
-                  handleSelectSection("Productos");
-                  toggleMenu();
-                }}
-                title='Productos'
-              >
+              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => {handleSelectSection("Productos");toggleMenu()}} title='Productos'>
                 <svg
                   className="w-5 h-5 text-gray-400 "
                   aria-hidden="true"
@@ -145,10 +137,7 @@ export default function Nav( {handleSelectSection} ) {
             </li>
             {/* Productos Destacados  */}
             <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover  group"
-                onClick={() => {
+              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => {
                   handleSelectSection("Destacados");
                   toggleMenu();
                 }}
@@ -166,6 +155,13 @@ export default function Nav( {handleSelectSection} ) {
                 <span className="ml-3 text-gray-200 ">
                   Productos destacados
                 </span>
+              </a>
+            </li>
+
+            {/* Presupuestos */}
+            <li>
+              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Presupuestos"); toggleMenu()}} title='Presupuestos '>
+                <span className="ml-3 text-gray-200">Presupuestos</span>
               </a>
             </li>
 

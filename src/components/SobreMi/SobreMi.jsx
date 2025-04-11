@@ -3,7 +3,6 @@ import React from "react";
 
 const SobreMi = () => {
 
-  const info='En <strong className="text-text-danger font-bold">CENTRAL CAM</strong>,  somos especialistas en la venta de <strong>repuestos para camiones</strong> y vehículos de <strong>transporte pesado</strong> en Mar del Plata, Argentina. Contamos con una amplia variedad de piezas de alta calidad, incluyendo sistemas de frenos, embragues, motores, filtros y más. Nuestro compromiso es garantizar la <strong>seguridad y el rendimiento</strong> de tu flota, ofreciendo <strong>envíos rápidos</strong> a todo el país, atención personalizada y precios competitivos.'
   const ofrece = [
     "Envíos a todo el país",
     "Garantía de calidad",
@@ -17,7 +16,7 @@ const SobreMi = () => {
         <div className="py-8 px-8 mx-auto max-w-screen-xl  sm:py-16 lg:px-6">
           <div className="max-w-screen-xl">
             <h2 className="mb-4  text-3xl md:text-4xl text-center md:text center tracking-tight font-extrabold text-text-primary-title">Acerca de Nosotros</h2>
-            <p className="mb-8 text-gray-700 sm:text-lg font-light" dangerouslySetInnerHTML={{ __html: info }}></p>
+            <p className="mb-8 text-gray-700 sm:text-lg font-light text-justify">En <strong className="text-text-danger font-bold">CENTRAL CAM</strong>,  somos especialistas en la venta de <strong>repuestos para camiones</strong> y vehículos de <strong>transporte pesado</strong> en Mar del Plata, Argentina. Contamos con una amplia variedad de piezas de alta calidad, incluyendo sistemas de frenos, embragues, motores, filtros y más. Nuestro compromiso es garantizar la <strong>seguridad y el rendimiento</strong> de tu flota, ofreciendo <strong>envíos rápidos</strong> a todo el país, atención personalizada y precios competitivos.</p>
             <Link href={'/nosotros'}>
               <button className="text-white font-medium rounded-lg text-sm px-3 py-1.5 text-center bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active" target='_blank' title='Consulta'>Ver mas</button>
             </Link>

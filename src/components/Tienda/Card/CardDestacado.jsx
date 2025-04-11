@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { RiWhatsappLine  } from 'react-icons/ri';
 import toast from 'react-hot-toast';
 import IconShoopingCart from '../ShoopingCart/IconShoopingCart';
 import userData from '@/app/constants/userData';
@@ -51,7 +52,7 @@ const CardDestacado = ({ selectedProduct, handleProductSelect }) => {
             </h2>
               <div className=" flex items-center justify-between gap-2">
                   <p className="text-xs md:text-sm font-bold text-gray-900 ">{selectedProduct.marca}</p>
-                  <a href={enviar} className="w-full text-white font-medium rounded-lg text-sm px-3 py-1.5 text-center bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active" target='_blank' title='Consulta'>Consulta</a>
+                  <a href={enviar} className="w-full text-white font-medium rounded-lg text-sm px-3 py-1.5 text-center bg-primary-whats hover:bg-primary-whatsHover active:bg-boton-primary-active" target='_blank' title='Consulta'>Consulta</a>
               </div>
             </div>
         </li>

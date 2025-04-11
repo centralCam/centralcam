@@ -81,7 +81,7 @@ const Card = ({ product, handleProductSelect }) => {
           </div>
           <div className='px-2 pb-2'>
               <button onClick={handleConsult} className="  py-1.5 px-3 inline-flex items-center justify-center w-full h-6 md:h-8 bg-primary-whats rounded-md text-white hover:bg-primary-whatsHover transition-all duration-300 ease-in-out " target='_blank'>
-                   <RiWhatsappLine size={14} /> <span>Consultar</span>
+                   <RiWhatsappLine size={14} /> <span className='px-2'>Consultar</span>
               </button>
           </div>
         </div>
