@@ -5,10 +5,12 @@ import useProducts from '@/Hooks/useProducts'
 import Swal from 'sweetalert2'
 import handleShare from '@/Utils/handleShare'
 import generarPDF from '@/Utils/generarPDF'
+import SearchInPresupuesto from './SearchAdmin'
 
-const Presupuestos = () => {
+const Presupuestos = () => {    
   const { products } = useProducts()
 
+  const [items, setItems] = useState([])
   const [empresa, setEmpresa] = useState({
     nombre: '',
     direccion: '',
@@ -16,8 +18,9 @@ const Presupuestos = () => {
     telefono: '',
     cuil: ''
   })
-
-  const [items, setItems] = useState([])
+  const [showModal, setShowModal] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState(null)
+  
 
   const handleAddItem = () => {
     setItems([...items, { cantidad: 1, producto: '', codigo: '', precio: 0 }])
@@ -108,6 +111,19 @@ const Presupuestos = () => {
     updated.splice(index, 1)
     setItems(updated)
   }
+
+  const handleSelectProduct = (producto) => {
+    setItems([ ...items,
+      {
+        cantidad: 1,
+        producto: producto.nombre || '',
+        codigo: producto.cod_producto || '',
+        precio: producto.precio || 0
+      }
+    ])
+    setShowModal(false)
+  }
+  
 
   return (
     <div className="max-w-5xl mx-auto p-4">
@@ -219,8 +235,21 @@ const Presupuestos = () => {
             </div>
         </div>
       ))}
+        {showModal && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                <div className="bg-white rounded-lg p-6 max-w-xl w-full relative">
+                    <button onClick={() => setShowModal(false)} className="absolute top-2 right-2 text-gray-500 hover:text-black text-lg">✕</button>
+                    <h3 className="text-lg font-semibold mb-4">Seleccionar Producto</h3>
+                    {/* SearchBase puede ser un autocomplete o buscador personalizado */}
+                    <SearchInPresupuesto products={products} onSelect={handleSelectProduct}/>
+                </div>
+            </div>
+        )}
+    <div className="flex gap-4 mt-4">
+       <button onClick={handleAddItem} className="bg-blue-600 text-white px-4 py-2 rounded mt-2">ADD Manualmente</button>
+       <button onClick={() => setShowModal(true)} className="bg-blue-600 text-white px-4 py-2 rounded mt-2">ADD Producto</button>
+    </div>
 
-      <button onClick={handleAddItem} className="bg-blue-600 text-white px-4 py-2 rounded mt-2">Agregar Producto</button>
 
       {/* Total y acciones */}
       <div className="mt-6 text-right">
