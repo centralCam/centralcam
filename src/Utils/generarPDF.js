@@ -16,8 +16,7 @@ const generarPDF = async (empresa, items) => {
     
     doc.setFontSize(10)
     // 🏢 Datos de mi empresa (izquierda)
-    doc.text(`${userData.name}`, 15, 45)
-    doc.text(`${userData.direccion}`, 15, 52)
+    doc.text(`${userData.name}`, 15, 52)
     doc.text(`${userData.email}`, 15, 59)
     doc.text(`+${userData.codigoPais}${userData.contact}`, 15, 66)
     doc.text(`${userData.cuil}`, 15, 73)
