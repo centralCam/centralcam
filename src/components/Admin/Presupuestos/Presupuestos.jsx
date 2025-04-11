@@ -125,24 +125,91 @@ const Presupuestos = () => {
       {/* Productos */}
       <h3 className="text-xl font-semibold mb-2">Productos</h3>
       {items.map((item, index) => (
-        <div key={index} className="grid grid-cols-5 gap-2 mb-2">
-          <label className="text-sm font-semibold">Cantidad</label>
-          <label className="text-sm font-semibold">Producto</label>   
-          <label className="text-sm font-semibold">Codigo</label>  
-          <label className="text-sm font-semibold">Precio</label>
-          <label className="text-sm font-semibold">Total</label>
-          <input type="number" value={item.cantidad} onChange={e => handleItemChange(index, 'cantidad', e.target.value)} className="border p-1 rounded" />
-          <input type="text" value={item.producto} onChange={e => handleItemChange(index, 'producto', e.target.value)} className="border p-1 rounded" />
-          <input type="text" value={item.codigo} onChange={e => handleItemChange(index, 'codigo', e.target.value)} className="border p-1 rounded" />
-          <input type="number" value={item.precio} onChange={e => handleItemChange(index, 'precio', e.target.value)} className="border p-1 rounded" />
-          <div className="p-2 text-right">
-            {(item.cantidad * item.precio).toLocaleString('es-AR', {
-              style: 'currency',
-              currency: 'ARS',
-              minimumFractionDigits: 2
-            })}
-          </div>
-        </div>
+        <div key={index} className="mb-4 border-b pb-2 sm:grid sm:grid-cols-5 sm:gap-2">
+            {/* Etiquetas solo visibles en móvil */}
+            <div className="sm:hidden mb-2">
+                <label className="text-xs block mb-1">Cantidad</label>
+                <input
+                type="number"
+                value={item.cantidad}
+                onChange={e => handleItemChange(index, 'cantidad', e.target.value)}
+                className="border p-1 rounded w-full"
+                />
+            </div>
+
+            <div className="sm:hidden mb-2">
+                <label className="text-xs block mb-1">Producto</label>
+                <input
+                type="text"
+                value={item.producto}
+                onChange={e => handleItemChange(index, 'producto', e.target.value)}
+                className="border p-1 rounded w-full"
+                />
+            </div>
+
+            <div className="sm:hidden mb-2">
+                <label className="text-xs block mb-1">Código</label>
+                <input
+                type="text"
+                value={item.codigo}
+                onChange={e => handleItemChange(index, 'codigo', e.target.value)}
+                className="border p-1 rounded w-full"
+                />
+            </div>
+
+            <div className="sm:hidden mb-2">
+                <label className="text-xs block mb-1">Precio</label>
+                <input
+                type="number"
+                value={item.precio}
+                onChange={e => handleItemChange(index, 'precio', e.target.value)}
+                className="border p-1 rounded w-full"
+                />
+            </div>
+
+            <div className="sm:hidden mb-2 text-right text-sm">
+                <span className="font-semibold">Total: </span>
+                {(item.cantidad * item.precio).toLocaleString('es-AR', {
+                style: 'currency',
+                currency: 'ARS',
+                minimumFractionDigits: 2
+                })}
+            </div>
+
+            {/* Vista para pantallas sm en adelante */}
+            <input
+                type="number"
+                value={item.cantidad}
+                onChange={e => handleItemChange(index, 'cantidad', e.target.value)}
+                className="hidden sm:block border p-1 rounded w-full"
+            />
+            <input
+                type="text"
+                value={item.producto}
+                onChange={e => handleItemChange(index, 'producto', e.target.value)}
+                className="hidden sm:block border p-1 rounded w-full"
+            />
+            <input
+                type="text"
+                value={item.codigo}
+                onChange={e => handleItemChange(index, 'codigo', e.target.value)}
+                className="hidden sm:block border p-1 rounded w-full"
+            />
+            <input
+                type="number"
+                value={item.precio}
+                onChange={e => handleItemChange(index, 'precio', e.target.value)}
+                className="hidden sm:block border p-1 rounded w-full"
+            />
+            <div className="hidden sm:flex items-center justify-end p-2 text-sm">
+                {(item.cantidad * item.precio).toLocaleString('es-AR', {
+                style: 'currency',
+                currency: 'ARS',
+                minimumFractionDigits: 2
+                })}
+            </div>
+            </div>
+
       ))}
 
       <button onClick={handleAddItem} className="bg-blue-600 text-white px-4 py-2 rounded mt-2">Agregar Producto</button>
