@@ -103,6 +103,12 @@ const Presupuestos = () => {
     return items.reduce((acc, item) => acc + item.cantidad * item.precio, 0)
   }
 
+  const handleRemoveItem = (index) => {
+    const updated = [...items]
+    updated.splice(index, 1)
+    setItems(updated)
+  }
+
   return (
     <div className="max-w-5xl mx-auto p-4">
       <h2 className="text-lg md:text-2xl font-bold mb-2">Generar Presupuesto</h2>
@@ -126,6 +132,9 @@ const Presupuestos = () => {
       <h3 className="text-xl font-semibold mb-2">Productos</h3>
       {items.map((item, index) => (
         <div key={index} className="mb-4 border-b pb-2 sm:grid sm:grid-cols-5 sm:gap-2">
+            <div className="mt-2 sm:mt-0 sm:col-span-5 flex justify-end">
+                <button onClick={() => handleRemoveItem(index)} className="text-red-600 rounded-full px-1 text-sm font-extrabold hover:scale-110 hover:ring-1 hover:ring-red-500 hover:bg-red-500 hover:text-white">X</button>
+            </div>
             {/* Etiquetas solo visibles en móvil */}
             <div className="sm:hidden mb-2">
                 <label className="text-xs block mb-1">Cantidad</label>
@@ -208,8 +217,7 @@ const Presupuestos = () => {
                 minimumFractionDigits: 2
                 })}
             </div>
-            </div>
-
+        </div>
       ))}
 
       <button onClick={handleAddItem} className="bg-blue-600 text-white px-4 py-2 rounded mt-2">Agregar Producto</button>
