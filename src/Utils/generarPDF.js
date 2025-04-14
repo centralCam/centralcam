@@ -47,9 +47,14 @@ const generarPDF = async (empresa, items) => {
     const total = items.reduce((acc, item) => acc + item.cantidad * item.precio, 0)
   
     doc.text(`Total: ${total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS'})}`, 150, finalY + 20 )
-
+    
+    doc.setFontSize(10)
+    doc.setTextColor(0, 0, 0)
+    doc.text(`Observaciones: ${empresa.observaciones}`, 15, 275)
+    
     doc.setFillColor(28, 58, 109) // azul (tu color institucional)
     doc.rect(0, 280, 210, 17, 'F') // x, y, width, height, 'F' = filled
+
 
     doc.setTextColor(255, 255, 255)
     doc.setFontSize(10)
