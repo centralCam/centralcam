@@ -9,8 +9,12 @@ import SearchInPresupuesto from './SearchAdmin'
 
 const Presupuestos = () => {    
   const { products } = useProducts()
-
+  const [tipoDocumento, setTipoDocumento] = useState('presupuesto')
+  const [fecha, setFecha] = useState(new Date().toISOString().split('T')[0])
+  const [pagos, setPagos] = useState([{ tipo: '', monto: 0 }])
+  const [tipoEmpresa, setTipoEmpresa] = useState('')  
   const [items, setItems] = useState([])
+  const [showModal, setShowModal] = useState(false)  
   const [empresa, setEmpresa] = useState({
     nombre: '',
     direccion: '',
@@ -19,8 +23,13 @@ const Presupuestos = () => {
     cuil: '',
     observaciones:'',
   })
-  const [showModal, setShowModal] = useState(false)  
 
+  const formatFecha = (fechaString) => {
+    const [year, month, day] = fechaString.split('-')
+    return `${day}-${month}-${year.slice(-2)}`
+  }
+  
+  const fechaPresupuesto = formatFecha(fecha)
   const handleAddItem = () => {
     setItems([...items, { cantidad: 1, producto: '', codigo: '', precio: 0 }])
   }
@@ -29,6 +38,21 @@ const Presupuestos = () => {
     const updated = [...items]
     updated[index][field] = field === 'cantidad' || field === 'precio' ? Number(value) : value
     setItems(updated)
+  }
+  const handlePagoChange = (index, field, value) => {
+    const updated = [...pagos]
+    updated[index][field] = field === 'monto' ? Number(value) : value
+    setPagos(updated)
+  }
+  
+  const handleAddPago = () => {
+    setPagos([...pagos, { tipo: '', monto: 0 }])
+  }
+  
+  const handleRemovePago = (index) => {
+    const updated = [...pagos]
+    updated.splice(index, 1)
+    setPagos(updated)
   }
 
  const confirmarYGenerar = () => {
@@ -41,7 +65,7 @@ const Presupuestos = () => {
       cancelButtonText: 'No, editar'
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const pdf = await generarPDF(empresa, items)
+        const pdf = await generarPDF( empresa, items, tipoDocumento, fecha, pagos, tipoEmpresa)
   
         Swal.fire({
           title: 'PDF generado',
@@ -130,22 +154,89 @@ const Presupuestos = () => {
 
   return (
     <div className="max-w-5xl mx-auto p-4">
-      <h2 className="text-lg md:text-2xl font-bold mb-2">Generar Presupuesto</h2>
+      <h2 className="text-lg md:text-2xl font-bold mb-2">Generar Presupuesto o Recibo</h2>
+      {/* Tipo de documento y Fecha */}
+      <div className="flex flex-col sm:flex-row gap-4 mb-4">
+        <div>
+          <label className="block text-sm font-medium mb-1">Tipo</label>
+          <select
+            value={tipoDocumento}
+            onChange={e => setTipoDocumento(e.target.value)}
+            className="border rounded p-2 w-full"
+          >
+            <option value="presupuesto">Presupuesto</option>
+            <option value="recibo">Recibo</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">Fecha</label>
+          <input
+            type="date"
+            value={fecha}
+            onChange={e => setFecha(e.target.value)}
+            className="border rounded p-2 w-full"
+          />
+        </div>
+      </div>
+
       <h3 className="text-base md:text-xl font-bold mb-4">Datos Empresa</h3>
 
       {/* Empresa */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        {Object.keys(empresa).map((field) => (
-          <input
+      {Object.keys(empresa).map((field) => (
+          field !== 'observaciones'?
+            <input
             key={field}
             type="text"
             placeholder={field[0].toUpperCase() + field.slice(1)}
             value={empresa[field]}
             onChange={e => setEmpresa({ ...empresa, [field]: e.target.value })}
             className="border p-2 rounded"
-          />
+            />
+          :null          
         ))}
       </div>
+        {/* Solo visible si es Recibo */}
+      {tipoDocumento === 'recibo' && (
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Formas de Pago</label>
+          {pagos.map((pago, index) => (
+            <div key={index} className="flex items-center gap-2 mb-2">
+              <select
+                value={pago.tipo}
+                onChange={e => handlePagoChange(index, 'tipo', e.target.value)}
+                className="border p-2 rounded w-1/2"
+              >
+                <option value="">Seleccionar</option>
+                <option value="efectivo">Efectivo</option>
+                <option value="cheque">Cheque</option>
+                <option value="transferencia">Transferencia</option>
+                <option value="retenciones">Retenciones</option>
+              </select>
+              <input
+                type="number"
+                placeholder="Monto"
+                value={pago.monto}
+                onChange={e => handlePagoChange(index, 'monto', e.target.value)}
+                className="border p-2 rounded w-1/3"
+              />
+              <button
+                onClick={() => handleRemovePago(index)}
+                className="text-red-500 hover:text-red-700 text-lg"
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+          <button
+            onClick={handleAddPago}
+            className="mt-2 text-sm text-blue-600 hover:underline"
+          >
+            + Agregar otra forma de pago
+          </button>
+        </div>
+      )}
 
       {/* Productos */}
       <h3 className="text-xl font-semibold mb-2">Productos</h3>
@@ -238,6 +329,7 @@ const Presupuestos = () => {
             </div>
         </div>
       ))}
+      
         {showModal && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
                 <div className="bg-white rounded-lg p-6 max-w-xl w-full relative">
