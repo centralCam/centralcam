@@ -158,10 +158,10 @@ export default function Nav( {handleSelectSection} ) {
               </a>
             </li>
 
-            {/* Presupuestos */}
+            {/* Comprobantes */}
             <li>
-              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Presupuestos"); toggleMenu()}} title='Presupuestos '>
-                <span className="ml-3 text-gray-200">Presupuestos</span>
+              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Comprobantes"); toggleMenu()}} title='Presupuestos '>
+                <span className="ml-3 text-gray-200">Comprobantes</span>
               </a>
             </li>
 

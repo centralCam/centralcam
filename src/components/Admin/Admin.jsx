@@ -292,7 +292,7 @@ export default function Admin() {
               <DownloadCSVButton />
             </div>
           )}
-          {section === 'Presupuestos' && (
+          {section === 'Comprobantes' && (
             <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
               <Presupuestos />
             </div>

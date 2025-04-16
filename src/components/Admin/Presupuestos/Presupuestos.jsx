@@ -11,8 +11,7 @@ const Presupuestos = () => {
   const { products } = useProducts()
   const [tipoDocumento, setTipoDocumento] = useState('presupuesto')
   const [fecha, setFecha] = useState(new Date().toISOString().split('T')[0])
-  const [pagos, setPagos] = useState([{ tipo: '', monto: 0 }])
-  const [tipoEmpresa, setTipoEmpresa] = useState('')  
+  const [pagos, setPagos] = useState([{tipo: '', monto: 0, CH_n:'', Bco:'',cuit:'', date:new Date().toISOString().split('T')[0] }])
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)  
   const [empresa, setEmpresa] = useState({
@@ -22,6 +21,7 @@ const Presupuestos = () => {
     telefono: '',
     cuil: '',
     observaciones:'',
+    tipo: ''
   })
 
   const formatFecha = (fechaString) => {
@@ -32,6 +32,9 @@ const Presupuestos = () => {
   const fechaPresupuesto = formatFecha(fecha)
   const handleAddItem = () => {
     setItems([...items, { cantidad: 1, producto: '', codigo: '', precio: 0 }])
+  }
+  const handleAddPago = () => {
+    setPagos([...pagos, { tipo: '', monto: 0, CH_n:'', Bco:'', cuit:'', date:'' }])
   }
 
   const handleItemChange = (index, field, value) => {
@@ -45,9 +48,6 @@ const Presupuestos = () => {
     setPagos(updated)
   }
   
-  const handleAddPago = () => {
-    setPagos([...pagos, { tipo: '', monto: 0 }])
-  }
   
   const handleRemovePago = (index) => {
     const updated = [...pagos]
@@ -65,7 +65,7 @@ const Presupuestos = () => {
       cancelButtonText: 'No, editar'
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const pdf = await generarPDF( empresa, items, tipoDocumento, fecha, pagos, tipoEmpresa)
+        const pdf = await generarPDF( empresa, items, tipoDocumento, fecha, pagos)
   
         Swal.fire({
           title: 'PDF generado',
@@ -86,11 +86,11 @@ const Presupuestos = () => {
             mail: '',
             telefono: '',
             cuil: '',
-            observaciones:''
-
+            observaciones:'',
+            tipo:''
           })
           setItems([])
-  
+          setPagos([{tipo: '', monto: 0, CH_n:'', Bco:'',cuit:'', date:new Date().toISOString().split('T')[0] }])
           Swal.fire({
             icon: 'success',
             title: 'Formulario reiniciado',
@@ -113,9 +113,11 @@ const Presupuestos = () => {
               mail: '',
               telefono: '',
               cuil: '',
-              observaciones:''
+              observaciones:'',
+              tipo:''
             })
             setItems([])
+            setPagos([{tipo: '', monto: 0, CH_n:'', Bco:'',cuit:'', date:new Date().toISOString().split('T')[0] }])
             Swal.fire({
               icon: 'success',
               title: 'Formulario reiniciado',
@@ -185,17 +187,20 @@ const Presupuestos = () => {
       {/* Empresa */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
       {Object.keys(empresa).map((field) => (
-          field !== 'observaciones'?
-            <input
-            key={field}
-            type="text"
-            placeholder={field[0].toUpperCase() + field.slice(1)}
-            value={empresa[field]}
-            onChange={e => setEmpresa({ ...empresa, [field]: e.target.value })}
-            className="border p-2 rounded"
-            />
-          :null          
-        ))}
+          field !== 'observaciones' && field !== 'tipo'
+            ?<input key={field} type="text" placeholder={field[0].toUpperCase() + field.slice(1)} value={empresa[field]} onChange={e => setEmpresa({ ...empresa, [field]: e.target.value })} className="border p-2 rounded" />
+            :null     
+          ))}
+        <div>
+          <select value={empresa.tipo} onChange={e => setEmpresa({ ...empresa, tipo: e.target.value })} className="border rounded p-2 w-full" >
+            <option value="Responsable inscripto">Responsable inscripto</option>
+            <option value="No Responsable">No Responsable</option>
+            <option value="Exento">Exento</option>
+            <option value="Monotributo">Monotributo</option>
+            <option value="Monotributo Social">Monotributo Social</option>
+            <option value="Consumidor Final">Consumidor Final</option>
+          </select>
+        </div>
       </div>
         {/* Solo visible si es Recibo */}
       {tipoDocumento === 'recibo' && (
@@ -203,147 +208,144 @@ const Presupuestos = () => {
           <label className="block text-sm font-medium mb-2">Formas de Pago</label>
           {pagos.map((pago, index) => (
             <div key={index} className="flex items-center gap-2 mb-2">
-              <select
-                value={pago.tipo}
-                onChange={e => handlePagoChange(index, 'tipo', e.target.value)}
-                className="border p-2 rounded w-1/2"
-              >
+              <select value={pago.tipo} onChange={e => handlePagoChange(index, 'tipo', e.target.value)} className="border p-2 rounded w-1/5" >
                 <option value="">Seleccionar</option>
                 <option value="efectivo">Efectivo</option>
                 <option value="cheque">Cheque</option>
                 <option value="transferencia">Transferencia</option>
                 <option value="retenciones">Retenciones</option>
               </select>
-              <input
-                type="number"
-                placeholder="Monto"
-                value={pago.monto}
-                onChange={e => handlePagoChange(index, 'monto', e.target.value)}
-                className="border p-2 rounded w-1/3"
-              />
-              <button
-                onClick={() => handleRemovePago(index)}
-                className="text-red-500 hover:text-red-700 text-lg"
-              >
+              <input type="number" placeholder="Monto" value={pago.monto} onChange={e => handlePagoChange(index, 'monto', e.target.value)} className="border p-2 rounded w-1/5" />
+              <input type="text" placeholder="CH N°"  value={pago.CH_n} onChange={e => handlePagoChange(index, 'CH_n', e.target.value)} className="border p-2 rounded w-1/5" />
+              <input type="text" placeholder="Bco"  value={pago.Bco} onChange={e => handlePagoChange(index, 'Bco', e.target.value)} className="border p-2 rounded w-1/5" />
+              <input type="date" placeholder='' value={pago.date} onChange={e => handlePagoChange(index, 'date', e.target.value)} className="border p-2 rounded w-1/5" />
+              <button onClick={() => handleRemovePago(index)} className="text-red-500 hover:text-red-700 text-lg">
                 ✕
               </button>
             </div>
           ))}
-          <button
-            onClick={handleAddPago}
-            className="mt-2 text-sm text-blue-600 hover:underline"
-          >
-            + Agregar otra forma de pago
-          </button>
+          <button onClick={handleAddPago} className="mt-2 text-sm text-blue-600 hover:underline">+ Agregar forma de pago</button>
         </div>
       )}
 
-      {/* Productos */}
-      <h3 className="text-xl font-semibold mb-2">Productos</h3>
-      {items.map((item, index) => (
-        <div key={index} className="mb-4 border-b pb-2 sm:grid sm:grid-cols-5 sm:gap-2">
-            <div className="mt-2 sm:mt-0 sm:col-span-5 flex justify-end">
-                <button onClick={() => handleRemoveItem(index)} className="text-red-600 rounded-full px-1 text-sm font-extrabold hover:scale-110 hover:ring-1 hover:ring-red-500 hover:bg-red-500 hover:text-white">X</button>
-            </div>
-            {/* Etiquetas solo visibles en móvil */}
-            <div className="sm:hidden mb-2">
-                <label className="text-xs block mb-1">Cantidad</label>
+      {/* Productos Solo visible si es Presupuesto */}
+      {tipoDocumento === 'presupuesto' && ( 
+        <>
+          <h3 className="text-xl font-semibold mb-2">Productos</h3>
+          {items.map((item, index) => (
+            <div key={index} className="mb-4 border-b pb-2 sm:grid sm:grid-cols-5 sm:gap-2">
+                <div className="mt-2 sm:mt-0 sm:col-span-5 flex justify-end">
+                    <button onClick={() => handleRemoveItem(index)} className="text-red-600 rounded-full px-1 text-sm font-extrabold hover:scale-110 hover:ring-1 hover:ring-red-500 hover:bg-red-500 hover:text-white">X</button>
+                </div>
+                {/* Etiquetas solo visibles en móvil */}
+                <div className="sm:hidden mb-2">
+                    <label className="text-xs block mb-1">Cantidad</label>
+                    <input
+                    type="number"
+                    value={item.cantidad}
+                    onChange={e => handleItemChange(index, 'cantidad', e.target.value)}
+                    className="border p-1 rounded w-full"
+                    />
+                </div>
+
+                <div className="sm:hidden mb-2">
+                    <label className="text-xs block mb-1">Producto</label>
+                    <input
+                    type="text"
+                    value={item.producto}
+                    onChange={e => handleItemChange(index, 'producto', e.target.value)}
+                    className="border p-1 rounded w-full"
+                    />
+                </div>
+
+                <div className="sm:hidden mb-2">
+                    <label className="text-xs block mb-1">Código</label>
+                    <input
+                    type="text"
+                    value={item.codigo}
+                    onChange={e => handleItemChange(index, 'codigo', e.target.value)}
+                    className="border p-1 rounded w-full"
+                    />
+                </div>
+
+                <div className="sm:hidden mb-2">
+                    <label className="text-xs block mb-1">Precio</label>
+                    <input
+                    type="number"
+                    value={item.precio}
+                    onChange={e => handleItemChange(index, 'precio', e.target.value)}
+                    className="border p-1 rounded w-full"
+                    />
+                </div>
+
+                <div className="sm:hidden mb-2 text-right text-sm">
+                    <span className="font-semibold">Total: </span>
+                    {(item.cantidad * item.precio).toLocaleString('es-AR', {
+                    style: 'currency',
+                    currency: 'ARS',
+                    minimumFractionDigits: 2
+                    })}
+                </div>
+
+                {/* Vista para pantallas sm en adelante */}
                 <input
-                type="number"
-                value={item.cantidad}
-                onChange={e => handleItemChange(index, 'cantidad', e.target.value)}
-                className="border p-1 rounded w-full"
+                    type="number"
+                    value={item.cantidad}
+                    onChange={e => handleItemChange(index, 'cantidad', e.target.value)}
+                    className="hidden sm:block border p-1 rounded w-full"
                 />
-            </div>
-
-            <div className="sm:hidden mb-2">
-                <label className="text-xs block mb-1">Producto</label>
                 <input
-                type="text"
-                value={item.producto}
-                onChange={e => handleItemChange(index, 'producto', e.target.value)}
-                className="border p-1 rounded w-full"
+                    type="text"
+                    value={item.producto}
+                    onChange={e => handleItemChange(index, 'producto', e.target.value)}
+                    className="hidden sm:block border p-1 rounded w-full"
                 />
-            </div>
-
-            <div className="sm:hidden mb-2">
-                <label className="text-xs block mb-1">Código</label>
                 <input
-                type="text"
-                value={item.codigo}
-                onChange={e => handleItemChange(index, 'codigo', e.target.value)}
-                className="border p-1 rounded w-full"
+                    type="text"
+                    value={item.codigo}
+                    onChange={e => handleItemChange(index, 'codigo', e.target.value)}
+                    className="hidden sm:block border p-1 rounded w-full"
                 />
-            </div>
-
-            <div className="sm:hidden mb-2">
-                <label className="text-xs block mb-1">Precio</label>
                 <input
-                type="number"
-                value={item.precio}
-                onChange={e => handleItemChange(index, 'precio', e.target.value)}
-                className="border p-1 rounded w-full"
+                    type="number"
+                    value={item.precio}
+                    onChange={e => handleItemChange(index, 'precio', e.target.value)}
+                    className="hidden sm:block border p-1 rounded w-full"
                 />
-            </div>
-
-            <div className="sm:hidden mb-2 text-right text-sm">
-                <span className="font-semibold">Total: </span>
-                {(item.cantidad * item.precio).toLocaleString('es-AR', {
-                style: 'currency',
-                currency: 'ARS',
-                minimumFractionDigits: 2
-                })}
-            </div>
-
-            {/* Vista para pantallas sm en adelante */}
-            <input
-                type="number"
-                value={item.cantidad}
-                onChange={e => handleItemChange(index, 'cantidad', e.target.value)}
-                className="hidden sm:block border p-1 rounded w-full"
-            />
-            <input
-                type="text"
-                value={item.producto}
-                onChange={e => handleItemChange(index, 'producto', e.target.value)}
-                className="hidden sm:block border p-1 rounded w-full"
-            />
-            <input
-                type="text"
-                value={item.codigo}
-                onChange={e => handleItemChange(index, 'codigo', e.target.value)}
-                className="hidden sm:block border p-1 rounded w-full"
-            />
-            <input
-                type="number"
-                value={item.precio}
-                onChange={e => handleItemChange(index, 'precio', e.target.value)}
-                className="hidden sm:block border p-1 rounded w-full"
-            />
-            <div className="hidden sm:flex items-center justify-end p-2 text-sm">
-                {(item.cantidad * item.precio).toLocaleString('es-AR', {
-                style: 'currency',
-                currency: 'ARS',
-                minimumFractionDigits: 2
-                })}
-            </div>
-        </div>
-      ))}
-      
-        {showModal && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                <div className="bg-white rounded-lg p-6 max-w-xl w-full relative">
-                    <button onClick={() => setShowModal(false)} className="absolute top-2 right-2 text-gray-500 hover:text-black text-lg">✕</button>
-                    <h3 className="text-lg font-semibold mb-4">Seleccionar Producto</h3>
-                    {/* SearchBase puede ser un autocomplete o buscador personalizado */}
-                    <SearchInPresupuesto products={products} onSelect={handleSelectProduct}/>
+                <div className="hidden sm:flex items-center justify-end p-2 text-sm">
+                    {(item.cantidad * item.precio).toLocaleString('es-AR', {
+                    style: 'currency',
+                    currency: 'ARS',
+                    minimumFractionDigits: 2
+                    })}
                 </div>
             </div>
-        )}
-    <div className="flex gap-4 mt-4">
-       <button onClick={handleAddItem} className="bg-blue-600 text-white px-4 py-2 rounded mt-2">ADD Manualmente</button>
-       <button onClick={() => setShowModal(true)} className="bg-blue-600 text-white px-4 py-2 rounded mt-2">ADD Producto</button>
-    </div>
+          ))}
+          {showModal && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                  <div className="bg-white rounded-lg p-6 max-w-xl w-full relative">
+                      <button onClick={() => setShowModal(false)} className="absolute top-2 right-2 text-gray-500 hover:text-black text-lg">✕</button>
+                      <h3 className="text-lg font-semibold mb-4">Seleccionar Producto</h3>
+                      {/* SearchBase puede ser un autocomplete o buscador personalizado */}
+                      <SearchInPresupuesto products={products} onSelect={handleSelectProduct}/>
+                  </div>
+              </div>
+          )}
+        <div className="flex gap-4 mt-4">
+          <button onClick={handleAddItem} className="bg-blue-600 text-white px-4 py-2 rounded mt-2">ADD Manualmente</button>
+          <button onClick={() => setShowModal(true)} className="bg-blue-600 text-white px-4 py-2 rounded mt-2">ADD Producto</button>
+        </div>
+        <div className="mt-6 text-right">
+          <p className="text-lg font-bold">Total: {calcularTotal().toLocaleString('es-AR', {
+              style: 'currency',
+              currency: 'ARS',
+              minimumFractionDigits: 2
+            })}
+          </p>
+        </div>
+
+      </>
+      )}
     <div className="flex gap-4 mt-4">
       <label htmlFor="observaciones">Observaciones</label>
       <input 
@@ -354,18 +356,10 @@ const Presupuestos = () => {
           onChange={e => setEmpresa({ ...empresa, observaciones: e.target.value })} 
           className="hidden sm:block border p-1 rounded w-full"
         />
-
     </div>
 
       {/* Total y acciones */}
       <div className="mt-6 text-right">
-        <p className="text-lg font-bold">
-          Total: {calcularTotal().toLocaleString('es-AR', {
-            style: 'currency',
-            currency: 'ARS',
-            minimumFractionDigits: 2
-          })}
-        </p>
         <button onClick={confirmarYGenerar} className="mt-4 bg-green-600 text-white px-6 py-2 rounded">Generar PDF</button>
       </div>
     </div>

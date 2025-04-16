@@ -4,7 +4,7 @@ import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import getImageBase64 from "./getImageBase64"
 
-const generarPDF = async (empresa, items, tipoDocumento, fecha, pagos, tipoEmpresa) => {
+const generarPDF = async (empresa, items, tipoDocumento, fecha, pagos) => {
   const imageData = await getImageBase64(logoEmpresa.src)
   const doc = new jsPDF()
   const clienteX = 120
@@ -16,7 +16,10 @@ const generarPDF = async (empresa, items, tipoDocumento, fecha, pagos, tipoEmpre
 
   // Título principal
   doc.setFontSize(16)
-  tipoDocumento==='recibo'?doc.text('RECIBO', 15, 15):doc.text('PRESUPUESTO', 15, 15)
+  tipoDocumento === 'recibo'
+    ? doc.text('RECIBO', 15, 15)
+    : doc.text('PRESUPUESTO', 15, 15)
+
   doc.setFontSize(12)
   doc.text(`Fecha: ${fechaPresupuesto}`, 15, 20)
 
@@ -26,7 +29,7 @@ const generarPDF = async (empresa, items, tipoDocumento, fecha, pagos, tipoEmpre
   // Datos de la empresa emisora
   doc.text(`${userData.name}`, 15, 35)
   doc.text(`${userData.email}`, 15, 42)
-  doc.text(`+${userData.codigoPais}${userData.contact}`, 15,49)
+  doc.text(`+${userData.codigoPais}${userData.contact}`, 15, 49)
   doc.text(`${userData.cuil}`, 15, 56)
 
   // Datos del cliente
@@ -35,46 +38,60 @@ const generarPDF = async (empresa, items, tipoDocumento, fecha, pagos, tipoEmpre
   doc.text(`Email: ${empresa.mail || '-'}`, clienteX, 49)
   doc.text(`Teléfono: ${empresa.telefono || '-'}`, clienteX, 56)
   doc.text(`CUIL: ${empresa.cuil || '-'}`, clienteX, 63)
+  doc.text(`Tipo: ${empresa.tipo || '-'}`, clienteX, 70)
 
-  if (tipoEmpresa) {
-    doc.text(`Tipo: ${tipoEmpresa}`, clienteX, 70)
+  // Tabla según tipo de documento
+  const tablaStartY = empresa.tipo ? 75 : 80
+  doc.setFontSize(12)
+
+  if (tipoDocumento === 'presupuesto') {
+    autoTable(doc, {
+      head: [['Cantidad', 'Producto', 'Código', 'Precio', 'Total']],
+      body: items.map(item => [
+        item.cantidad,
+        item.producto,
+        item.codigo || '-',
+        item.precio.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }),
+        (item.cantidad * item.precio).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })
+      ]),
+      startY: tablaStartY,
+      styles: { fontSize: 10 },
+      headStyles: { fillColor: [28, 58, 109] },
+      margin: { bottom: 20 }
+    })
+  } else {
+    autoTable(doc, {
+      head: [['Forma de pago', 'Valor', 'N° cheque', 'Banco', 'Fecha']],
+      body: pagos?.map(pago => [
+        pago.tipo || 'Efectivo',
+        pago.monto?.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }) || '-',
+        pago.CH_n || '-',
+        pago.Bco || '-',
+        pago.date || '-'
+      ]) || [],
+      startY: tablaStartY,
+      styles: { fontSize: 10 },
+      headStyles: { fillColor: [28, 58, 109] },
+      margin: { bottom: 20 }
+    })
   }
 
-  // Tabla de productos
-  const tablaStartY = tipoEmpresa ? 95 : 90
-  doc.setFontSize(12)
-  autoTable(doc, {
-    head: [['Cantidad', 'Producto', 'Código', 'Precio', 'Total']],
-    body: items.map(item => [
-      item.cantidad,
-      item.producto,
-      item.codigo,
-      item.precio.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }),
-      (item.cantidad * item.precio).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })
-    ]),
-    startY: tablaStartY,
-    margin: { bottom: 20 }
-  })
-
   const finalY = doc.lastAutoTable?.finalY || tablaStartY + 10
-  const total = items.reduce((acc, item) => acc + item.cantidad * item.precio, 0)
+    const total = items.reduce((acc, item) => acc + item.cantidad * item.precio, 0)
+    const totalPagos = pagos.reduce((acc, pago) => acc + (pago.monto || 0), 0)
 
   // Total
   doc.setFontSize(11)
-  doc.text(`Total: ${total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}`, 150, finalY + 20)
-
-  // Observaciones
-  doc.setFontSize(10)
-  doc.setTextColor(0, 0, 0)
-  if (pagos?.length) {
-    doc.setFont(undefined, 'bold')
-    doc.text('Formas de pago:', 15, 250)
-    doc.setFont(undefined, 'normal')
-    pagos.forEach((fp, i) => {
-      doc.text(`- ${fp.tipo}: ${fp.monto?.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}`, 20, 255 + i * 5)
-    })
+  if (tipoDocumento === 'presupuesto') {
+    doc.text(`Total: ${total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}`, 150, finalY + 20)
+  }else{
+    doc.text(`Total recibido: ${totalPagos.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}`, 150, finalY + 20)
   }
-  doc.text(`Observaciones: ${empresa.observaciones || 'Ninguna'}`, 15, 275)
+  // Observaciones
+  doc.setFont(undefined, 'bold')
+  doc.text(`Observaciones:`, 15, 260)
+  doc.setFont(undefined, 'normal')
+  doc.text(empresa.observaciones || 'Ninguna', 15, 265)
 
   // Footer
   doc.setFillColor(28, 58, 109)
@@ -82,15 +99,18 @@ const generarPDF = async (empresa, items, tipoDocumento, fecha, pagos, tipoEmpre
   doc.setTextColor(255, 255, 255)
   doc.setFontSize(10)
   doc.text('Este documento no es válido como factura. Contiene precios finales con impuestos incluidos.', 30, 285)
-  doc.textWithLink('Para ver más productos puede ingresar en www.centralcamshop.com', 30, 291, { url: 'https://www.centralcamshop.com' })
+  doc.textWithLink('Para ver más productos puede ingresar en www.centralcamshop.com', 30, 291, {
+    url: 'https://www.centralcamshop.com'
+  })
 
   // Exportar archivo
   const pdfBlob = doc.output('blob')
-  const file = new File([pdfBlob], `presupuesto_${empresa.nombre}.pdf`, {
+  const nombreArchivo = `${tipoDocumento}_${empresa.nombre || 'cliente'}.pdf`
+  const file = new File([pdfBlob], nombreArchivo, {
     type: 'application/pdf'
   })
 
-  doc.save(`presupuesto_${empresa.nombre}.pdf`)
+  doc.save(nombreArchivo)
   return file
 }
 
