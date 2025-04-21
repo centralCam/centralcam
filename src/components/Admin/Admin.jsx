@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import Loading from "../Loading/Loading";
 import SearchBase from "../Search/SearchBase";
 import { Pagination } from "@mui/material";
+import EmpresaForm from "./Empresas/Empresas";
 
 export default function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -295,6 +296,11 @@ export default function Admin() {
           {section === 'Comprobantes' && (
             <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
               <Presupuestos />
+            </div>
+          )}
+          {section === 'Empresas' && (
+            <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
+              <EmpresaForm />
             </div>
           )}
         </div>

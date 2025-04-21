@@ -165,6 +165,13 @@ export default function Nav( {handleSelectSection} ) {
               </a>
             </li>
 
+            {/* Empresas */}
+            <li>
+              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Empresas"); toggleMenu()}} title='Presupuestos '>
+                <span className="ml-3 text-gray-200">Empresas</span>
+              </a>
+            </li>
+
             {/* Descargar CSV */}
             <li>
               <DownloadCSVButton toggleMenu={toggleMenu} />
