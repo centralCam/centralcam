@@ -6,6 +6,9 @@ import Swal from 'sweetalert2'
 import handleShare from '@/Utils/handleShare'
 import generarPDF from '@/Utils/generarPDF'
 import SearchInPresupuesto from './SearchAdmin'
+import CargarEmpresaModal from './CargarEmpresa';
+import useEmpresas from '../../../Hooks/useEmpresas'
+import { Button } from '@/components/ui/button'
 
 const Presupuestos = () => {    
   const { products } = useProducts()
@@ -23,6 +26,21 @@ const Presupuestos = () => {
     observaciones:'',
     tipo: ''
   })
+
+  const { empresas } = useEmpresas()
+
+  const handleSelectEmpresa = (empresaSeleccionada) => {
+    if (!empresaSeleccionada) return
+    setEmpresa({
+      nombre: empresaSeleccionada.nombre || '',
+      direccion: empresaSeleccionada.direccion || '',
+      mail: empresaSeleccionada.mail || '',
+      telefono: empresaSeleccionada.telefono || '',
+      cuil: empresaSeleccionada.cuil || '',
+      observaciones: empresaSeleccionada.observaciones || '',
+      tipo: empresaSeleccionada.tipo || ''
+    })
+  }
 
   const formatFecha = (fechaString) => {
     const [year, month, day] = fechaString.split('-')
@@ -55,7 +73,7 @@ const Presupuestos = () => {
     setPagos(updated)
   }
 
- const confirmarYGenerar = () => {
+  const confirmarYGenerar = () => {
     Swal.fire({
       title: '¿El presupuesto está correcto?',
       text: 'Podrás editarlo si lo necesitas',
@@ -65,7 +83,63 @@ const Presupuestos = () => {
       cancelButtonText: 'No, editar'
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const pdf = await generarPDF( empresa, items, tipoDocumento, fecha, pagos)
+  
+        // 🔹 Preguntar si quiere guardar la empresa
+        const guardarEmpresa = await Swal.fire({
+          title: '¿Desea guardar esta empresa?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: 'Sí, guardar',
+          cancelButtonText: 'No'
+        })
+  
+        if (guardarEmpresa.isConfirmed) {
+          const nombreNormalizado = empresa.nombre.trim().toLowerCase()
+        
+          // 🔍 Buscar coincidencias parciales de nombre
+          const empresasSimilares = empresas.filter(e =>
+            e.nombre.toLowerCase().includes(nombreNormalizado)
+          )
+        
+          if (empresasSimilares.length > 0) {
+            const nombresSimilares = empresasSimilares.map(e => `• ${e.nombre}`).join('\n')
+        
+            const confirmar = await Swal.fire({
+              title: 'Empresa similar encontrada',
+              text: `Ya existe una empresa con un nombre parecido:\n${nombresSimilares}\n¿Es la misma empresa?`,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Sí, es la misma',
+              cancelButtonText: 'No, continuar y guardar'
+            })
+        
+            if (confirmar.isConfirmed) {
+              return // No hacer nada si es la misma
+            }
+          }
+        
+          // ⚠️ Verificación final por CUIL y nombre exacto
+          const empresaYaExiste = empresas.some(
+            e => e.cuil === empresa.cuil && e.nombre.toLowerCase() === empresa.nombre.toLowerCase()
+          )
+        
+          if (!empresaYaExiste) {
+            console.log('first', JSON.stringify(empresa))
+            const res = await fetch('/api/empresa', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(empresa)
+            })
+        
+            if (!res.ok) {
+              Swal.fire('Error', 'No se pudo guardar la empresa', 'error')
+              return
+            }
+          }
+        }
+        
+        // ✅ Generar PDF
+        const pdf = await generarPDF(empresa, items, tipoDocumento, fecha, pagos)
   
         Swal.fire({
           title: 'PDF generado',
@@ -79,18 +153,21 @@ const Presupuestos = () => {
             await handleShare(pdf)
           }
   
-          // ✅ Reiniciar formulario después de generar (independientemente si comparte o no)
+          // 🔄 Reiniciar formulario
           setEmpresa({
             nombre: '',
             direccion: '',
             mail: '',
             telefono: '',
             cuil: '',
-            observaciones:'',
-            tipo:''
+            observaciones: '',
+            tipo: ''
           })
           setItems([])
-          setPagos([{tipo: '', monto: 0, CH_n:'', Bco:'',cuit:'', date:new Date().toISOString().split('T')[0] }])
+          setPagos([{
+            tipo: '', monto: 0, CH_n: '', Bco: '', cuit: '', date: new Date().toISOString().split('T')[0]
+          }])
+  
           Swal.fire({
             icon: 'success',
             title: 'Formulario reiniciado',
@@ -99,6 +176,7 @@ const Presupuestos = () => {
           })
         })
       } else {
+        // ❌ No generar, preguntar si quiere reiniciar
         Swal.fire({
           title: '¿Desea reiniciar el formulario?',
           icon: 'question',
@@ -113,11 +191,13 @@ const Presupuestos = () => {
               mail: '',
               telefono: '',
               cuil: '',
-              observaciones:'',
-              tipo:''
+              observaciones: '',
+              tipo: ''
             })
             setItems([])
-            setPagos([{tipo: '', monto: 0, CH_n:'', Bco:'',cuit:'', date:new Date().toISOString().split('T')[0] }])
+            setPagos([{
+              tipo: '', monto: 0, CH_n: '', Bco: '', cuit: '', date: new Date().toISOString().split('T')[0]
+            }])
             Swal.fire({
               icon: 'success',
               title: 'Formulario reiniciado',
@@ -129,6 +209,7 @@ const Presupuestos = () => {
       }
     })
   }
+  
   
   const calcularTotal = () => {
     return items.reduce((acc, item) => acc + item.cantidad * item.precio, 0)
@@ -183,6 +264,32 @@ const Presupuestos = () => {
       </div>
 
       <h3 className="text-base md:text-xl font-bold mb-4">Datos Empresa</h3>
+      <CargarEmpresaModal empresas={empresas} onEmpresaSeleccionada={(empresa) => {
+          setEmpresa({
+            nombre: empresa.nombre,
+            direccion: empresa.direccion,
+            mail: empresa.mail,
+            telefono: empresa.telefono,
+            cuil: empresa.cuil,
+            tipo: empresa.tipo,
+          });
+      }}/>
+      <Button
+        className="col-span-1 md:col-span-2 w-40 m-2"
+        onClick={() =>
+          setEmpresa({
+            nombre: '',
+            direccion: '',
+            mail: '',
+            telefono: '',
+            cuil: '',
+            observaciones: '',
+            tipo: ''
+          })
+        }
+      >
+        Limpiar Empresa
+      </Button>
 
       {/* Empresa */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -330,8 +437,8 @@ const Presupuestos = () => {
               </div>
           )}
         <div className="flex gap-4 mt-4">
-          <button onClick={handleAddItem} className="bg-blue-600 text-white px-4 py-2 rounded mt-2">ADD Manualmente</button>
-          <button onClick={() => setShowModal(true)} className="bg-blue-600 text-white px-4 py-2 rounded mt-2">ADD Producto</button>
+          <Button onClick={handleAddItem} className="bg-blue-600 text-white px-4 py-2 rounded mt-2">ADD Manualmente</Button>
+          <Button onClick={() => setShowModal(true)} className="bg-blue-600 text-white px-4 py-2 rounded mt-2">ADD Producto</Button>
         </div>
         <div className="mt-6 text-right">
           <p className="text-lg font-bold">Total: {calcularTotal().toLocaleString('es-AR', {

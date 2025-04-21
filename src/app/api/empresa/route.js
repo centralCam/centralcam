@@ -8,8 +8,19 @@ export async function GET() {
 }
 
 export async function POST(req) {
-  await connectDB();
-  const data = await req.json();
-  const nuevaEmpresa = await Empresa.create(data);
-  return Response.json(nuevaEmpresa, { status: 201 });
+  console.log('back:',req.body)
+  try {
+    await connectDB();
+    const data = await req.json();
+    const nuevaEmpresa = await Empresa.create(data);
+    return new Response(JSON.stringify(nuevaEmpresa), {
+      status: 201,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error(error);
+    return new Response(JSON.stringify({ error: 'Error al crear la empresa' }), {
+      status: 500,
+    });
+  }
 }
