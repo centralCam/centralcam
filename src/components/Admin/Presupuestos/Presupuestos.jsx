@@ -202,28 +202,50 @@ const Presupuestos = () => {
           </select>
         </div>
       </div>
-        {/* Solo visible si es Recibo */}
+      {/* Solo visible si es Recibo */}
       {tipoDocumento === 'recibo' && (
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2">Formas de Pago</label>
           {pagos.map((pago, index) => (
-            <div key={index} className="flex items-center gap-2 mb-2">
-              <select value={pago.tipo} onChange={e => handlePagoChange(index, 'tipo', e.target.value)} className="border p-2 rounded w-1/5" >
-                <option value="">Seleccionar</option>
-                <option value="efectivo">Efectivo</option>
-                <option value="cheque">Cheque</option>
-                <option value="transferencia">Transferencia</option>
-                <option value="retenciones">Retenciones</option>
-              </select>
-              <input type="number" placeholder="Monto" value={pago.monto} onChange={e => handlePagoChange(index, 'monto', e.target.value)} className="border p-2 rounded w-1/5" />
-              <input type="text" placeholder="CH N°"  value={pago.CH_n} onChange={e => handlePagoChange(index, 'CH_n', e.target.value)} className="border p-2 rounded w-1/5" />
-              <input type="text" placeholder="Bco"  value={pago.Bco} onChange={e => handlePagoChange(index, 'Bco', e.target.value)} className="border p-2 rounded w-1/5" />
-              <input type="date" placeholder='' value={pago.date} onChange={e => handlePagoChange(index, 'date', e.target.value)} className="border p-2 rounded w-1/5" />
-              <button onClick={() => handleRemovePago(index)} className="text-red-500 hover:text-red-700 text-lg">
-                ✕
-              </button>
-            </div>
-          ))}
+          <div key={index} className="flex flex-col md:flex-row md:items-center gap-2 mb-4 border-b pb-2">
+            <select value={pago.tipo} onChange={e => handlePagoChange(index, 'tipo', e.target.value)} className="border p-2 rounded w-full md:w-1/5" >
+              <option value="" disabled>Seleccionar</option>
+              <option value="efectivo">Efectivo</option>
+              <option value="cheque">Cheque</option>
+              <option value="transferencia">Transferencia</option>
+              <option value="retenciones">Retenciones</option>
+            </select>
+
+            <input type="number" placeholder="Monto" value={pago.monto} onChange={e => handlePagoChange(index, 'monto', e.target.value)} className="border p-2 rounded w-full md:w-1/5" />
+              <>
+                <input
+                  type="text"
+                  placeholder="CH N°"
+                  value={pago.CH_n}
+                  onChange={e => handlePagoChange(index, 'CH_n', e.target.value)}
+                  className="border p-2 rounded w-full md:w-1/5"
+                />
+                <input
+                  type="text"
+                  placeholder="Bco"
+                  value={pago.Bco}
+                  onChange={e => handlePagoChange(index, 'Bco', e.target.value)}
+                  className="border p-2 rounded w-full md:w-1/5"
+                />
+              </>
+
+            <input
+              type="date"
+              value={pago.date}
+              onChange={e => handlePagoChange(index, 'date', e.target.value)}
+              className="border p-2 rounded w-full md:w-1/5"
+            />
+
+            <button onClick={() => handleRemovePago(index)} className="text-red-500 hover:text-red-700 text-lg self-start md:self-center"
+              aria-label="Eliminar forma de pago" > ✕ </button>
+          </div>
+        ))}
+
           <button onClick={handleAddPago} className="mt-2 text-sm text-blue-600 hover:underline">+ Agregar forma de pago</button>
         </div>
       )}
@@ -247,7 +269,6 @@ const Presupuestos = () => {
                     className="border p-1 rounded w-full"
                     />
                 </div>
-
                 <div className="sm:hidden mb-2">
                     <label className="text-xs block mb-1">Producto</label>
                     <input
@@ -257,7 +278,6 @@ const Presupuestos = () => {
                     className="border p-1 rounded w-full"
                     />
                 </div>
-
                 <div className="sm:hidden mb-2">
                     <label className="text-xs block mb-1">Código</label>
                     <input
@@ -267,7 +287,6 @@ const Presupuestos = () => {
                     className="border p-1 rounded w-full"
                     />
                 </div>
-
                 <div className="sm:hidden mb-2">
                     <label className="text-xs block mb-1">Precio</label>
                     <input
@@ -277,7 +296,6 @@ const Presupuestos = () => {
                     className="border p-1 rounded w-full"
                     />
                 </div>
-
                 <div className="sm:hidden mb-2 text-right text-sm">
                     <span className="font-semibold">Total: </span>
                     {(item.cantidad * item.precio).toLocaleString('es-AR', {
@@ -288,30 +306,10 @@ const Presupuestos = () => {
                 </div>
 
                 {/* Vista para pantallas sm en adelante */}
-                <input
-                    type="number"
-                    value={item.cantidad}
-                    onChange={e => handleItemChange(index, 'cantidad', e.target.value)}
-                    className="hidden sm:block border p-1 rounded w-full"
-                />
-                <input
-                    type="text"
-                    value={item.producto}
-                    onChange={e => handleItemChange(index, 'producto', e.target.value)}
-                    className="hidden sm:block border p-1 rounded w-full"
-                />
-                <input
-                    type="text"
-                    value={item.codigo}
-                    onChange={e => handleItemChange(index, 'codigo', e.target.value)}
-                    className="hidden sm:block border p-1 rounded w-full"
-                />
-                <input
-                    type="number"
-                    value={item.precio}
-                    onChange={e => handleItemChange(index, 'precio', e.target.value)}
-                    className="hidden sm:block border p-1 rounded w-full"
-                />
+                <input type="number" value={item.cantidad} onChange={e => handleItemChange(index, 'cantidad', e.target.value)} className="hidden sm:block border p-1 rounded w-full" />
+                <input type="text" value={item.producto} onChange={e => handleItemChange(index, 'producto', e.target.value)} className="hidden sm:block border p-1 rounded w-full" />
+                <input type="text" value={item.codigo} onChange={e => handleItemChange(index, 'codigo', e.target.value)} className="hidden sm:block border p-1 rounded w-full"/>
+                <input type="number" value={item.precio} onChange={e => handleItemChange(index, 'precio', e.target.value)} className="hidden sm:block border p-1 rounded w-full" />
                 <div className="hidden sm:flex items-center justify-end p-2 text-sm">
                     {(item.cantidad * item.precio).toLocaleString('es-AR', {
                     style: 'currency',
