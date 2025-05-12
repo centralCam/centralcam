@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import AddProduct from "./AddProduct/AddProduct";
 import UpdateProduct from "./UpdateProduct/UpdateProduct";
 import Presupuestos from "./Presupuestos/Presupuestos";
+import Etiquetas from './Etiquetas/Etiquetas'
 import useProducts from "@/Hooks/useProducts";
 import Dropdown from "../Tienda/Dropdown/Dropdown";
 import Nav from "./Nav/Nav";
@@ -301,6 +302,11 @@ export default function Admin() {
           {section === 'Empresas' && (
             <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
               <EmpresaForm />
+            </div>
+          )}
+          {section === 'Etiquetas' && (
+            <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
+              <Etiquetas />
             </div>
           )}
         </div>

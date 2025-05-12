@@ -23,6 +23,7 @@
     "dotenv": "^16.4.5",
     "firebase": "^10.12.3",
     "heic2any": "^0.0.4",
+    "html2pdf.js": "^0.10.3",
     "i": "^0.3.7",
     "json2csv": "^6.0.0-alpha.2",
     "jspdf": "^3.0.1",

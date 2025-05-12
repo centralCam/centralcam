@@ -172,6 +172,13 @@ export default function Nav( {handleSelectSection} ) {
               </a>
             </li>
 
+            {/* Etiquetas */}
+            <li>
+              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Etiquetas"); toggleMenu()}} title='Etiquetas '>
+                <span className="ml-3 text-gray-200">Etiquetas</span>
+              </a>
+            </li>
+
             {/* Descargar CSV */}
             <li>
               <DownloadCSVButton toggleMenu={toggleMenu} />
