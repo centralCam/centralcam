@@ -1,22 +1,23 @@
 import React, { useState, useRef } from 'react';
 import html2pdf from 'html2pdf.js';
 import userData from '@/app/constants/userData';
+import CargarEmpresaModal from '../Presupuestos/CargarEmpresa';
+import useEmpresas from '../../../Hooks/useEmpresas'
+
 
 function Etiquetas({ data }) {
   return (
-    <div className="w-[9.5cm] h-[7cm] border border-primary p-2 rounded-md text-sm font-medium gap-2 m-2 justify-between">
-      <div className="bg-primary text-white text-lg font-bold px-2 py-1 flex justify-between items-center rounded-md">
+    <div className="w-[20cm] h-[9.4cm] border border-primary p-2 rounded-md text-xl font-medium gap-2 m-2 ">
+      <div className="bg-primary text-white text-2xl font-bold p-2 flex justify-around items-center rounded-md uppercase text-center">
         <span>ENVÍO</span>
-        <span className="text-2xl rotate-90">↷</span>
+        <img src='/logos/LogoCentral2.webp' className="h-12"/>
       </div>
-      <div className="mt-2 justify-between">
+      <div className=" flex flex-col mt-2 justify-center mx-8 text-2xl uppercase">
         <div className='flex justify-between mt-1'><strong>PARA:</strong> {data.para}</div>
         <div className='flex justify-between mt-1'><strong>Direccion:</strong> {data.direccion}</div>
         <div className="flex justify-between mt-1"><strong>DE:</strong> {data.de}</div>
         <div className="flex justify-between mt-1"><strong>BULTOS <small>total</small>:</strong> {data.total}</div>
-        <div className="mt-1 flex justify-between">
-          <div><strong>DESPACHAR POR:</strong><br />{data.despacharPor}</div>
-        </div>
+        <div className="mt-1 flex justify-between"><strong>DESPACHAR POR:</strong>{data.despacharPor}</div>
         <div className="mt-2 flex justify-around gap-1">
           <div><strong>KILOS <small>total</small>: </strong><br />{data.kilos} kg.</div>
           <div><strong>BULTO N°: </strong><br />{data.bultoN}</div>
@@ -27,15 +28,26 @@ function Etiquetas({ data }) {
 }
 
 export default function EtiquetaFormPDF() {
-  const [formData, setFormData] = useState({
-    para: '',
-    direccion:'',
-    de: userData.name,
-    total: '',
-    despacharPor: '',
-    kilos: '',
-    bultoN: '',
-  });
+    const [usarEmpresa, setUsarEmpresa] = useState(false);
+    const [formData, setFormData] = useState({
+        para: '',
+        direccion:'',
+        de: userData.name,
+        total: '',
+        despacharPor: '',
+        kilos: '',
+        bultoN: '',
+    });
+    const { empresas } = useEmpresas()
+    const [empresa, setEmpresa] = useState({
+      nombre: '',
+      direccion: '',
+      mail: '',
+      telefono: '',
+      cuil: '',
+      observaciones:'',
+      tipo: ''
+    })
 
   const etiquetaRef = useRef();
 
@@ -57,9 +69,44 @@ export default function EtiquetaFormPDF() {
 
   return (
     <div className="space-y-4">
+        <div className="flex flex-col">
+            <div className="flex gap-2">
+                <input type="checkbox" id="usarEmpresa" checked={usarEmpresa} 
+                onChange={(e) => {setUsarEmpresa(e.target.checked);
+                if (e.target.checked && empresa.nombre && empresa.direccion) {
+                    setFormData((prev) => ({
+                    ...prev,
+                    para: empresa.nombre,
+                    direccion: empresa.direccion,
+                        }));
+                    }
+                    }}
+                />
+                <label htmlFor="usarEmpresa">Cargar empresa</label>
+            </div>
+            {usarEmpresa
+            ?<CargarEmpresaModal empresas={empresas}
+                onEmpresaSeleccionada={(empresaSeleccionada) => {
+                    setEmpresa({
+                        nombre: empresaSeleccionada.nombre,
+                        direccion: empresaSeleccionada.direccion,
+                        mail: empresaSeleccionada.mail,
+                        telefono: empresaSeleccionada.telefono,
+                        cuil: empresaSeleccionada.cuil,
+                        tipo: empresaSeleccionada.tipo,
+                    });
+                    if (usarEmpresa) {
+                    setFormData((prev) => ({
+                        ...prev,
+                        para: empresaSeleccionada.nombre,
+                        direccion: empresaSeleccionada.direccion,
+                    }))}
+                }} />
+            :null}
+        </div>
       <form className="flex flex-wrap md:grid md:grid-cols-2 gap-4">
-        {Object.keys(formData).map((key) => (
-          <input
+      {Object.keys(formData).map((key) => (
+        <input
             key={key}
             type="text"
             name={key}
@@ -67,14 +114,13 @@ export default function EtiquetaFormPDF() {
             value={formData[key]}
             onChange={handleChange}
             className="border p-2 rounded w-full"
-          />
+            disabled={usarEmpresa && (key === 'para' || key === 'direccion')}
+        />
         ))}
+        <div className="flex items-center gap-2">
+    </div>
       </form>
-      <button
-        onClick={handleGeneratePDF}
-        className="bg-primary text-white px-2 py-2 rounded"
-        disabled={!isValidTotal}
-      >
+      <button onClick={handleGeneratePDF} className="bg-primary text-white px-2 py-2 rounded cursor-pointer" disabled={!isValidTotal} >
         Generar PDF
       </button>
       <div ref={etiquetaRef} className='flex flex-wrap'>
