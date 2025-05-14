@@ -37,7 +37,7 @@ function Etiquetas({ data }) {
 
       {/* Kilos y Bulto N° */}
       <div className="grid grid-cols-2 gap-4 mt-4 px-4 text-2xl uppercase">
-        <p><strong>Bultos <small>total</small>:</strong> {data.total}</p>
+        <p><strong>Bultos <small>total</small>:</strong> {data.totalBulto}</p>
         <p><strong>Bulto N°:</strong>{data.bultoN}</p>
       </div>
     </div>
@@ -46,7 +46,6 @@ function Etiquetas({ data }) {
 
 
 export default function EtiquetaFormPDF() {
-    const [usarEmpresa, setUsarEmpresa] = useState(false);
     const [formData, setFormData] = useState({
         de: userData.name,
         cel: userData.contact,
@@ -89,21 +88,7 @@ export default function EtiquetaFormPDF() {
   return (
     <div className="space-y-4">
         <div className="flex flex-col">
-            <div className="flex gap-2">
-                <input type="checkbox" id="usarEmpresa" checked={usarEmpresa} 
-                onChange={(e) => {setUsarEmpresa(e.target.checked);
-                if (e.target.checked && empresa.nombre && empresa.direccion && empresa.telefono) {
-                    setFormData((prev) => ({
-                    ...prev,
-                    para: empresa.nombre || '',
-                    direccion: empresa.direccion || '',
-                    telefono: empresa.telefono ||'',
-                        }));
-                    }
-                    }}
-                />
-                <label htmlFor="usarEmpresa">Cargar empresa</label>
-            </div>
+
             <CargarEmpresaModal empresas={empresas}
                 onEmpresaSeleccionada={(empresaSeleccionada) => {
                     setEmpresa({
