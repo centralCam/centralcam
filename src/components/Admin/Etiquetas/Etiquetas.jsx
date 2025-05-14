@@ -7,7 +7,7 @@ import useEmpresas from '../../../Hooks/useEmpresas'
 
 function Etiquetas({ data }) {
   return (
-    <div className="w-[20cm] h-[9.5cm] border border-primary p-2 rounded-md text-xl font-medium gap-2 m-2">
+    <div className="w-[20cm] h-[9.4cm] border border-primary p-2 rounded-md text-xl font-medium gap-2 m-2">
       {/* Encabezado */}
       <div className="bg-primary text-white text-2xl font-bold p-2 flex justify-around items-center rounded-md uppercase text-center">
         <span>ENVÍO</span>
@@ -15,28 +15,28 @@ function Etiquetas({ data }) {
       </div>
 
       {/* Cuerpo en dos columnas */}
-      <div className="grid grid-cols-2 gap-4 mt-4 px-4 text-2xl uppercase">
+      <div className="grid grid-cols-3 gap-2 mt-2 px-2 text-2xl uppercase">
         {/* Columna izquierda */}
-        <div className="space-y-2">
+        <div className="space-y-1 col-span-2">
           <p><strong>Para:</strong> {data.para}</p>
           <p><strong>Dirección:</strong> {data.direccion}</p>
           <p><strong>Tel:</strong> {data.telefono}</p>
         </div>
 
         {/* Columna derecha */}
-        <div className="space-y-2">
+        <div className="space-y-1">
           <p><strong>De:</strong> {data.de}</p>
           <p><strong>Cel:</strong> {data.cel}</p>
         </div>
       </div>
 
       {/* Información adicional inferior */}
-      <div className="grid col-span-2 gap-4 mt-4 px-4 text-2xl uppercase">
+      <div className="grid col-span-3 gap-2 mt-2 px-2 text-2xl uppercase">
         <p><strong>Despachar por:</strong> {data.despacharPor}</p>
       </div>
 
       {/* Kilos y Bulto N° */}
-      <div className="grid grid-cols-2 gap-4 mt-4 px-4 text-2xl uppercase">
+      <div className="grid grid-cols-2 gap-2 mt-2 px-2 text-2xl uppercase">
         <p><strong>Bultos <small>total</small>:</strong> {data.totalBulto}</p>
         <p><strong>Bulto N°:</strong>{data.bultoN}</p>
       </div>
