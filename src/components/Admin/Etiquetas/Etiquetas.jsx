@@ -7,7 +7,7 @@ import useEmpresas from '../../../Hooks/useEmpresas'
 
 function Etiquetas({ data }) {
   return (
-    <div className="w-[20cm] h-[9cm] border border-primary p-2 rounded-md text-xl font-medium gap-2 m-2">
+    <div className="w-[20cm] h-[9.5cm] border border-primary p-2 rounded-md text-xl font-medium gap-2 m-2">
       {/* Encabezado */}
       <div className="bg-primary text-white text-2xl font-bold p-2 flex justify-around items-center rounded-md uppercase text-center">
         <span>ENVÍO</span>
