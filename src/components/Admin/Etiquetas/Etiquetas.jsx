@@ -7,35 +7,54 @@ import useEmpresas from '../../../Hooks/useEmpresas'
 
 function Etiquetas({ data }) {
   return (
-    <div className="w-[20cm] h-[9.4cm] border border-primary p-2 rounded-md text-xl font-medium gap-2 m-2 ">
+    <div className="w-[20cm] h-[9cm] border border-primary p-2 rounded-md text-xl font-medium gap-2 m-2">
+      {/* Encabezado */}
       <div className="bg-primary text-white text-2xl font-bold p-2 flex justify-around items-center rounded-md uppercase text-center">
         <span>ENVÍO</span>
-        <img src='/logos/LogoCentral2.webp' className="h-12"/>
+        <img src="/logos/LogoCentral2.webp" className="h-12" />
       </div>
-      <div className=" flex flex-col mt-2 justify-center mx-8 text-2xl uppercase">
-        <div className='flex justify-between mt-1'><strong>PARA:</strong> {data.para}</div>
-        <div className='flex justify-between mt-1'><strong>Direccion:</strong> {data.direccion}</div>
-        <div className="flex justify-between mt-1"><strong>DE:</strong> {data.de}</div>
-        <div className="flex justify-between mt-1"><strong>BULTOS <small>total</small>:</strong> {data.total}</div>
-        <div className="mt-1 flex justify-between"><strong>DESPACHAR POR:</strong>{data.despacharPor}</div>
-        <div className="mt-2 flex justify-around gap-1">
-          <div><strong>KILOS <small>total</small>: </strong><br />{data.kilos} kg.</div>
-          <div><strong>BULTO N°: </strong><br />{data.bultoN}</div>
+
+      {/* Cuerpo en dos columnas */}
+      <div className="grid grid-cols-2 gap-4 mt-4 px-4 text-2xl uppercase">
+        {/* Columna izquierda */}
+        <div className="space-y-2">
+          <p><strong>Para:</strong> {data.para}</p>
+          <p><strong>Dirección:</strong> {data.direccion}</p>
+          <p><strong>Tel:</strong> {data.telefono}</p>
         </div>
+
+        {/* Columna derecha */}
+        <div className="space-y-2">
+          <p><strong>De:</strong> {data.de}</p>
+          <p><strong>Cel:</strong> {data.cel}</p>
+        </div>
+      </div>
+
+      {/* Información adicional inferior */}
+      <div className="grid col-span-2 gap-4 mt-4 px-4 text-2xl uppercase">
+        <p><strong>Despachar por:</strong> {data.despacharPor}</p>
+      </div>
+
+      {/* Kilos y Bulto N° */}
+      <div className="grid grid-cols-2 gap-4 mt-4 px-4 text-2xl uppercase">
+        <p><strong>Bultos <small>total</small>:</strong> {data.total}</p>
+        <p><strong>Bulto N°:</strong>{data.bultoN}</p>
       </div>
     </div>
   );
 }
 
+
 export default function EtiquetaFormPDF() {
     const [usarEmpresa, setUsarEmpresa] = useState(false);
     const [formData, setFormData] = useState({
+        de: userData.name,
+        cel: userData.contact,
         para: '',
         direccion:'',
-        de: userData.name,
-        total: '',
+        telefono:'',
+        totalBulto: '',
         despacharPor: '',
-        kilos: '',
         bultoN: '',
     });
     const { empresas } = useEmpresas()
@@ -64,7 +83,7 @@ export default function EtiquetaFormPDF() {
     }).save();
   };
 
-  const totalBultos = parseInt(formData.total, 10);
+  const totalBultos = parseInt(formData.totalBulto, 10);
   const isValidTotal = !isNaN(totalBultos) && totalBultos > 0;
 
   return (
@@ -73,19 +92,19 @@ export default function EtiquetaFormPDF() {
             <div className="flex gap-2">
                 <input type="checkbox" id="usarEmpresa" checked={usarEmpresa} 
                 onChange={(e) => {setUsarEmpresa(e.target.checked);
-                if (e.target.checked && empresa.nombre && empresa.direccion) {
+                if (e.target.checked && empresa.nombre && empresa.direccion && empresa.telefono) {
                     setFormData((prev) => ({
                     ...prev,
-                    para: empresa.nombre,
-                    direccion: empresa.direccion,
+                    para: empresa.nombre || '',
+                    direccion: empresa.direccion || '',
+                    telefono: empresa.telefono ||'',
                         }));
                     }
                     }}
                 />
                 <label htmlFor="usarEmpresa">Cargar empresa</label>
             </div>
-            {usarEmpresa
-            ?<CargarEmpresaModal empresas={empresas}
+            <CargarEmpresaModal empresas={empresas}
                 onEmpresaSeleccionada={(empresaSeleccionada) => {
                     setEmpresa({
                         nombre: empresaSeleccionada.nombre,
@@ -95,17 +114,17 @@ export default function EtiquetaFormPDF() {
                         cuil: empresaSeleccionada.cuil,
                         tipo: empresaSeleccionada.tipo,
                     });
-                    if (usarEmpresa) {
                     setFormData((prev) => ({
                         ...prev,
                         para: empresaSeleccionada.nombre,
                         direccion: empresaSeleccionada.direccion,
-                    }))}
+                        telefono: empresaSeleccionada.telefono,
+                    }))
                 }} />
-            :null}
         </div>
       <form className="flex flex-wrap md:grid md:grid-cols-2 gap-4">
       {Object.keys(formData).map((key) => (
+        key !== 'bultoN' ?
         <input
             key={key}
             type="text"
@@ -114,8 +133,8 @@ export default function EtiquetaFormPDF() {
             value={formData[key]}
             onChange={handleChange}
             className="border p-2 rounded w-full"
-            disabled={usarEmpresa && (key === 'para' || key === 'direccion')}
-        />
+            disabled={key === 'de' || key === 'cel'}
+        />:null
         ))}
         <div className="flex items-center gap-2">
     </div>
