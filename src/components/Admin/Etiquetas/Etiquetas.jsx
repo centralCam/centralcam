@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import html2pdf from 'html2pdf.js';
 import userData from '@/app/constants/userData';
+import { FaWhatsapp } from "react-icons/fa";
 import CargarEmpresaModal from '../Presupuestos/CargarEmpresa';
 import useEmpresas from '../../../Hooks/useEmpresas'
 
@@ -20,7 +21,7 @@ function Etiquetas({ data }) {
         <div className="space-y-1 col-span-2">
           <p><strong>Para:</strong> {data.para}</p>
           <p><strong>Dirección:</strong> {data.direccion}</p>
-          <p><strong>Tel:</strong> {data.telefono}</p>
+          <p><strong><FaWhatsapp className='w-6 h-6'/></strong> {data.telefono}</p>
         </div>
 
         {/* Columna derecha */}
