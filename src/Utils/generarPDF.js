@@ -1,11 +1,14 @@
 import userData from "@/app/constants/userData"
 import logoEmpresa from '../../public/logos/imgPDF.png'
+import whats from '../../public/logos/whatsapp.png'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import getImageBase64 from "./getImageBase64"
 
 const generarPDF = async (empresa, items, tipoDocumento, fecha, pagos) => {
   const imageData = await getImageBase64(logoEmpresa.src)
+  const whatsLogo = await getImageBase64(whats.src)
+
   const doc = new jsPDF()
   const clienteX = 120
 
@@ -29,7 +32,8 @@ const generarPDF = async (empresa, items, tipoDocumento, fecha, pagos) => {
   // Datos de la empresa emisora
   doc.text(`${userData.name}`, 15, 35)
   doc.text(`${userData.email}`, 15, 42)
-  doc.text(`+${userData.codigoPais}${userData.contact}`, 15, 49)
+  doc.addImage(whatsLogo, 'PNG', 15, 46.5, 5, 5); // x, y, width, height
+  doc.text(`+${userData.codigoPais}${userData.contact}`, 22, 50);
   doc.text(`${userData.cuil}`, 15, 56)
 
   // Datos del cliente

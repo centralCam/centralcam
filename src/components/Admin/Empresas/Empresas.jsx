@@ -22,7 +22,7 @@ export default function EmpresaForm() {
   const [editingId, setEditingId] = useState(null);
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
-  const empresasPorPagina = 5;
+  const empresasPorPagina = 25;
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -141,28 +141,28 @@ export default function EmpresaForm() {
 
 
       {/* Lista paginada */}
-      <div className="grid gap-4">
-        {empresasPaginadas.map((empresa) => (
-          <Card key={empresa._id} className="p-4">
-            <CardContent className="space-y-2">
-              <p className="text-lg font-semibold">{empresa.nombre}</p>
-              <p>{empresa.direccion}</p>
-              <p>{empresa.mail}</p>
-              <p>{empresa.telefono}</p>
-              <p>{empresa.cuil}</p>
-              <p>{empresa.tipo}</p>
-              <div className="flex gap-2 mt-2">
-                <Button size="sm" onClick={() => handleEdit(empresa)}>
-                  Editar
-                </Button>
-                <Button size="sm" variant="destructive" onClick={() => handleDelete(empresa._id)}>
-                  Eliminar
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {empresasPaginadas.map((empresa) => (
+        <Card key={empresa._id} className="p-2 bg-slate-200">
+          <CardContent className="space-y-2">
+            <p className="text-lg font-semibold">{empresa.nombre}</p>
+            <p>{empresa.direccion}</p>
+            <p>{empresa.mail}</p>
+            <p>{empresa.telefono}</p>
+            <p>{empresa.cuil}</p>
+            <p>{empresa.tipo}</p>
+            <div className="flex gap-2 mt-2">
+              <Button size="sm" onClick={() => handleEdit(empresa)}>
+                Editar
+              </Button>
+              <Button size="sm" variant="destructive" onClick={() => handleDelete(empresa._id)}>
+                Eliminar
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
 
       {/* Paginador */}
       {totalPaginas > 1 && (
