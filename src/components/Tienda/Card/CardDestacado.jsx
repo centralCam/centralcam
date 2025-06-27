@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-import { RiWhatsappLine  } from 'react-icons/ri';
 import toast from 'react-hot-toast';
 import IconShoopingCart from '../ShoopingCart/IconShoopingCart';
-import userData from '@/app/constants/userData';
-import { CartContext } from '@/components/Context/ShoopingCartContext';
+import userData from '../../../app/constants/userData';
+import { CartContext } from '../../../components/Context/ShoopingCartContext';
 
 const CardDestacado = ({ selectedProduct, handleProductSelect }) => {
   const [cart, setCart] = useContext(CartContext);

@@ -1,14 +1,14 @@
 'use client'
 
 import React, { useState } from 'react'
-import useProducts from '@/Hooks/useProducts'
 import Swal from 'sweetalert2'
-import handleShare from '@/Utils/handleShare'
-import generarPDF from '@/Utils/generarPDF'
+import useProducts from '../../../Hooks/useProducts'
+import handleShare from '../../../Utils/handleShare'
+import generarPDF from '../../../Utils/generarPDF'
 import SearchInPresupuesto from './SearchAdmin'
 import CargarEmpresaModal from './CargarEmpresa';
 import useEmpresas from '../../../Hooks/useEmpresas'
-import { Button } from '@/components/ui/button'
+import { Button } from '../../../components/ui/button'
 
 const Presupuestos = () => {    
   const { products } = useProducts()

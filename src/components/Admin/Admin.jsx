@@ -5,7 +5,7 @@ import AddProduct from "./AddProduct/AddProduct";
 import UpdateProduct from "./UpdateProduct/UpdateProduct";
 import Presupuestos from "./Presupuestos/Presupuestos";
 import Etiquetas from './Etiquetas/Etiquetas'
-import useProducts from "@/Hooks/useProducts";
+import useProducts from "../../Hooks/useProducts";
 import Dropdown from "../Tienda/Dropdown/Dropdown";
 import Nav from "./Nav/Nav";
 import TablaDestacados from "./TablaDestacados/TablaDestacados";
@@ -15,6 +15,7 @@ import Loading from "../Loading/Loading";
 import SearchBase from "../Search/SearchBase";
 import { Pagination } from "@mui/material";
 import EmpresaForm from "./Empresas/Empresas";
+import EstadisticasGSC from "./KeywordTable/KeywordTable";
 
 export default function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -307,6 +308,11 @@ export default function Admin() {
           {section === 'Etiquetas' && (
             <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
               <Etiquetas />
+            </div>
+          )}
+          {section === 'Estadisticas' && (
+            <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
+              <EstadisticasGSC />
             </div>
           )}
         </div>

@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import UploadImage from "../UploadImage";
 import { FaPlus } from "react-icons/fa";
 import Swal from "sweetalert2";
-import Loading from "@/components/Loading/Loading";
+import Loading from "../../../components/Loading/Loading";
 
 export default function UpdateProduct({
   isOpenModal,

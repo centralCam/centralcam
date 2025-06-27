@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import LogoBlanco from '../../../public/logos/LogoCentral2.webp'
-import Redes from "@/app/constants/Redes";
+import Redes from "../../app/constants/Redes";
 
 export default function Footer() {
   

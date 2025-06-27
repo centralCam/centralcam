@@ -1,9 +1,9 @@
 'use client'
 import React, { useContext, useState } from 'react';
-import { CartContext } from '@/components/Context/ShoopingCartContext';
-import addToCart from '@/Utils/addToCart';
+import { CartContext } from '../../../components/Context/ShoopingCartContext';
+import addToCart from '../../../Utils/addToCart';
 import Link from 'next/link';
-import userData from '@/app/constants/userData';
+import userData from '../../../app/constants/userData';
 import { usePathname, useRouter } from 'next/navigation';
 
 const Modals = ({ selectedProduct, closeModal }) => {

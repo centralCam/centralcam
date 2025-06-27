@@ -4,8 +4,8 @@ import { logOut } from '../../../lib/firebase';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import DownloadCSVButton from '@/components/Admin/DownloadCSVButton/DownloadCSVButton';
-import { removeFromLocalStorage } from '@/Hooks/localStorage';
+import DownloadCSVButton from '../../../components/Admin/DownloadCSVButton/DownloadCSVButton';
+import { removeFromLocalStorage } from '../../../Hooks/localStorage';
 
 
 
@@ -176,6 +176,12 @@ export default function Nav( {handleSelectSection} ) {
             <li>
               <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Etiquetas"); toggleMenu()}} title='Etiquetas '>
                 <span className="ml-3 text-gray-200">Etiquetas</span>
+              </a>
+            </li>
+            {/* Estadisticas */}
+            <li>
+              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Estadisticas"); toggleMenu()}} title='Etiquetas '>
+                <span className="ml-3 text-gray-200">Estadisticas</span>
               </a>
             </li>
 

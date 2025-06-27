@@ -1,5 +1,5 @@
-import Admin from '@/components/Admin/Admin';
-import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
+import Admin from '../../components/Admin/Admin';
+import ProtectedRoute from '../../components/ProtectedRoute/ProtectedRoute';
 
 const AdminPage = () => {
   return (

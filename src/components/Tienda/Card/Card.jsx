@@ -2,10 +2,10 @@
 import React, { useContext } from 'react';
 import { RiWhatsappLine, RiShareFill  } from 'react-icons/ri';
 import IconShoopingCart from '../ShoopingCart/IconShoopingCart';
-import userData from '@/app/constants/userData';
-import addToCart from '@/Utils/addToCart';
-import { CartContext } from '@/components/Context/ShoopingCartContext';
-import handleShare from '@/Utils/handleShare';
+import userData from '../../../app/constants/userData';
+import addToCart from '../../../Utils/addToCart';
+import { CartContext } from '../../../components/Context/ShoopingCartContext';
+import handleShare from '../../../Utils/handleShare';
 
 
 const Card = ({ product, handleProductSelect }) => {

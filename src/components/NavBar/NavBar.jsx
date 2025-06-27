@@ -9,7 +9,7 @@ import { CartContext } from '../Context/ShoopingCartContext';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import { logOut } from '../../lib/firebase';
-import useLinks from '@/app/constants/Links';
+import useLinks from '../../app/constants/Links';
 import { usePathname } from 'next/navigation';
 
 const NavBar = () => {

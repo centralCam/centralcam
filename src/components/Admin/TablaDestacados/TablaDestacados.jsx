@@ -3,8 +3,8 @@ import React, { useState, Suspense } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Checkbox from '../CheckboxDestacados/CheckboxDestacados';
-import useProducts from '@/Hooks/useProducts';
-import Loading from '@/components/Loading/Loading';
+import useProducts from '../../../Hooks/useProducts';
+import Loading from '../../../components/Loading/Loading';
 
 function TablaDestacados() {
   const [products, setProducts] = useState([]);

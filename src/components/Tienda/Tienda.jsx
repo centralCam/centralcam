@@ -1,11 +1,11 @@
 "use client";
 import React, { Suspense } from 'react';
 import { Pagination } from "@mui/material";
-import Cards from '@/components/Tienda/Cards/Cards.jsx';
+import Cards from '../../components/Tienda/Cards/Cards.jsx';
 import Modals from "./Modal/Modals";
 import Dropdown from "./Dropdown/Dropdown";
 import Filtros from "./Filtros/Filtros";
-import useProducts from "@/Hooks/useProducts";
+import useProducts from "../../Hooks/useProducts";
 import Loading from '../Loading/Loading';
 
 export default function Tienda() {

@@ -1,4 +1,4 @@
-import userData from "@/app/constants/userData"
+import userData from "../app/constants/userData"
 import logoEmpresa from '../../public/logos/imgPDF.png'
 import whats from '../../public/logos/whatsapp.png'
 import jsPDF from 'jspdf'

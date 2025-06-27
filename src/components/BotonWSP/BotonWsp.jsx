@@ -2,7 +2,7 @@
 'use client'
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
-import userData from "@/app/constants/userData";
+import userData from "../../app/constants/userData";
 
 // crear userData en /constants
 // const userData = {

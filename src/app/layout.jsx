@@ -1,8 +1,8 @@
 import React from 'react';
 import "./globals.css";
 import { Toaster } from 'react-hot-toast';
-import { ShoppingCartProvider } from '@/components/Context/ShoopingCartContext';
-import { defaultMetadata } from '@/lib/metadata';
+import { ShoppingCartProvider } from '../components/Context/ShoopingCartContext';
+import { defaultMetadata } from '../lib/metadata';
 
 export default function RootLayout({ children }) {
   return (

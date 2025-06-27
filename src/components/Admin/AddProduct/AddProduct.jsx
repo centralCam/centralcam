@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { FaPlus } from "react-icons/fa";
 import UploadImage from '../UploadImage';
 import Swal from 'sweetalert2';
-import Loading from '@/components/Loading/Loading';
+import Loading from '../../Loading/Loading';
 
 
 export default function AddProduct({

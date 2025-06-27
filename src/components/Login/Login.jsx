@@ -11,8 +11,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { FaSpinner } from 'react-icons/fa';
-import { handleAuthError } from '@/Utils/handleErrorsFirebase';
-import { setInLocalStorage } from '@/Hooks/localStorage';
+import { handleAuthError } from '../../Utils/handleErrorsFirebase';
+import { setInLocalStorage } from '../../Hooks/localStorage';
 
 const Login = () => {
   const router = useRouter();

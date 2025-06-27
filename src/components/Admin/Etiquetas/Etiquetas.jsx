@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import html2pdf from 'html2pdf.js';
-import userData from '@/app/constants/userData';
+import userData from '../../../app/constants/userData';
 import { FaWhatsapp } from "react-icons/fa";
 import CargarEmpresaModal from '../Presupuestos/CargarEmpresa';
 import useEmpresas from '../../../Hooks/useEmpresas'
