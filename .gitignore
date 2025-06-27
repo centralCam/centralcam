@@ -35,3 +35,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+gsc-key.json
+gsc-key.jsonc
+
+keys/gsc-key.json
+keys/gsc-key.jsonc
