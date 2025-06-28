@@ -1,6 +1,6 @@
 // app/api/productos/[slug]/route.js
-import { connectDB } from '../../lib/mongodb';
-import Producto from '../../models/Producto';
+import { connectDB } from '../../../../lib/mongodb';
+import Producto from '../../../../models/product';
 
 export async function GET(request, { params }) {
   await connectDB();

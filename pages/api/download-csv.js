@@ -1,6 +1,6 @@
 // pages/api/download-csv.js
 import { connectDB } from '../../src/lib/mongodb';
-import Producto from '../../src/models/Producto';
+import Producto from '../../src/models/product';
 import { parse } from 'json2csv';
 
 export default async function handler(req, res) {
