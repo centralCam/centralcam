@@ -1,13 +1,13 @@
 import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { defaultMetadata } from '../../../lib/metadata';
+import Footer from '../../../components/Footer/Footer';
 import  fetchProduct  from '../../../Utils/fetchProduct';
-import Footer from '@/components/Footer/Footer';
-import VolverArriba from '@/components/VolverArriba/VolverArriba';
-import BotonWsp from '@/components/BotonWSP/BotonWsp';
-import NavBar from '@/components/NavBar/NavBar';
-import { Suspense } from 'react';
-import Loading from '@/components/Loading/Loading';
+import VolverArriba from '../../../components/VolverArriba/VolverArriba';
+import BotonWsp from '../../../components/BotonWSP/BotonWsp';
+import NavBar from '../../../components/NavBar/NavBar';
+import Loading from '../../../components/Loading/Loading';
 
 const Modal = dynamic(() => import('../../../components/Tienda/Modal/Modals'));
 

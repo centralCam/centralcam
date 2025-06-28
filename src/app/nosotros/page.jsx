@@ -1,9 +1,9 @@
-import BotonWsp from '@/components/BotonWSP/BotonWsp'
-import Footer from '@/components/Footer/Footer'
-import Loading from '@/components/Loading/Loading'
-import NavBar from '@/components/NavBar/NavBar'
-import NosotrosPage from '@/components/SobreMi/NosotrosPage'
-import VolverArriba from '@/components/VolverArriba/VolverArriba'
+import BotonWsp from '../../components/BotonWSP/BotonWsp'
+import Footer from '../../components/Footer/Footer'
+import Loading from '../../components/Loading/Loading'
+import NavBar from '../../components/NavBar/NavBar'
+import NosotrosPage from '../../components/SobreMi/NosotrosPage'
+import VolverArriba from '../../components/VolverArriba/VolverArriba'
 import React, { Suspense } from 'react'
 
 const NosPage = () => {

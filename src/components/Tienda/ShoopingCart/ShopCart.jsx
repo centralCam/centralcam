@@ -2,9 +2,9 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import producto from '../../../../public/images/sinFoto.webp';
 import Link from 'next/link';
-import userData from '@/app/constants/userData';
+import userData from '../../../app/constants/userData';
 import EmptyCart from '../EmptyCart/EmptyCart';
-import { CartContext } from '@/components/Context/ShoopingCartContext';
+import { CartContext } from '../../Context/ShoopingCartContext';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
 
