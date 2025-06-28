@@ -17,6 +17,9 @@ import {
 export default function EstadisticasGSC() {
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState<'clicks' | 'impressions' | 'ctr' | 'position'>('clicks');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+
 
   useEffect(() => {
     // Realiza la solicitud a tu API de Search Console
@@ -72,15 +75,25 @@ export default function EstadisticasGSC() {
   // 1. Copia el array para no mutar el estado original.
   // 2. Ordena primero por 'clicks' de forma descendente (más clics primero).
   // 3. Si los clics son iguales, ordena por 'position' de forma ascendente (mejor posición - número más bajo - primero).
-  const sortedTopQueries = data.topQueriesLast28Days
-    ? [...data.topQueriesLast28Days].sort((a, b) => {
-        const clicksDiff = (b.clicks || 0) - (a.clicks || 0);
-        if (clicksDiff !== 0) {
-          return clicksDiff;
-        }
-        return (a.position || 0) - (b.position || 0);
-      })
-    : [];
+const sortedTopQueries = data.topQueriesLast28Days
+  ? [...data.topQueriesLast28Days].sort((a, b) => {
+      const aVal = a[sortBy] ?? 0;
+      const bVal = b[sortBy] ?? 0;
+
+      if (aVal < bVal) return sortOrder === 'asc' ? -1 : 1;
+      if (aVal > bVal) return sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    })
+  : [];
+  
+  const handleSort = (key: 'clicks' | 'impressions' | 'ctr' | 'position') => {
+  if (sortBy === key) {
+    setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'));
+  } else {
+    setSortBy(key);
+    setSortOrder('desc'); // Por defecto descendente
+  }
+};
 
   return (
     <div className="p-4 space-y-6 bg-gray-50 rounded-md shadow-md min-h-screen">
@@ -141,27 +154,27 @@ export default function EstadisticasGSC() {
       {/* Sección para las Palabras Clave Principales */}
       <div className="bg-white rounded-xl shadow-lg p-6 mt-8">
         <h3 className="text-xl font-bold text-gray-700 mb-4">
-          <FaSearch className="inline-block h-6 w-6 text-indigo-600 mr-2" /> Palabras Clave Principales (Últimos 28 días)
+          <FaSearch className="inline-block h-6 w-6 text-indigo-600 mr-2" /> Palabras Clave Principales (Últimos 3 meses)
         </h3>
         {sortedTopQueries && sortedTopQueries.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Palabra Clave
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Clics
+                  <th onClick={() => handleSort('clicks')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                    Clics {sortBy === 'clicks' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Impresiones
+                  <th onClick={() => handleSort('impressions')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                    Impresiones {sortBy === 'impressions' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    CTR
+                  <th onClick={() => handleSort('ctr')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                    CTR {sortBy === 'ctr' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Posición Media
+                  <th onClick={() => handleSort('position')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                    Posición Media {sortBy === 'position' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
                   </th>
                 </tr>
               </thead>

@@ -45,7 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       };
     };
 
-    const getTopQueries = async (days: number, rowLimit = 10) => {
+    const getTopQueries = async (days: number, rowLimit = 15) => {
       const endDate = formatDate(today);
       const startDate = formatDate(new Date(today.getTime() - days * 86400000));
 
@@ -72,7 +72,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       getData(7),
       getData(28),
       getData(90),
-      getTopQueries(28, 20),
+      getTopQueries(90, 25),
     ]);
 
     res.status(200).json({
