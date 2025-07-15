@@ -44,7 +44,7 @@ export default function Contact() {
           <p className="max-w-sm mt-4 mb-4 text-[#000000]">Completa el formulario, envía un correo o escribime por whatsapp. </p>
           <div className="flex items-center mt-8 space-x-2 text-dark-600 text-[#000000]">
             <MapIcon className="w-4 h-4" />
-            <span>Av Champagnat 1167, Mar del Plata</span>
+            <span>{userData.direccion}</span>
           </div>
 
           <div className="flex items-center mt-2 space-x-2 text-dark-600  text-[#000000] ">
