@@ -12,9 +12,33 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="minimum-scale=1, width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover" />
         <meta name="theme-color" content="#007BC7" />
 
+        {/* Primary meta tags (for SEO) */}
+        <title>{defaultMetadata.title}</title>
+        <meta name="description" content={defaultMetadata.description} />
+        <meta name="keywords" content={defaultMetadata.keywords} />
+        <link rel="canonical" href={defaultMetadata.openGraph.url} />
+
         <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
+
+        {/* Open Graph */}
+        <meta property="og:title" content={defaultMetadata.openGraph.title} />
+        <meta property="og:description" content={defaultMetadata.openGraph.description} />
+        <meta property="og:type" content={defaultMetadata.openGraph.type} />
+        <meta property="og:url" content={defaultMetadata.openGraph.url} />
+        {defaultMetadata.openGraph.images && defaultMetadata.openGraph.images[0] && (
+          <meta property="og:image" content={defaultMetadata.openGraph.images[0].url} />
+        )}
+
+        {/* Twitter */}
+        <meta name="twitter:card" content={defaultMetadata.twitter?.card || 'summary_large_image'} />
+        <meta name="twitter:site" content={defaultMetadata.twitter?.site || ''} />
+        <meta name="twitter:title" content={defaultMetadata.twitter?.title || defaultMetadata.title} />
+        <meta name="twitter:description" content={defaultMetadata.twitter?.description || defaultMetadata.description} />
+        {defaultMetadata.twitter?.images && defaultMetadata.twitter.images[0] && (
+          <meta name="twitter:image" content={defaultMetadata.twitter.images[0].url} />
+        )}
 
         {/* Fonts and External Resources */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

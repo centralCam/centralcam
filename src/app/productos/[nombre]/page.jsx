@@ -10,51 +10,114 @@ import NavBar from '../../../components/NavBar/NavBar';
 import Loading from '../../../components/Loading/Loading';
 
 const Modal = dynamic(() => import('../../../components/Tienda/Modal/Modals'));
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || 'https://centralcamshop.com/';
 
-// ✅ `generateMetadata` usa valores dinámicos y valores por defecto
+const clean = (s = '') => String(s).replace(/\s+/g, ' ').trim();
+const truncate = (s = '', n = 180) => {
+  if (!s) return '';
+  if (s.length <= n) return s;
+  const cut = s.slice(0, n);
+  const i = cut.lastIndexOf(' ');
+  return (i > 50 ? cut.slice(0, i) : cut).trim() + '…';
+};
+const toAbs = (u = '') => { try { return new URL(u, SITE).toString(); } catch { return null; } };
+
 export async function generateMetadata({ params }) {
-  const product = await fetchProduct(params.nombre);
-  //console.log('producto de meta:', product);
-  
+  const rawSlug = params?.nombre || '';
+  const decoded = decodeURIComponent(rawSlug);
+  const nameFromSlug = clean(decoded.replace(/_/g, ' '));
+
+  let product = null;
+  try {
+    product = await fetchProduct(nameFromSlug);
+  } catch (e) {
+    console.error('generateMetadata fetchProduct error:', e);
+  }
+
+  const metadataBase = new URL(SITE);
+  const canonical = new URL(`productos/${encodeURIComponent(rawSlug)}`, metadataBase).toString();
+
   if (!product) {
     return {
       ...defaultMetadata,
-      title: 'Producto no encontrado',
+      metadataBase,
+      title: 'Producto no encontrado | CentralCam',
       description: 'No se encontró el producto solicitado.',
-      robots: 'noindex, nofollow',
+      alternates: { canonical },
+      robots: { index: false, follow: false, googleBot: { index: false, follow: false } },
+      openGraph: {
+        ...(defaultMetadata.openGraph || {}),
+        title: 'Producto no encontrado | CentralCam',
+        description: 'No se encontró el producto solicitado.',
+        url: canonical,
+        type: 'website',
+      },
     };
   }
 
+  const nombre = clean(product.nombre || nameFromSlug);
+  const modelo = clean(product.modelo || '');
+  const categoria = clean(product.categoria || '');
+  const marca = clean(product.marca || 'CentralCam');
+
+  const title = [nombre, modelo, categoria, marca, 'CentralCam'].filter(Boolean).join(' - ');
+  const descSrc = clean(product.descripcion || '');
+  const description = truncate(descSrc ? `${title} — ${descSrc}` : title, 180);
+
+  const defaultOg = defaultMetadata?.openGraph?.images?.[0];
+  const defaultOgUrl =
+    (typeof defaultOg === 'string' ? defaultOg : defaultOg?.url) ||
+    'https://centralcamshop.com/og/og-centralcam.png';
+  const foto = toAbs(product.foto_1_1) || defaultOgUrl;
+
+  const keywords = Array.from(new Set([
+    nombre, modelo, categoria, marca,
+    'Repuestos para camiones', 'accesorios para camiones', 'Repuestos', 'Argentina', 'CentralCam', 'tienda de repuestos', 'vehículos pesados','Mar del Plata'
+  ])).filter(Boolean).join(', ');
+
   return {
-    ...defaultMetadata, // Usa los valores por defecto si no están definidos en el producto
-    title: `${product.nombre} - ${product.modelo} - ${product.categoria} - ${product.marca} - E-CentralCam` || defaultMetadata.title,
-    description: product.nombre? `${product.nombre} - ${product.modelo} - ${product.categoria} - ${product.marca} - CentralCam ${product.descripcion.slice(0, 200)}`: defaultMetadata.description,
-    keywords: `${product.titulo_de_producto} - CentralCam ${product.descripcion.slice(0, 200)}` || defaultMetadata.keywords,
-    icons: [{ url: product.foto_1_1 || defaultMetadata.openGraph.images[0].url }],
+    ...defaultMetadata,
+    metadataBase,
+    title,
+    description,
+    keywords,
     openGraph: {
-      ...defaultMetadata.openGraph,
-      title: `${product.nombre} - ${product.modelo} - ${product.categoria} - ${product.marca} - E-CentralCam` || defaultMetadata.openGraph.title,
-      description: product.nombre? `${product.nombre} - ${product.modelo} - ${product.categoria} - ${product.marca} - CentralCam ${product.descripcion.slice(0, 200)}`: defaultMetadata.description,
-      images: [{ url: product.foto_1_1 || defaultMetadata.openGraph.images[0].url }],
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/productos/${params.nombre}`,
+      ...(defaultMetadata.openGraph || {}),
+      title,
+      description,
+      url: canonical,
       type: 'website',
+      siteName: 'CentralCam',
+      locale: 'es_AR',
+      images: [{ url: foto, width: 1200, height: 630, alt: `${nombre} - ${marca}` }],
     },
     twitter: {
-      ...defaultMetadata.twitter,
-      title: `${product.nombre} ` || defaultMetadata.twitter.title,
-      description: product.nombre? `${product.nombre} - ${product.modelo} - ${product.categoria} - ${product.marca} - CentralCam ${product.descripcion.slice(0, 200)}`: defaultMetadata.description,
-      images: [{ url: product.foto_1_1 || defaultMetadata.twitter.images[0].url }],
+      ...(defaultMetadata.twitter || {}),
+      title,
+      description,
+      images: [foto],
+      card: 'summary_large_image',
     },
-    alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/productos/${params.nombre}`,
+    alternates: { canonical },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 },
     },
   };
 }
-
 export default async function ProductoPage({ params }) {
-  const product = await fetchProduct(params.nombre);
+  const rawSlug = params?.nombre || '';
+  const nameFromSlug = clean(decodeURIComponent(rawSlug).replace(/_/g, ' '));
 
-  if (!product) return notFound(); // Muestra la página 404 si el producto no existe
+  let product = null;
+  try {
+    product = await fetchProduct(nameFromSlug);
+  } catch (e) {
+    console.error('ProductoPage fetchProduct error:', e);
+  }
+
+  if (!product) return notFound();
 
   return (
     <>

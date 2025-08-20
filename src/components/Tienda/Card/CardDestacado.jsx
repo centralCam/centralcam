@@ -38,9 +38,9 @@ const CardDestacado = ({ selectedProduct, handleProductSelect }) => {
               <button onClick={(e) => handleAddToCart(e, selectedProduct)} className="absolute top-1 right-1 inline-flex items-center justify-center w-8 h-8 rounded-full text-white z-10 bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active" aria-label="agregar al carrito">
                  <IconShoopingCart ancho={icon.ancho} alto={icon.alto} color={icon.color} />
               </button>
-              <img src='/images/FotoDestacados.webp' width={80} height={80} className="absolute top-[-15px] left-[-15px] xl:top-[-15px] xl:left-[-15px] xl:w-14 xl:h-14 w-10  inline-flex items-center justify-center z-10" alt='producto destacado' loading='lazy' title='producto destacado' />
+              <img src='/images/FotoDestacados.webp' width={80} height={80} className="absolute top-[-15px] left-[-15px] xl:top-[-15px] xl:left-[-15px] xl:w-14 xl:h-14 w-10  inline-flex items-center justify-center z-10" alt='Imagen decorativa: producto destacado' loading='lazy' aria-hidden="true" />
               <div className="rounded-lg overflow-hidden p-2 ">
-                <img className="rounded-lg p-0 w-full md:w-48 md:h-48 lg:w-52 lg:h-52" src={selectedProduct.foto_1_1 ? selectedProduct.foto_1_1 : '/images/sinFoto.webp'} alt={selectedProduct.nombre} width={150} height={150} title={selectedProduct.nombre} loading="lazy" />
+                <img className="rounded-lg p-0 w-full md:w-48 md:h-48 lg:w-52 lg:h-52" src={selectedProduct.foto_1_1 ? selectedProduct.foto_1_1 : '/images/sinFoto.webp'} alt={selectedProduct.nombre || 'Imagen de producto'} width={150} height={150} title={selectedProduct.nombre || 'Producto'} loading="lazy" />
               </div>      
             </div>
             <div className="px-5 pb-2">
@@ -51,7 +51,7 @@ const CardDestacado = ({ selectedProduct, handleProductSelect }) => {
             </h2>
               <div className=" flex items-center justify-between gap-2">
                   <p className="text-xs md:text-sm font-bold text-gray-900 ">{selectedProduct.marca}</p>
-                  <a href={enviar} className="w-full text-white font-medium rounded-lg text-sm px-3 py-1.5 text-center bg-primary-whats hover:bg-primary-whatsHover active:bg-boton-primary-active" target='_blank' title='Consulta'>Consulta</a>
+                  <a href={enviar} className="w-full text-white font-medium rounded-lg text-sm px-3 py-1.5 text-center bg-primary-whats hover:bg-primary-whatsHover active:bg-boton-primary-active" target='_blank' rel="noopener noreferrer" title='Abrir WhatsApp en nueva pestaña'>Consulta</a>
               </div>
             </div>
         </li>

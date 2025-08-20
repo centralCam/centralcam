@@ -14,7 +14,8 @@ export const defaultMetadata = {
     description: "En CENTRAL CAM, vendemos repuestos para camiones y transporte pesado en Mar del Plata, Argentina. Envíos rápidos a todo el país. ¡Calidad y confianza garantizadas!",
     type: 'website',
     url: 'https://centralcamshop.com/',
-    image: 'https://centralcamshop.com/logos/LogoCentral2.webp',
+    // Normalizamos a un arreglo de imágenes para compatibilidad con Next/OpenGraph
+    images: [{ url: 'https://centralcamshop.com/logos/LogoCentral2.webp', alt: 'Logo Central Cam' }],
   }, 
     twitter: {
       card: 'summary_large_image',
