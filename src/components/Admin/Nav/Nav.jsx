@@ -43,7 +43,7 @@ export default function Nav( {handleSelectSection} ) {
   return (
     <div className="border-gray-200 bg-[url('/bg/bg-banner.webp')]">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between flex-row-reverse mx-auto p-4">
-        <a href="#" className="flex items-center space-x-3" title='volver al home'> 
+  <a href="#" className="flex items-center space-x-3" title='volver al home' aria-label='Volver al inicio del panel administrativo'> 
           <img src="/logos/LogoCentral2.webp" className="h-14" alt="Logo central cam" loading='lazy' title="Logo central cam"/>
         </a>
         <button
@@ -117,7 +117,7 @@ export default function Nav( {handleSelectSection} ) {
           <ul className="space-y-2 font-medium">
             {/* Productos  */}
             <li>
-              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => {handleSelectSection("Productos");toggleMenu()}} title='Productos'>
+              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => {handleSelectSection("Productos");toggleMenu()}} title='Productos' aria-label='Ir a Productos en panel administrativo'>
                 <svg
                   className="w-5 h-5 text-gray-400 "
                   aria-hidden="true"
@@ -137,11 +137,12 @@ export default function Nav( {handleSelectSection} ) {
             </li>
             {/* Productos Destacados  */}
             <li>
-              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => {
+        <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => {
                   handleSelectSection("Destacados");
                   toggleMenu();
                 }}
                 title='Productos destacados'
+          aria-label='Ir a Productos destacados en panel administrativo'
               >
                 <svg
                   className="flex-shrink-0 w-5 h-5 text-gray-400 "
@@ -160,27 +161,27 @@ export default function Nav( {handleSelectSection} ) {
 
             {/* Comprobantes */}
             <li>
-              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Comprobantes"); toggleMenu()}} title='Presupuestos '>
+              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Comprobantes"); toggleMenu()}} title='Presupuestos ' aria-label='Ir a Comprobantes'>
                 <span className="ml-3 text-gray-200">Comprobantes</span>
               </a>
             </li>
 
             {/* Empresas */}
             <li>
-              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Empresas"); toggleMenu()}} title='Presupuestos '>
+              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Empresas"); toggleMenu()}} title='Presupuestos ' aria-label='Ir a Empresas'>
                 <span className="ml-3 text-gray-200">Empresas</span>
               </a>
             </li>
 
             {/* Etiquetas */}
             <li>
-              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Etiquetas"); toggleMenu()}} title='Etiquetas '>
+              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Etiquetas"); toggleMenu()}} title='Etiquetas ' aria-label='Ir a Etiquetas'>
                 <span className="ml-3 text-gray-200">Etiquetas</span>
               </a>
             </li>
             {/* Estadisticas */}
             <li>
-              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Estadisticas"); toggleMenu()}} title='Etiquetas '>
+              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => { handleSelectSection("Estadisticas"); toggleMenu()}} title='Etiquetas ' aria-label='Ir a Estadisticas'>
                 <span className="ml-3 text-gray-200">Estadisticas</span>
               </a>
             </li>

@@ -67,7 +67,7 @@ const NosotrosPage = () => {
               </p>
         </div>
         <div className="mt-8 text-center">
-          <Link href="/#contacto">
+          <Link href="/#contacto" title="Ir a contacto" aria-label="Ir a contacto">
             <button className="bg-blue-700 text-white font-medium rounded-lg px-5 py-2.5 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300">
               Contáctanos
             </button>

@@ -188,9 +188,11 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
           role={undefined}
           variant="outlined"
           tabIndex={-1}
+          title="Subir imágenes de producto"
+          aria-label="Subir imágenes de producto"
         >
           Subir Archivo
-          <VisuallyHiddenInput type="file" multiple onChange={handleArchivoSeleccionado} />
+          <VisuallyHiddenInput type="file" multiple onChange={handleArchivoSeleccionado} aria-label="Seleccionar archivos de imagen" />
         </Button>
       </div>
 
@@ -202,11 +204,11 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
                 {/* Vista previa de la imagen */}
                 <img
                   src={archivo.preview || URL.createObjectURL(archivo)}
-                  alt={archivo.name}
+                  alt={archivo.name || 'Preview de imagen'}
                   className="w-full object-cover cursor-pointer h-36 max-w-full rounded-lg"
                   onClick={() => handleVerArchivo(archivo)}
                   loading='lazy'
-                  title={archivo.name}
+                  title={archivo.name || 'Preview de imagen'}
                 />
 
                  <Button

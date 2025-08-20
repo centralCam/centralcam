@@ -33,13 +33,15 @@ export default function Register() {
                         <input id="termsRegister" aria-describedby="terms" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300" required=""/>
                       </div>
                       <div className="ml-3 text-sm">
-                        <label htmlFor="termsRegister" className="font-light text-gray-500">Acepto los <Link className="font-medium text-primary-600 hover:underline" href="#">Términos y Condiciones</Link></label>
+                        <label htmlFor="termsRegister" className="font-light text-gray-500">Acepto los <Link className="font-medium text-primary-600 hover:underline" href="#" title="Términos y Condiciones" aria-label="Abrir términos y condiciones">Términos y Condiciones</Link></label>
                       </div>
                   </div>
                   <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" aria-label="crear cuenta">Crear una cuenta</button>
                   <p className="text-sm font-light text-gray-500">
-                      ¿Ya tienes una cuenta? <Link href="/Login" className="font-medium text-primary-600 hover:underline">Inicia sesión aquí</Link>
+                      ¿Ya tienes una cuenta? <Link href="/Login" className="font-medium text-primary-600 hover:underline" title="Ir a iniciar sesión" aria-label="Ir a iniciar sesión">Inicia sesión aquí</Link>
                   </p>
+              
+              
               </form>
           </div>
       </div>

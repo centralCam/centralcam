@@ -7,16 +7,16 @@ const Banner = () => {
         src="/bg/bg-sm-banner.webp" 
         srcSet="/bg/bg-sm-banner.webp 600w, /bg/bg-banner.webp 1200w" 
         sizes="(max-width: 768px) 600px, 1200px" 
-        alt="Banner"
+        alt="Banner Central Cam: repuestos para camiones"
         className="absolute inset-0 w-full h-full object-cover"
         loading="eager"
-        title="Banner"
+        title="Banner Central Cam: repuestos para camiones"
       />
       <article className="text-center z-10 m-2 p-2 max-w-[600px]">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-transparent font-bold mb-4 bg-clip-text bg-gradient-to-r from-boton-primary via-boton-secondary to-boton-primary">
           CENTRAL CAM<br/>REPUESTOS
         </h2>
-        <h1 className="text-lg sm:text-xl text-white font-semibold">La más amplia variedad de repuestos para camiones:</h1>
+        <h1 className="text-lg sm:text-xl text-white font-semibold">Amplia variedad de repuestos para camiones en Argentina:</h1>
         <h2 className="text-md md:text-xl text-white font-semibold">calidad, durabilidad y confiabilidad en cada pieza.</h2>
       </article>
     </section>

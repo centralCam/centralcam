@@ -85,6 +85,7 @@ const ShopCart = () => {
             href="/"
             className="text-gray-500 bg-transparent hover:bg-gray-200 hover:text-gray-500 rounded-lg text-sm w-10 h-10 ms-auto inline-flex justify-center items-center"
             title='CARRITO DE CONSULTAS'
+            aria-label='Cerrar carrito y volver al inicio'
           >
             <svg
               className="w-5 h-5"
@@ -173,10 +174,11 @@ const ShopCart = () => {
               </button>
               <div></div>
               <Link
-                href="/#productos"
-                className={`col-span-2 underline my-5 ${cart.length ? "block" : "hidden"}`}
-                title='Continuar seleccionando ITEMS'
-              >
+                    href="/#productos"
+                    className={`col-span-2 underline my-5 ${cart.length ? "block" : "hidden"}`}
+                    title='Continuar seleccionando ITEMS'
+                    aria-label='Continuar seleccionando items'
+                  >
                 Continuar seleccionando ITEMS
               </Link>
             </div>):null}

@@ -46,6 +46,8 @@ const BotonWsp = () => {
             )}
             target="_blank"
             rel="noopener noreferrer"
+            title={`Contactar ${userData.administracion.label} por WhatsApp`}
+            aria-label={`Contactar ${userData.administracion.label} por WhatsApp`}
           >
             <button className="bg-green-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-green-700 transition">
               {userData.administracion.label}
@@ -59,6 +61,8 @@ const BotonWsp = () => {
             )}
             target="_blank"
             rel="noopener noreferrer"
+            title={`Contactar ${userData.ventas.label} por WhatsApp`}
+            aria-label={`Contactar ${userData.ventas.label} por WhatsApp`}
           >
             <button className="bg-green-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-green-700 transition">
               {userData.ventas.label}
