@@ -80,7 +80,6 @@ const Modal = ({ selectedProduct, closeModal, isDialog = true }) => {
               handleShare={(e)=>handleShare(e,selectedProduct)}
               handleAddToCart={handleAddToCart}
           />
-          <Destacados />
           </div>
         </section>
       ) : (
