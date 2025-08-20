@@ -11,6 +11,7 @@ const Banner = () => {
         className="absolute inset-0 w-full h-full object-cover"
         loading="eager"
         title="Banner Central Cam: repuestos para camiones"
+        aria-label="Banner Central Cam: repuestos para camiones"
       />
       <article className="text-center z-10 m-2 p-2 max-w-[600px]">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-transparent font-bold mb-4 bg-clip-text bg-gradient-to-r from-boton-primary via-boton-secondary to-boton-primary">

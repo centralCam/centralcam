@@ -209,6 +209,7 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
                   onClick={() => handleVerArchivo(archivo)}
                   loading='lazy'
                   title={archivo.name || 'Preview de imagen'}
+                  aria-label={archivo.name || 'Preview de imagen'}
                 />
 
                  <Button

@@ -63,7 +63,7 @@ const NavBar = () => {
     <nav className="bg-white border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-6 md:px-2 py-1">
         <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse my-4 pb-2" title="CentralCam Logo">
-          <img src={Logo.src} width={120} height={120} alt="central cam Logo" title="Central cam Logo" loading='lazy'/>
+          <img src={Logo.src} width={120} height={120} alt="central cam Logo" title="Central cam Logo" loading='lazy' aria-label="Central cam Logo"/>
         </Link>
 
         <div className="flex items-center gap-1 justify-between">

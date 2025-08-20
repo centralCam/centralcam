@@ -47,7 +47,7 @@ const Card = ({ product, handleProductSelect }) => {
               disabled={product.vendido} >
                 <RiShareFill />
             </button>
-              <img className="rounded-t-lg w-full xs:w-36 xs:h-36 sm:w-44 sm:h-44 lg:w-52 lg:h-52 xl:w-64 xl:h-64 p-1 md:w-60 md:h-60 object-cover" src={product.foto_1_1 ? product.foto_1_1 : '/images/sinFoto.webp'} alt={product.nombre} title={product.nombre} loading="lazy" />
+              <img className="rounded-t-lg w-full xs:w-36 xs:h-36 sm:w-44 sm:h-44 lg:w-52 lg:h-52 xl:w-64 xl:h-64 p-1 md:w-60 md:h-60 object-cover" src={product.foto_1_1 ? product.foto_1_1 : '/images/sinFoto.webp'} alt={product.nombre} title={product.nombre} loading="lazy" aria-label={product.nombre} />
             </div>
             <p className="top-[-20px] text-end text-gray-700 px-2 font-extralight text-xs z-10"><strong>Cod: </strong>{product.cod_producto}</p>
           </div>

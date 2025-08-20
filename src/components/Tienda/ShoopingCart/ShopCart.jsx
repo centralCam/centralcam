@@ -130,6 +130,7 @@ const ShopCart = () => {
                         height: "auto",
                       }}
                       title={item.nombre}
+                      aria-label={item.nombre}
                     />
                     <div className="flex text-sm md:text-base flex-col justify-start pt-6 px-2 pb-2">
                       <p>{item.nombre}</p>
