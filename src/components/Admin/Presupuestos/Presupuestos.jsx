@@ -9,6 +9,7 @@ import SearchInPresupuesto from './SearchAdmin'
 import CargarEmpresaModal from './CargarEmpresa';
 import useEmpresas from '../../../Hooks/useEmpresas'
 import { Button } from '../../../components/ui/button'
+import HistorialPresupuestos from './HistorialPresupuestos'
 
 const Presupuestos = () => {    
   const { products } = useProducts()
@@ -25,7 +26,8 @@ const Presupuestos = () => {
     telefono: '',
     cuil: '',
     observaciones:'',
-    tipo: ''
+    tipo: '',
+    _id: null
   })
 
   const { empresas } = useEmpresas()
@@ -40,7 +42,8 @@ const Presupuestos = () => {
       telefono: empresaSeleccionada.telefono || '',
       cuil: empresaSeleccionada.cuil || '',
       observaciones: empresaSeleccionada.observaciones || '',
-      tipo: empresaSeleccionada.tipo || ''
+      tipo: empresaSeleccionada.tipo || '',
+      _id: empresaSeleccionada._id || null
     })
   }
 
@@ -86,6 +89,8 @@ const Presupuestos = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
   
+        let empresaIdParaGuardar = empresa._id
+        
         // 🔹 Preguntar si quiere guardar la empresa
         const guardarEmpresa = await Swal.fire({
           title: '¿Desea guardar esta empresa?',
@@ -137,7 +142,9 @@ const Presupuestos = () => {
               Swal.fire('Error', 'No se pudo guardar la empresa', 'error');
               return;
             } else {
-              Swal.fire('Se Guardo la empresa con Éxito', res.message, 'success'); // ✅ ahora sí lo verás
+              const nuevaEmpresa = await res.json()
+              empresaIdParaGuardar = nuevaEmpresa._id
+              Swal.fire('Se Guardo la empresa con Éxito', 'Empresa guardada exitosamente', 'success');
             }
           }
           Swal.close();
@@ -146,6 +153,30 @@ const Presupuestos = () => {
         
         // ✅ Generar PDF
         const pdf = await generarPDF(empresa, items, tipoDocumento, fecha, pagos)
+        
+        // 🔹 Guardar presupuesto en el historial de la empresa si tiene ID
+        if (empresaIdParaGuardar) {
+          try {
+            const total = tipoDocumento === 'presupuesto' 
+              ? calcularTotal() 
+              : pagos.reduce((acc, pago) => acc + (pago.monto || 0), 0)
+            
+            await fetch(`/api/empresa/${empresaIdParaGuardar}/presupuesto`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                tipo: tipoDocumento,
+                fecha: fecha,
+                items: items,
+                pagos: pagos,
+                total: total,
+                observaciones: empresa.observaciones
+              })
+            })
+          } catch (error) {
+            console.error('Error al guardar presupuesto en historial:', error)
+          }
+        }
   
         Swal.fire({
           title: 'PDF generado',
@@ -168,7 +199,8 @@ const Presupuestos = () => {
             telefono: '',
             cuil: '',
             observaciones: '',
-            tipo: ''
+            tipo: '',
+            _id: null
           })
           setItems([])
           setPagos([{
@@ -200,7 +232,8 @@ const Presupuestos = () => {
               telefono: '',
               cuil: '',
               observaciones: '',
-              tipo: ''
+              tipo: '',
+              _id: null
             })
             setItems([])
             setPagos([{
@@ -281,6 +314,8 @@ const Presupuestos = () => {
             telefono: empresa.telefono,
             cuil: empresa.cuil,
             tipo: empresa.tipo,
+            observaciones: empresa.observaciones || '',
+            _id: empresa._id
           });
       }}/>
       <Button
@@ -294,12 +329,21 @@ const Presupuestos = () => {
             telefono: '',
             cuil: '',
             observaciones: '',
-            tipo: ''
+            tipo: '',
+            _id: null
           })
         }
       >
         Limpiar Empresa
       </Button>
+
+      {/* Historial de Presupuestos */}
+      {empresa._id && (
+        <HistorialPresupuestos 
+          empresaId={empresa._id} 
+          empresaData={empresa}
+        />
+      )}
 
       {/* Empresa */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">

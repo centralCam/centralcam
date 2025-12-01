@@ -6,9 +6,21 @@ export default function robots() {
     rules: [
       {
         userAgent: '*',
-        disallow: ['/Admin/', '/api/'], // suma /api/ si no querés que lo rastreen
+        allow: '/',
+        disallow: ['/Admin/', '/api/', '/user/', '/Shopcart/'],
+      },
+      {
+        userAgent: 'Googlebot',
+        allow: '/',
+        disallow: ['/Admin/', '/api/', '/user/', '/Shopcart/'],
+      },
+      {
+        userAgent: 'Googlebot-Image',
+        allow: '/',
+        disallow: ['/Admin/', '/user/'],
       },
     ],
     sitemap: `${SITE}/sitemap.xml`,
+    host: SITE,
   };
 }

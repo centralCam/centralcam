@@ -16,6 +16,7 @@ import SearchBase from "../Search/SearchBase";
 import { Pagination } from "@mui/material";
 import EmpresaForm from "./Empresas/Empresas";
 import EstadisticasGSC from "./KeywordTable/KeywordTable";
+import EstadisticasWhatsApp from "./EstadisticasWhatsApp/EstadisticasWhatsApp";
 
 export default function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -313,6 +314,11 @@ export default function Admin() {
           {section === 'Estadisticas' && (
             <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
               <EstadisticasGSC />
+            </div>
+          )}
+          {section === 'WhatsAppStats' && (
+            <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
+              <EstadisticasWhatsApp />
             </div>
           )}
         </div>

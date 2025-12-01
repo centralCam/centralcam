@@ -55,23 +55,41 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Store",
-              "name": defaultMetadata.title,
+              "@type": "AutoPartsStore",
+              "name": "CENTRAL CAM",
               "description": defaultMetadata.description,
-              "image": defaultMetadata.openGraph.image,
-              "url": defaultMetadata.openGraph.url,
+              "image": "https://centralcamshop.com/logos/centraLogoAzul.webp",
+              "url": "https://centralcamshop.com",
               "telephone": "+541162574919",
+              "priceRange": "$$",
+              "currenciesAccepted": "ARS",
+              "paymentAccepted": "Efectivo, Tarjeta de Crédito, Tarjeta de Débito, Transferencia Bancaria",
+              "openingHours": "Mo-Fr 09:00-18:00, Sa 09:00-13:00",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Av Champagnat 1167",
                 "addressLocality": "Mar del Plata",
-                "addressRegion": "Mar del Plata",
+                "addressRegion": "Buenos Aires",
                 "postalCode": "B7604",
-                "addressCountry": "Argentina",
+                "addressCountry": "AR"
+              },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "-38.0055",
+                "longitude": "-57.5426"
+              },
+              "areaServed": {
+                "@type": "Country",
+                "name": "Argentina"
               },
               "sameAs": [
-                "https://www.instagram.com/centralcamshop/",
+                "https://www.instagram.com/centralcamshop/"
               ],
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://centralcamshop.com/productos?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
             }),
           }}
         />

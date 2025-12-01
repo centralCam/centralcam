@@ -119,8 +119,95 @@ export default async function ProductoPage({ params }) {
 
   if (!product) return notFound();
 
+  // Generar JSON-LD para el producto
+  const nombre = clean(product.nombre || '');
+  const modelo = clean(product.modelo || '');
+  const categoria = clean(product.categoria || '');
+  const marca = clean(product.marca || 'CentralCam');
+  const descripcion = clean(product.descripcion || '');
+  const foto = toAbs(product.foto_1_1) || 'https://centralcamshop.com/og/og-centralcam.png';
+  
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": nombre,
+    "image": [
+      foto,
+      toAbs(product.foto_1_2),
+      toAbs(product.foto_1_3),
+      toAbs(product.foto_1_4)
+    ].filter(Boolean),
+    "description": descripcion,
+    "sku": product.cod_producto || product._id,
+    "mpn": product.cod_producto,
+    "brand": {
+      "@type": "Brand",
+      "name": marca
+    },
+    "category": categoria,
+    "offers": {
+      "@type": "Offer",
+      "url": `${SITE}productos/${encodeURIComponent(rawSlug)}`,
+      "priceCurrency": "ARS",
+      "price": product.precio || "0",
+      "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+      "availability": product.vendido ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+      "itemCondition": "https://schema.org/NewCondition",
+      "seller": {
+        "@type": "Organization",
+        "name": "CENTRAL CAM",
+        "url": SITE
+      }
+    },
+    "aggregateRating": product.rating ? {
+      "@type": "AggregateRating",
+      "ratingValue": product.rating,
+      "reviewCount": product.reviewCount || 1
+    } : undefined
+  };
+
+  // Breadcrumb JSON-LD
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Inicio",
+        "item": SITE
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Productos",
+        "item": `${SITE}productos`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": categoria || "Categoría",
+        "item": `${SITE}productos?categoria=${encodeURIComponent(categoria)}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": nombre,
+        "item": `${SITE}productos/${encodeURIComponent(rawSlug)}`
+      }
+    ]
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <nav>
         <Suspense fallback={<Loading/>}>
           <NavBar  />

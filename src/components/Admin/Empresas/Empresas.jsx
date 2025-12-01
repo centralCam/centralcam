@@ -7,6 +7,7 @@ import { Button } from '../../../components/ui/button';
 import { Card, CardContent } from '../../../components/ui/card';
 import Pagination from '@mui/material/Pagination';
 import TextField from '@mui/material/TextField';
+import HistorialPresupuestos from '../Presupuestos/HistorialPresupuestos';
 
 export default function EmpresaForm() {
   const { empresas, fetchEmpresas } = useEmpresas();
@@ -142,25 +143,32 @@ export default function EmpresaForm() {
 
 
       {/* Lista paginada */}
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
       {empresasPaginadas.map((empresa) => (
-        <Card key={empresa._id} className="p-2 bg-slate-200">
-          <CardContent className="space-y-2">
-            <p className="text-lg font-semibold">{empresa.nombre}</p>
-            <p>{empresa.direccion}</p>
-            <p>{empresa.localidad}</p>
-            <p>{empresa.mail}</p>
-            <p>{empresa.telefono}</p>
-            <p>{empresa.cuil}</p>
-            <p>{empresa.tipo}</p>
-            <div className="flex gap-2 mt-2">
-              <Button size="sm" onClick={() => handleEdit(empresa)}>
+        <Card key={empresa._id} className="p-1 bg-slate-200">
+          <CardContent className="space-y-1">
+            <p className="text-sm font-semibold truncate" title={empresa.nombre}>{empresa.nombre}</p>
+            <p className="text-xs"><span className="font-medium">Dir:</span> {empresa.direccion}</p>
+            <p className="text-xs"><span className="font-medium">Loc:</span> {empresa.localidad}</p>
+            <p className="text-xs truncate" title={empresa.mail}><span className="font-medium">Email:</span> {empresa.mail}</p>
+            <p className="text-xs"><span className="font-medium">Tel:</span> {empresa.telefono}</p>
+            <p className="text-xs"><span className="font-medium">CUIL:</span> {empresa.cuil}</p>
+            <p className="text-xs"><span className="font-medium">Tipo:</span> {empresa.tipo}</p>
+            
+            <div className="flex flex-col gap-1 mt-2">
+              <Button size="sm" className="text-xs h-7" onClick={() => handleEdit(empresa)}>
                 Editar
               </Button>
-              <Button size="sm" variant="destructive" onClick={() => handleDelete(empresa._id)}>
+              <Button size="sm" variant="destructive" className="text-xs h-7" onClick={() => handleDelete(empresa._id)}>
                 Eliminar
               </Button>
             </div>
+            
+            {/* Historial de presupuestos */}
+            <HistorialPresupuestos 
+              empresaId={empresa._id} 
+              empresaData={empresa}
+            />
           </CardContent>
         </Card>
       ))}

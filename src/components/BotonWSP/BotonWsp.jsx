@@ -30,6 +30,20 @@ const BotonWsp = () => {
   const generarLink = (contacto, codigoPais, texto) =>
     `https://wa.me/+${codigoPais}${contacto}?text=${encodeURIComponent(texto)}`;
 
+  const registrarClic = async (tipo) => {
+    try {
+      await fetch('/api/whatsapp-stats', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ tipo }),
+      });
+    } catch (error) {
+      console.error('Error al registrar clic de WhatsApp:', error);
+    }
+  };
+
   return (
     <article
       className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2"
@@ -48,6 +62,7 @@ const BotonWsp = () => {
             rel="noopener noreferrer"
             title={`Contactar ${userData.administracion.label} por WhatsApp`}
             aria-label={`Contactar ${userData.administracion.label} por WhatsApp`}
+            onClick={() => registrarClic('administracion')}
           >
             <button className="bg-green-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-green-700 transition">
               {userData.administracion.label}
@@ -63,6 +78,7 @@ const BotonWsp = () => {
             rel="noopener noreferrer"
             title={`Contactar ${userData.ventas.label} por WhatsApp`}
             aria-label={`Contactar ${userData.ventas.label} por WhatsApp`}
+            onClick={() => registrarClic('ventas')}
           >
             <button className="bg-green-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-green-700 transition">
               {userData.ventas.label}
